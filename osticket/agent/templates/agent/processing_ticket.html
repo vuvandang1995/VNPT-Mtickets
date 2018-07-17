@@ -1,0 +1,141 @@
+{% extends 'agent/base.html' %}
+{% load static %}
+{% block title %}Agent{% endblock %}
+{% block js %}  
+{% endblock%}
+{% block content %}
+<div class="page-wrapper">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Processing Ticket</h3> </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item active">Processing Ticket</li>
+            </ol>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-title">
+                        <h4>Processing tickets </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table style="width:100%;" class="display nowrap table table-hover table-striped table-bordered" id="list_ticket_processing">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Topic</th>
+                                        <th>Handler</th>
+                                        <th>Status</th>
+                                        <th>Option</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+</div>
+{% for tk in ticket %}
+    <div class="modal" id="{{tk.id}}content" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ticket no.{{tk.id}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body form-group">
+                    <b>Owner:</b>
+                    <p>{{tk.sender.fullname}}</p>
+                    <b>Title:</b>
+                    <p>{{tk.title}}</p>
+                    <b>Topic:</b>
+                    <p>{{tk.topicid.name}}</p>
+                    <b>Content:</b>
+                    <p>{{tk.content}}</p>
+                    <b>Date Start:</b>
+                    <p>{{ tk.datestart}}</p>
+                    <b>Date End:</b>
+                    <p>{{tk.dateend}}</p>
+                    {% if tk.attach != '' %}
+                    <b>Attach:</b><br>
+                    <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">
+                        {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor%}
+<div class="modal forward-add" id="forward_add" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="title"></h4>
+            </div>
+            <div class="modal-body form-group">
+                <label><b>Content</b></label>
+                <br />
+                <textarea class="form-control" type="text" placeholder="Enter content" id="content" required></textarea>
+                <br />
+                <label><b>Receiver</b></label>
+                <br />
+                <!--{% for agent in agent %}-->
+                <!--<div id="{{ agent.username }}">-->
+                    <!--<input class="inputText" type="checkbox" name="{{ agent.username }}" > {{ agent.username }} <br>-->
+                <!--</div>-->
+                <!--{% endfor%}-->
+                {% for tp in topic %}
+                    <div class="tpic" style="display:none;">
+                        <input type="hidden" value="{{tp.name}}">
+                        {% for key,value in list_ag.items %}
+                            {% if key == tp.name %}
+                                {% for va in value %}
+                                    <div id="{{ va.username }}">
+                                        <input class="inputText" type="checkbox" name="{{ va.username }}" > {{ va.username }} - {{va.fullname}} <br>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <br>
+                <input type="hidden" name="ticketid" value="">
+                <button type="submit" class="btn btn-info" value="OK" id="fw_add"><span class="glyphicon glyphicon-share"></span>Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="close_fw_add">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/lib/jquery/jquery.min.js' %}"></script>
+
+<!-- Bootstrap tether Core JavaScript -->
+<script src="{% static 'js/lib/bootstrap/js/popper.min.js' %}"></script>
+
+<script src="{% static 'js/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+
+<!--Menu sidebar -->
+<script src="{% static 'js/sidebarmenu.js' %}"></script>
+
+<!--stickey kit -->
+<script src="{% static 'js/lib/sticky-kit-master/dist/sticky-kit.min.js' %}"></script>
+
+<!--Custom JavaScript -->
+<script src="{% static 'js/scripts.js' %}"></script>
+<script src="{% static 'js/lib/datatables/datatables.min.js' %}"></script>
+<script src="{% static 'js/processing.js' %}"></script>
+
+{% endblock%}

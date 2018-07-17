@@ -1,0 +1,170 @@
+{% extends 'agent/base_leader.html' %}
+{% block title %} Manage topics {% endblock %}
+{% load staticfiles %}
+{% block content %}
+    <div class="page-wrapper">
+        <!-- Bread crumb -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-primary">Manage topics</h3> </div>
+            <div class="col-md-7 align-self-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Manage topics</li>
+                </ol>
+            </div>
+        </div>
+        <!-- End Bread crumb -->
+                {% csrf_token %}
+            <div class="container-fluid" id="list_topic">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-title">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-title="add" data-target="#topicModal" >
+                                    <i class="fa fa-plus"></i> Create new topic
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <table  class="table display table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th width="5%">ID</th>
+                                        <th width="15%">Name</th>
+                                        <th width="5%">Status</th>
+                                        <th width="30%">Description</th>
+                                        <th width="15%">Department</th>
+                                        <th width="10%">Handler</th>
+                                        <th width="20%">Option</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% csrf_token %}
+                                    {% for tp in topic %}
+                                    <tr>
+
+                                        <td>{{tp.id}}</td>
+
+                                        <td>{{tp.name}}</td>
+
+                                        {% if tp.status == 0 %}
+                                        <td><span class="label label-success">enable</span></td>
+                                        {% else %}
+                                        <td><span class="label label-danger">disable</span></td>
+                                        {% endif %}
+
+                                        <td id="description_topic{{tp.id}}">{{ tp.description}}</td>
+                                        <td id="department_topic{{tp.id}}">{{ tp.departmentid.name}}</td>
+
+                                        <td id="hd_topic{{tp.id}}">
+                                        {% for key, value in list_ag_tp %}
+                                            {% if key == tp.name%}
+                                                {% for ag in value%}
+                                                    {{ag.agentid.username}} </br>
+                                                {% endfor%}
+                                            {% endif%}
+                                        {% endfor%}
+                                        </td>
+
+                                        {% if tp.name == 'Other' %}
+                                            <td></td>
+                                        {% else %}
+                                            <td>
+                                                <button type="button" class="btn btn-primary close_" id="{{tp.id}}" data-toggle="tooltip" title="enable/disable">
+                                                    <i class="fa fa-power-off"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-danger" id="{{tp.id}}" data-toggle="tooltip" title="delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-info" data-name="{{tp.name}}" data-title="edit" id="{{tp.id}}" data-toggle="modal" data-target="#topicModal">
+                                                    <i class="fa fa-wrench" data-toggle="tooltip" title="change"></i>
+                                                </button>
+                                            </td>
+                                        {% endif%}
+                                    </tr>
+                                    {% endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <div id="topicModal" class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Add New Topic</h3>
+                        </div>
+
+                        <div class="modal-body form-group">
+                            <label for="topicname"><b>Topic name</b></label>
+                            <input class="form-control" type="text" placeholder="Enter Topic name" name="topicname" required>
+                            <font id="nameerr" color="red"></font><br>
+                            <label for="description"><b>Description</b></label>
+                            <input class="form-control" type="text" placeholder="Enter description" name="description" required>
+                            <font id="deserr" color="red"></font><br>
+                            <label for="department"><b>Department</b></label><br />
+                            <select name="department" class="form-control" id="mySelect" onchange="myFunction()">
+                                {% for dm in department %}
+                                    <option value="{{dm.id}}" name="{{dm.name}}">{{dm.name}}</option>
+                                {% endfor %}
+                            </select>
+                            </br>
+
+                            
+                            <label for="agent"><b>Select Agent handle this Topic</b></label></br>
+                            {% for dm in department %}
+                                <div class="dpm" style="display: none;">
+                                    <input type="hidden" value="{{dm.name}}">
+                                    {% for key, value in list_ag %}
+                                        {% if key == dm.name%}
+                                            {% for ag in value %}
+                                                <input class="inputText" type="checkbox" name="{{ ag.username }}" > {{ ag.username }} - {{ag.fullname}}<br>
+                                            {% endfor%}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            
+                            <input type="hidden" name="topicid" value="">
+
+                        <div class="msg"></div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="addTopic" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id = "add_topic_close">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                
+                function myFunction() {
+                    var x = $('#mySelect option:selected').html();
+                    $('#topicModal input:checkbox').prop('checked', false);
+                    $('.dpm').each(function() {
+                        var dm = $(this).children('input').val();
+                        if (dm == x){
+                            $(this).show();
+                        }else{
+                            $(this).hide();
+                        }
+                    });
+                }
+            </script>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <!-- End footer -->
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="{% static 'js/manager_topic.js' %}"></script>
+{% endblock %}
