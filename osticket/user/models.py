@@ -49,12 +49,19 @@ class Agents(models.Model):
     status = models.IntegerField(default=1)
     noti_noti = models.IntegerField(default=0)
     noti_chat = models.IntegerField(default=0)
-    topic = models.ForeignKey('Topics', models.SET_NULL, null=True, db_column='topicid')
 
 
     class Meta:
         managed = True
         db_table = 'agents'
+
+class TopicAgent(models.Model):
+    agentid = models.ForeignKey('Agents', models.CASCADE, db_column='agentid')
+    topicid = models.ForeignKey('Topics', models.CASCADE, db_column='topicid')
+
+    class Meta:
+        managed = True
+        db_table = 'topic_agent'
 
 
 

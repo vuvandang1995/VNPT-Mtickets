@@ -108,28 +108,9 @@
                             <label for="description"><b>Description</b></label>
                             <input class="form-control" type="text" placeholder="Enter description" name="description" required>
                             <font id="deserr" color="red"></font><br>
-                            <label for="department"><b>Department</b></label><br />
-                            <select name="department" class="form-control" id="mySelect" onchange="myFunction()">
-                                {% for dm in department %}
-                                    <option value="{{dm.id}}" name="{{dm.name}}">{{dm.name}}</option>
-                                {% endfor %}
-                            </select>
-                            </br>
 
-                            
-                            <label for="agent"><b>Select Agent handle this Topic</b></label></br>
-                            {% for dm in department %}
-                                <div class="dpm" style="display: none;">
-                                    <input type="hidden" value="{{dm.name}}">
-                                    {% for key, value in list_ag %}
-                                        {% if key == dm.name%}
-                                            {% for ag in value %}
-                                                <input class="inputText" type="checkbox" name="{{ ag.username }}" > {{ ag.username }} - {{ag.fullname}}<br>
-                                            {% endfor%}
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
+                            <label for="agent"><b>Chọn quản trị viên Topic</b></label></br>
+                            <input class="form-control" type="text" name="leader" required>
                             
                             <input type="hidden" name="topicid" value="">
 

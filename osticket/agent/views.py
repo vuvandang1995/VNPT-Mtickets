@@ -35,12 +35,12 @@ def home_admin(request):
         tk_open = Tickets.objects.filter(status=0).count()
         # tpag = TopicAgent.objects.filter(agentid=sender).values('topicid')
         tp = Topics.objects.all()
-        list_ag = {}
-        for t in tp:
-            ag = TopicAgent.objects.filter(topicid=t, agentid__in=agent)
-            list_ag[t.name] = [a.agentid for a in ag]
+        # list_ag = {}
+        # for t in tp:
+        #     ag = TopicAgent.objects.filter(topicid=t, agentid__in=agent)
+        #     list_ag[t.name] = [a.agentid for a in ag]
         content = {'ticket': Tickets.objects.filter().order_by("-id"),
-                   'list_ag': list_ag,
+                #    'list_ag': list_ag,
                    'topic': tp,
                    'handler': TicketAgent.objects.all(),
                    'admin': admin,
@@ -170,17 +170,13 @@ def manager_topic(request):
     if request.session.has_key('admin'):
         admin = Agents.objects.get(username=request.session['admin'])
         agent = Agents.objects.exclude(username=request.session['admin'])
-        department = Departments.objects.exclude(name='admin').order_by('-id')
-        list_ag = {}
-        dm = Departments.objects.all()
-        for dm in dm:
-            list_ag[dm.name] = get_list_agent(dm.name)
-        list_ag_tp = {}
         tp = Topics.objects.all()
-        for tp in tp:
-            list_ag_tp[tp.name] = get_agent_tp(tp.name)
-        content = {'topic': Topics.objects.all(), 'admin': admin, 'today': timezone.now().date(), 'agent_name': mark_safe(json.dumps(admin.username)),
-                   'fullname': mark_safe(json.dumps(admin.fullname)), 'agent':agent, 'department': department, 'list_ag': list_ag.items(), 'list_ag_tp': list_ag_tp.items(),}
+        content = {'topic': Topics.objects.all(),
+                    'admin': admin, 
+                    'today': timezone.now().date(), 
+                    'agent_name': mark_safe(json.dumps(admin.username)),
+                   'fullname': mark_safe(json.dumps(admin.fullname)), 
+                   'agent':agent,}
         if request.method == 'POST':
             if 'close' in request.POST:
                 topictid = request.POST['close']
@@ -237,60 +233,22 @@ def manager_topic(request):
         return redirect('/')
 
 
-def manager_department(request):
-    if request.session.has_key('admin'):
-        admin = Agents.objects.get(username=request.session['admin'])
-        department = Departments.objects.exclude(name='admin')
-        list_ag = {}
-        list_tp = {}
-        for dp in department:
-            ags = Agents.objects.filter(departmentid=dp)
-            tps = Topics.objects.filter(departmentid=dp)
-            list_ag[dp.id] = [ag.fullname for ag in ags]
-            list_tp[dp.id] = [tp.name for tp in tps]
-        content = {'list_ag': list_ag,
-                   'list_tp': list_tp,
-                   'admin': admin,
-                   'today': timezone.now().date(),
-                   'department': department}
-        if request.method == 'POST':
-            if 'addname' in request.POST:
-                if request.POST['dmid'] == '':
-                    Departments.objects.create(name=request.POST['addname'],
-                                               description=request.POST['adddescription'])
-                else:
-                    dp = Departments.objects.get(id=request.POST['dmid'])
-                    dp.name = request.POST['addname']
-                    dp.description = request.POST['adddescription']
-                    dp.save()
-            elif 'delete' in request.POST:
-                Departments.objects.filter(id=request.POST['delete']).delete()
-            return redirect("/agent/department")
-        else:
-            return render(request, 'agent/manage_department.html', content)
-    else:
-        return redirect('/')
-
 
 def manager_agent(request):
     if request.session.has_key('admin'):
         admin = Agents.objects.get(username=request.session['admin'])
-        department = Departments.objects.filter().order_by('-id')
         list_tk = {}
-        list_tp = {}
         ag = Agents.objects.all()
+        topic = Topics.objects.all()
         for ag in ag:
             list_tk[ag.username] = count_tk(ag.username)
-            tpag = TopicAgent.objects.filter(agentid=ag).values('topicid')
-            list_tp[ag.username] = [tp.name for tp in Topics.objects.filter(id__in=tpag)]
         content = {'agent': Agents.objects.all(),
                    'admin': admin,
                    'list_tk': list_tk.items(),
-                   'list_tp': list_tp,
                    'today': timezone.now().date(),
                    'agent_name': mark_safe(json.dumps(admin.username)),
                    'fullname': mark_safe(json.dumps(admin.fullname)),
-                   'department':department}
+                   'topic': topic}
         if request.method == 'POST':
             if 'close' in request.POST:
                 agentid = request.POST['close']
@@ -319,11 +277,10 @@ def manager_agent(request):
                     fullname = request.POST['add_agent']
                     email = request.POST['email']
                     phone = request.POST['phone']
-                    department = request.POST['department']
                     ag.fullname = fullname
                     ag.email = email
                     ag.phone = phone
-                    ag.departmentid = Departments.objects.get(id=department)
+                    ag.topicid = Topics.objects.get(id=topic)
                     ag.save()
                     username = ag.username
         return render(request, 'agent/manager_agent.html', content)
