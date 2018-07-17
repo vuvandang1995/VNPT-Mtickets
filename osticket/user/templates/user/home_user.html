@@ -6,11 +6,11 @@
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Your tickets
+        Yêu cầu của bạn
       </h1>
       <ol class="breadcrumb">
-        <li><a ><i class="fa fa-home"></i> Home</a></li>
-        <li class="active">Tickets</li>
+        <li><a ><i class="fa fa-home"></i> Trang chủ</a></li>
+        <li class="active">Yêu cầu</li>
       </ol>
     </section>
 
@@ -21,7 +21,7 @@
           <div class="box">
             <div class="box-header">
               <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#id02">
-                <span class="glyphicon glyphicon-plus"></span> Create new ticket
+                <span class="glyphicon glyphicon-plus"></span> Tạo yêu cầu
             </button>
             </div>
             <!-- /.box-header -->
@@ -31,10 +31,10 @@
                     <tr>
                         <th width="5%">ID</th>
                         <th width="15%">Topic</th>
-                        <th width="40%">Title</th>
-                        <th width="10%">Status</th>
-                        <th width="10%">Handler</th>
-                        <th width="20%">Option</th>
+                        <th width="40%">Tiêu đề</th>
+                        <th width="10%">Trạng thái</th>
+                        <th width="10%">Người xử lý</th>
+                        <th width="20%">Tùy chọn</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -46,26 +46,34 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Ticket no.{{tk.id}}</h4>
+                                    <h4 class="modal-title">Yêu cầu số {{tk.id}}</h4>
                                 </div>
                                 <div class="modal-body form-group">
-                                    <label>Title:</label>
+                                    <label>Tiêu đề:</label>
                                     <p>{{tk.title}}</p>
                                     <label>Topic:</label>
                                     <p>{{tk.topicid.name}} - {{tk.topicid.description}}</p>
-                                    <label>Content:</label>
+                                    <label>Mức ưu tiên :</label>
+                                    {% if tk.lv_priority == 0 %}
+                                    <p>Thấp</p>
+                                    {% elif tk.lv_prority == 1 %}
+                                    <p>Trung bình</p>
+                                    {% else %}
+                                    <p>Cao</p>
+                                    {% endif %}
+                                    <label>Nội dung:</label>
                                     <p>{{tk.content}}</p>
-                                    <label>Date Start:</label>
+                                    <label>Ngày tạo:</label>
                                     <p>{{ tk.datestart}}</p>
-                                    <label>Date End:</label>
+                                    <label>Ngày hết hạn:</label>
                                     <p>{{tk.dateend}}</p>
                                     {% if tk.attach != '' %}
-                                    <b>Attach:</b><br>
+                                    <b>Đính kèm:</b><br>
                                     <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">
                                     {% endif %}
                                 </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                                     </div>
                             </div>
                         </div>
@@ -84,14 +92,14 @@
             <div class="modal-content ">
                 <form method="POST" enctype="multipart/form-data" onsubmit="return validateSize()">
                     <div class="modal-header">
-                        <h4 class="modal-title">New ticket</h4>
+                        <h4 class="modal-title">Yêu cầu mới</h4>
                     </div>
                      <div class="modal-body form-group">
                          {% csrf_token %}
                          {% for key, value in form.error.items %}
                          {{value}}
                          {% endfor%}
-                         <label for="title"><b>Title</b></label>
+                         <label for="title"><b>Tiêu đề</b></label>
                          {{form.title}}
                          <br /><label for="topic"><b>Topic</b></label><br />
                          <select name="topic" class="form-control" id="mySelect">
@@ -99,17 +107,24 @@
                                 <option value="{{tp.id}}" name="{{tp.name}}">{{tp.name}} - {{tp.description}}</option>
                              {% endfor %}
                          </select>
+                         <br /><label for="level"><b>Mức ưu tiên</b></label><br />
+                         <select name="level" class="form-control" >
+                             <option value="0" name="lv0">Thấp</option>
+                             <option value="1" name="lv1">Trung bình</option>
+                             <option value="2" name="lv2">Cao</option>
+                         </select>
                          <br />
-                         <label for="content"><b>Content</b></label><br /><br />
+                         <label for="content"><b>Nội dung</b></label><br /><br />
                          {{form.content}}
                          <br />
-                         <label for="attach"><b>Attach</b></label><br />
+                         <label for="attach"><b>Đính kèm</b></label><br />
                          <input type="file" class="form-control" accept="image/*" name="attach" id="attach">
                          <div><font id="invalid-msg" color="red" size="5"></font></div>
+
                      </div>
                     <div class="modal-footer">
-                         <button type="submit" class="btn btn-primary" value="OK" id="i_submit" onsubmit="return validateSize()">Send</button>
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         <button type="submit" class="btn btn-primary" value="OK" id="i_submit" onsubmit="return validateSize()">Gửi</button>
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                      </div>
               </form>
             </div>
@@ -145,7 +160,7 @@
                 var token = $("input[name=csrfmiddlewaretoken]").val();
                 var mgs = 'Ticket ' +id+' is closed by '+userName;
                 var message = []
-                if(confirm("Are you sure ?")){
+                if(confirm("Bạn có chắc không ?")){
                     $.ajax({
                         type:'POST',
                         url:location.href,

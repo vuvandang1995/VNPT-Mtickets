@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('body').on('click', '.info_agent', function(){
         var userid = $(this).attr('id');
-        $('body #title').html("Edit User")
+        $('body #title').html("Chỉnh sửa thông tin")
         $("body input[name=userid]").val(userid);
 
         var fullname = $("body #full_name").html();
@@ -26,7 +26,7 @@ $(document).ready(function(){
 
     $('body').on('click', '.pwd_agent', function(){
         var userid = $(this).attr('id');
-        $('body #title').html("Change your password")
+        $('body #title').html("Thay đổi mật khẩu")
 
         $("body input[name=userid]").val(userid);
 

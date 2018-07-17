@@ -129,14 +129,14 @@ def homeuser(request):
                 user.noti_chat = 0
                 user.save()
             else:
-                form = CreateNewTicketForm(request.POST,request.FILES)
+                form = CreateNewTicketForm(request.POST, request.FILES)
                 if form.is_valid():
-                    topicA = Topics.objects.get(id=request.POST['topic'])
                     ticket = Tickets()
                     ticket.title = form.cleaned_data['title']
                     ticket.content = form.cleaned_data['content']
                     ticket.sender = user
-                    ticket.topicid = topicA
+                    ticket.topicid = Topics.objects.get(id=request.POST['topic'])
+                    ticket.lv_priority = request.POST['level']
                     ticket.datestart = timezone.now()
                     ticket.dateend = (timezone.now() + timezone.timedelta(days=3))
                     if request.FILES.get('attach') is not None:
@@ -177,15 +177,15 @@ def user_data(request):
         data = []
         for tk in tk:
             if tk.status == 0:
-                status = r'<span class ="label label-danger"> pending</span>'
-                handler = '<p id="hd' + str(tk.id) + '">Nobody</p>'
+                status = r'<span class ="label label-danger"> chờ</span>'
+                handler = '<p id="hd' + str(tk.id) + '">Không có ai</p>'
             else:
                 if tk.status == 1:
-                    status = r'<span class ="label label-warning"> processing </span>'
+                    status = r'<span class ="label label-warning"> đang xử lý </span>'
                 elif tk.status == 2:
-                    status = r'<span class ="label label-success"> done </span>'
+                    status = r'<span class ="label label-success"> hoàn thành </span>'
                 else:
-                    status = r'<span class ="label label-default"> closed </span>'
+                    status = r'<span class ="label label-default"> dóng </span>'
                 handler = '<p id="hd' + str(tk.id) + '">'
                 for t in TicketAgent.objects.filter(ticketid=tk.id):
                     handler += t.agentid.username + "<br>"
@@ -193,14 +193,14 @@ def user_data(request):
             id = '''<button type="button" class="btn" data-toggle="modal" data-target="#'''+str(tk.id)+'''content">'''+str(tk.id)+'''</button>'''
             option = ''
             if tk.status < 3:
-                option += '''<button type="button" class="btn btn-danger close_ticket" data-toggle="tooltip" title="close" id="'''+str(tk.id)+'''" ><span class="glyphicon glyphicon-off"></span></button>'''
+                option += '''<button type="button" class="btn btn-danger close_ticket" data-toggle="tooltip" title="đóng" id="'''+str(tk.id)+'''" ><span class="glyphicon glyphicon-off"></span></button>'''
             else:
-                option += '''<button disabled type="button" class="btn btn-danger close_ticket" data-toggle="tooltip" title="close" id="'''+str(tk.id)+'''"><span class="glyphicon glyphicon-off"></span></button>'''
+                option += '''<button disabled type="button" class="btn btn-danger close_ticket" data-toggle="tooltip" title="đóng" id="'''+str(tk.id)+'''"><span class="glyphicon glyphicon-off"></span></button>'''
             if 1 == tk.status or tk.status == 2:
-                option += '''<a href='javascript:register_popup("chat'''+str(tk.id)+'''", '''+str(tk.id)+''');' type="button" class="btn btn-primary" data-toggle="tooltip" title="conversation" id="chat_with_agent"><span class="glyphicon glyphicon-comment" ></span><input type="hidden" value="'''+str(tk.id)+'''"/></a>'''
+                option += '''<a href='javascript:register_popup("chat'''+str(tk.id)+'''", '''+str(tk.id)+''');' type="button" class="btn btn-primary" data-toggle="tooltip" title="trò chuyện" id="chat_with_agent"><span class="glyphicon glyphicon-comment" ></span><input type="hidden" value="'''+str(tk.id)+'''"/></a>'''
             else:
-                option += '''<a  type="button" disabled class="btn btn-primary not-active" data-toggle="tooltip" title="conversation"><span class="glyphicon glyphicon-comment" ></span></a>'''
-            option += '''<a type="button" target=_blank class="btn btn-warning" href="/user/history_'''+str(tk.id)+ '''" data-toggle="tooltip" title="history"><i class="fa fa-history"></i></a>'''
+                option += '''<a  type="button" disabled class="btn btn-primary not-active" data-toggle="tooltip" title="trò chuyện"><span class="glyphicon glyphicon-comment" ></span></a>'''
+            option += '''<a type="button" target=_blank class="btn btn-warning" href="/user/history_'''+str(tk.id)+ '''" data-toggle="tooltip" title="dòng thời gian"><i class="fa fa-history"></i></a>'''
             data.append([id, tk.topicid.name, tk.title, status, handler, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
