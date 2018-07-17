@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('user.urls', namespace='user')),
     path('agent/', include('agent.urls', namespace='agent')),
-    path('tk_create/', include('api.urls', namespace='api')),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

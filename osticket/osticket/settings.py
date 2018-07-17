@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'api',
     'user',
     'agent',
 ]
@@ -104,7 +103,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mticket',
+        'NAME': 'vnpt_ticket',
         'USER': 'dangvv',
         'PASSWORD': '1',
         'HOST': '192.168.100.22',

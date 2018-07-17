@@ -32,19 +32,10 @@ class Topics(models.Model):
     name = models.CharField(max_length=255)
     status = models.IntegerField(default=0)
     description = models.TextField()
-    departmentid = models.ForeignKey('Departments', models.SET_NULL, null=True, db_column='departmentid')
 
     class Meta:
         managed = True
         db_table = 'topics'
-
-class Departments(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-
-    class Meta:
-        managed = True
-        db_table = 'departments'
 
 
 class Agents(models.Model):
@@ -58,21 +49,13 @@ class Agents(models.Model):
     status = models.IntegerField(default=1)
     noti_noti = models.IntegerField(default=0)
     noti_chat = models.IntegerField(default=0)
-    departmentid = models.ForeignKey('Departments', models.SET_NULL, null=True, db_column='departmentid')
+    topic = models.ForeignKey('Topics', models.SET_NULL, null=True, db_column='topicid')
 
 
     class Meta:
         managed = True
         db_table = 'agents'
 
-
-class TopicAgent(models.Model):
-    agentid = models.ForeignKey('Agents', models.CASCADE, db_column='agentid')
-    topicid = models.ForeignKey('Topics', models.CASCADE, db_column='topicid')
-
-    class Meta:
-        managed = True
-        db_table = 'topic_agent'
 
 
 class Tickets(models.Model):
@@ -85,6 +68,8 @@ class Tickets(models.Model):
     datestart = models.DateTimeField()
     dateend = models.DateTimeField()
     attach = models.FileField(null=True, blank=True, upload_to='photos')
+    note = models.TextField()
+    lv_priority = models.IntegerField(default=1)
 
     class Meta:
         managed = True
