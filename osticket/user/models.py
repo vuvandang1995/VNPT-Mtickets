@@ -9,7 +9,6 @@ from django.db import models
 from user.models import *
 
 
-
 class Users(models.Model):
     fullname = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
@@ -50,7 +49,6 @@ class Agents(models.Model):
     noti_noti = models.IntegerField(default=0)
     noti_chat = models.IntegerField(default=0)
 
-
     class Meta:
         managed = True
         db_table = 'agents'
@@ -62,7 +60,6 @@ class TopicAgent(models.Model):
     class Meta:
         managed = True
         db_table = 'topic_agent'
-
 
 
 class Tickets(models.Model):
