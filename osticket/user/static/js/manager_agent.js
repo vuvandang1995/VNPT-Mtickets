@@ -42,11 +42,11 @@ $(document).ready(function(){
         var username = $("input[name=username]").val();
         var password = $("input[name=password]").val();
         var agentid = $("input[name=agentid]").val();
-        var department = document.getElementById("mySelect").value;
+        var topic = document.getElementById("mySelect").value;
         $.ajax({
             type:'POST',
             url:location.href,
-            data: {'add_agent': fullname, 'email': email, 'username': username, 'phone': phone, 'csrfmiddlewaretoken':token, 'agentid': agentid, 'password': password, 'department': department},
+            data: {'add_agent': fullname, 'email': email, 'username': username, 'phone': phone, 'csrfmiddlewaretoken':token, 'agentid': agentid, 'password': password, 'topic': topic},
             success: function(){
                 $("body #tb1").load(location.href + " #tb1");
                 $("body #ct"+agentid).load(location.href + " #ct"+agentid);
@@ -74,8 +74,8 @@ $(document).ready(function(){
             var email = $("#email_agent"+agentid).val();
             $("input[name=email]").val(email);
 
-            var department = $("#department"+agentid).html();
-            $("#mySelect option[name='"+department+"']").attr("selected", true);
+            var topic = $("#topic"+agentid).html();
+            $("#mySelect option[name='"+topic+"']").attr("selected", true);
 
             $("input[name=username]").val("");
             $("input[name=password]").val("");
