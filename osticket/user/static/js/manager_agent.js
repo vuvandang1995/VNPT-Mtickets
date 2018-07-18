@@ -42,11 +42,16 @@ $(document).ready(function(){
         var username = $("input[name=username]").val();
         var password = $("input[name=password]").val();
         var agentid = $("input[name=agentid]").val();
-        var topic = document.getElementById("mySelect").value;
+        /*var list_topic = [];
+        $('#topicModal input:checkbox').each(function() {
+            if ($(this).is(":checked")){
+                list_topic.push(this.name);
+            }
+        });*/
         $.ajax({
             type:'POST',
             url:location.href,
-            data: {'add_agent': fullname, 'email': email, 'username': username, 'phone': phone, 'csrfmiddlewaretoken':token, 'agentid': agentid, 'password': password, 'topic': topic},
+            data: {'add_agent': fullname, 'email': email, 'username': username, 'phone': phone, 'csrfmiddlewaretoken':token, 'agentid': agentid, 'password': password},
             success: function(){
                 $("body #tb1").load(location.href + " #tb1");
                 $("body #ct"+agentid).load(location.href + " #ct"+agentid);
@@ -73,9 +78,6 @@ $(document).ready(function(){
 
             var email = $("#email_agent"+agentid).val();
             $("input[name=email]").val(email);
-
-            var topic = $("#topic"+agentid).html();
-            $("#mySelect option[name='"+topic+"']").attr("selected", true);
 
             $("input[name=username]").val("");
             $("input[name=password]").val("");

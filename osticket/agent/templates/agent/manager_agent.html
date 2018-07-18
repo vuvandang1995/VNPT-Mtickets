@@ -74,8 +74,16 @@
                                     {% endif %}
                                 {% endfor %}
 
-
-                                <td></td>
+                                {% for key,value in list_tp.items %}
+                                    {% if key == ag.username %}
+                                    <td>
+                                        {% for va in value %}
+                                            {{ va }}<br>
+                                        {% endfor %}
+                                    </td>
+                                    {% endif %}
+                                {% endfor %}
+                                
                                 <td>
                                     {% csrf_token %}
                                     {% if ag.admin == 0 %}
@@ -153,12 +161,10 @@
                     <label for="phone"><b>Phone</b></label>
                     <input class="inputText form-control" type="text" placeholder="Enter your phone number" name="phone">
 
-                    <label for="topic"><b>Topics</b></label><br />
-                    <select name="topic" class="form-control" id="mySelect">
-                        {% for tp in topic %}
-                            <option value="{{tp.id}}" name="{{tp.name}}">{{tp.name}}</option>
-                        {% endfor %}
-                    </select>
+                    {% comment %} <label for="topic"><b>Topics</b></label><br />
+                    {% for tp in topic %}
+                        <input class="inputText" type="checkbox" name="{{ tp.id }}" > {{ tp.name }} - {{tp.description}} <br>
+                    {% endfor %} {% endcomment %}
                     <div id="pwd">
                     <label for="psw"><b>Password</b></label>
                     <input class="inputText form-control" type="password" placeholder="Enter Password" name="password" id="p1" >
