@@ -37,9 +37,9 @@
       <!-- /.login-logo -->
       <div class="login-box-body">
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home">User Login</a></li>
-          <li><a data-toggle="tab" href="#menu1">Agent Login</a></li>
-          <li><a data-toggle="tab" href="#menu2">Register</a></li>
+          <li class="active"><a data-toggle="tab" href="#home">Người dùng</a></li>
+          <li><a data-toggle="tab" href="#menu1">Nhân viên</a></li>
+          <li><a data-toggle="tab" href="#menu2">Đăng ký</a></li>
         </ul>
 
         <div class="tab-content">
@@ -48,24 +48,24 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group has-feedback">
-                  <label for="uname"><b>Username</b></label>
-                  <input class="form-control" type="text" placeholder="Enter Username" name="username" required>
+                  <label for="uname"><b>Tên đăng nhập</b></label>
+                  <input class="form-control" type="text" name="username" required>
                   <div class="invalid-msg"></div>
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                  <label for="psw"><b>Password</b></label>
-                  <input  class="form-control" type="password" placeholder="Enter Password" name="password" required>
+                  <label for="psw"><b>Mật khẩu</b></label>
+                  <input  class="form-control" type="password" name="password" required>
                   <div class="invalid-msg1"></div>
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary" value="OK" id="login" >Login</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#id03">Forgot password ?</button>
+                <button type="submit" class="btn btn-primary" value="OK" id="login" >Người dùng đăng nhập</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#id03">Quên mật khẩu ?</button>
                 <br>
                 <br>
                 <font color="red" size="4">{{ mess }}</font>
-                <font color="red" size="4">{{error}}</font>
+                <font color="red" size="4">{{ error }}</font>
             </form>
 
           </div>
@@ -74,20 +74,20 @@
             <form method="POST">
               {% csrf_token %}
               <div class="form-group has-feedback">
-                <label for="uname"><b>Username</b></label>
-                <input class="form-control" type="text" placeholder="Enter Username" name="agentname" required>
+                <label for="uname"><b>Tên đăng nhập</b></label>
+                <input class="form-control" type="text" name="agentname" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <label for="psw"><b>Password</b></label>
-                <input  class="form-control" type="password" placeholder="Enter Password" name="agentpass" required>
+                <label for="psw"><b>Mật khẩu</b></label>
+                <input  class="form-control" type="password" name="agentpass" required>
                 <div class="invalid-msg1"></div>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
 
-                <button type="submit" class="btn btn-primary" value="OK" id="login">Login</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#id04">Forgot password ?</button>
+                <button type="submit" class="btn btn-primary" value="OK" id="login">Nhân viên đăng nhập</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#id04">Quên mật khẩu ?</button>
                 <br>
                 <br>
                 <font color="red" size="4">{{ mess }}</font>
@@ -99,46 +99,46 @@
             <form method="POST">
               {% csrf_token %}
               <div class="form-group has-feedback">
-                <label for="fullname"><b>Full name</b></label>
-                <input class="form-control inputText" type="text" placeholder="Full name" name="fullname" required>
+                <label for="fullname"><b>Họ và tên</b></label>
+                <input class="form-control inputText" type="text" name="fullname" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-font form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <label for="username"><b>Username</b></label>
-                <input class="form-control inputText" type="text" placeholder="Enter Username" name="username" id="username_" required>
+                <label for="username"><b>Tên đăng nhập</b></label>
+                <input class="form-control inputText" type="text" name="username" id="username_" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="email"><b>Email</b></label></br>
-                <input class="form-control inputText" type="text" placeholder="Enter Email" name="email" id="email_" required>
+                <input class="form-control inputText" type="text" name="email" id="email_" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <label for="phone"><b>Your phone Number</b></label>
-                <input class="form-control inputText" type="text" placeholder="Enter Your Phone Number" name="phone" id="phone" required>
+                <label for="phone"><b>Số điện thoại</b></label>
+                <input class="form-control inputText" type="text" name="phone" id="phone" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-phone form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <label for="psw"><b>Password</b></label>
-                <input class="form-control inputText" type="password" placeholder="Enter Password" name="password" id="p1" required>
+                <label for="psw"><b>Mật khẩu</b></label>
+                <input class="form-control inputText" type="password" name="password" id="p1" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
-                <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input class="form-control inputText" type="password" placeholder="Repeat Password" name="password2" id="p2" required>
+                <label for="psw-repeat"><b>Nhắc lại mật khẩu</b></label>
+                <input class="form-control inputText" type="password" name="password2" id="p2" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
-                <button type="submit" class="btn btn-primary" value="OK" id="register">Register</button>
+                <button type="submit" class="btn btn-primary" value="OK" id="register">Đăng ký</button>
                 <br>
                 <br>
                 <font color="red" size="4">{{ mess }}</font>
-                <font color="red" size="4">{{error}}</font>
+                <font color="red" size="4">{{ error }}</font>
           </form>
           </div>
         </div>
@@ -151,16 +151,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Forgot password</h4>
+                <h4 class="modal-title">Quên mật khẩu</h4>
             </div>
             <div class="modal-body form-group">
                 <form method="POST">
                     {% csrf_token %}
-                    <label for="uname"><b>Your email</b></label><br/>
-                    <input class="form-control" type="text" placeholder="Enter Email" name="uemail" required><br/>
+                    <label for="uname"><b>Email của bạn</b></label><br/>
+                    <input class="form-control" type="text" name="uemail" required><br/>
                     <div class="invalid-msg"></div><br/>
-                    <button type="submit" class="btn btn-primary" value="OK" id="uemail" >Reset</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="OK" id="uemail" >Cập nhật</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </form>
             </div>
         </div>
@@ -172,16 +172,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Forgot password</h4>
+                <h4 class="modal-title">Quên mật khẩu</h4>
             </div>
             <div class="modal-body form-group">
                 <form method="POST">
                     {% csrf_token %}
-                    <label for="uname"><b>Your email</b></label><br/>
-                    <input class="form-control" type="text" placeholder="Enter Email" name="aemail" required><br/>
+                    <label for="uname"><b>Email của bạn</b></label><br/>
+                    <input class="form-control" type="text" name="aemail" required><br/>
                     <div class="invalid-msg"></div><br/>
-                    <button type="submit" class="btn btn-primary" value="OK" id="uemail" >Reset</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="OK" id="uemail" >Cập nhật</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </form>
             </div>
         </div>
