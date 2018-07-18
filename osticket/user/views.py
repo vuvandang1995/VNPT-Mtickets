@@ -11,6 +11,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.utils.safestring import mark_safe
 from django.http import JsonResponse
 from django.conf import settings
+import threading
 import json
 from .forms import *
 import string
@@ -26,29 +27,57 @@ dic = {}
 dic_time = {}
 
 
+class EmailThread(threading.Thread):
+    def __init__(self, email):
+        threading.Thread.__init__(self)
+        self._stop_event = threading.Event()
+        self.email = email
+
+    def run(self):
+        self.email.send()
+
+
 def history(request, id):
     if request.session.has_key('user') and (Users.objects.get(username=request.session['user'])).status == 1:
         tems = TicketLog.objects.filter(ticketid=id)
         result = []
         for tem in tems:
             if tem.userid is not None:
-                action = "<b>User " + str(tem.userid.username) + "</b><br/>" + str(tem.action)
+                action = "<b>User " + str(tem.userid.username) + "</b><br/>"
             else:
-                action = "<b>Agent " + str(tem.agentid.username) + "</b><br/>" + str(tem.action)
+                action = "<b>Nhân viên " + str(tem.agentid.username) + "</b><br/>"
             if tem.action == 'create ticket':
+                action += 'tạo mới yêu cầu'
                 cont = "<span class='glyphicon glyphicon-plus' ></span>"
             elif tem.action == 'close ticket':
+                action += 'đóng yêu yêu cầu'
                 cont = "<span class='glyphicon glyphicon-off' ></span>"
             elif tem.action == 'assign ticket':
+                action += 'nhận xử lý yêu cầu'
                 cont = "<span class='glyphicon glyphicon-pushpin' ></span>"
             elif tem.action == 'done ticket':
+                action += 'xử lý xong yêu cầu'
                 cont = "<span class='glyphicon glyphicon-ok' ></span>"
             elif tem.action == 're-process ticket':
+                action += 'xử lý lại yêu cầu'
                 cont = "<span class='glyphicon glyphicon-refresh' ></span>"
             elif tem.action == 're-open ticket':
+                action += 'mở lại yêu cầu'
                 cont = "<span class='glyphicon glyphicon-repeat' ></span>"
             elif tem.action == 'give up ticket':
+                action += 'từ bỏ xử lý yêu cầu'
                 cont = "<span class='glyphicon glyphicon-log-out' ></span>"
+            elif tem.action == 'join to handler ticket':
+                action += 'tham gia xử lý yêu cầu'
+                cont = "<span class='glyphicon glyphicon-user' ></span>"
+            elif "received ticket forward from (agent)" in tem.action:
+                action += str(tem.action).replace('received ticket forward from (agent)',
+                                                  'nhận xử lý yêu cầu được chuyển từ nhân viên')
+                cont = "<span class='glyphicon glyphicon-user' ></span>"
+            elif "received ticket forward from (admin)" in tem.action:
+                action += str(tem.action).replace('received ticket forward from (admin)',
+                                                  'nhận xử lý yêu cầu được giao từ quản trị')
+                cont = "<span class='glyphicon glyphicon-user' ></span>"
             else:
                 cont = "<span class='glyphicon glyphicon-user' ></span>"
             result.append({"id": tem.id,
@@ -59,17 +88,17 @@ def history(request, id):
         maxtime = TicketLog.objects.filter(ticketid=id).latest('id')
         mintime = TicketLog.objects.filter(ticketid=id).earliest('id')
         if maxtime.ticketid.status == 0:
-            status = '<font color="red">pending</font>'
+            status = '<font color="red">chờ</font>'
         elif maxtime.ticketid.status == 1:
-            status = '<font color="orange">processing</font>'
+            status = '<font color="orange">đang xử lý</font>'
         elif maxtime.ticketid.status == 2:
-            status = '<font color="green">done</font>'
+            status = '<font color="green">xong</font>'
         else:
-            status = '<font color="gray">close</font>'
+            status = '<font color="gray">đóng</font>'
         tim = str(timezone.datetime.combine(maxtime.date, maxtime.time) - timezone.datetime.combine(
             mintime.date, mintime.time))[:-7]
         result.append({"id": 0,
-                       "content": "Ticket no." + str(id) + " " + status + " (exist time " + tim + ")",
+                       "content": "Yêu cầu số " + str(id) + ": " + status + " (thời gian tồn tại " + tim + ")",
                        "type": "point",
                        "group": "overview",
                        "start": str(mintime.date) + "T" + str(mintime.time)[:-7]})
@@ -96,19 +125,18 @@ def homeuser(request):
                    'fullname': mark_safe(json.dumps(user.fullname)),
                    'admin': mark_safe(json.dumps(admin.username)),
                    'noti_noti': user.noti_noti,
-                    'noti_chat': user.noti_chat
+                   'noti_chat': user.noti_chat,
                    }
         if request.method == 'POST':
             if 'tkid' in request.POST:
                 ticket = Tickets.objects.get(id=request.POST['tkid'])
                 ticket.status = 3
                 ticket.save()
-                
                 TicketLog.objects.create(userid=user,
-                                        ticketid=ticket,
-                                        action='close ticket',
-                                        date=timezone.now().date(),
-                                        time=timezone.now().time())
+                                         ticketid=ticket,
+                                         action='close ticket',
+                                         date=timezone.now().date(),
+                                         time=timezone.now().time())
                 try:
                     tkag = TicketAgent.objects.filter(ticketid=request.POST['tkid']).values('agentid')
                 except ObjectDoesNotExist:
@@ -117,11 +145,13 @@ def homeuser(request):
                     receiver = Agents.objects.filter(id__in=tkag)
                     for rc in receiver:
                         if rc.receive_email == 1:
-                            email = EmailMessage('Closed ticket',
+                            email = EmailMessage('Đóng yêu cầu',
                                                  render_to_string('user/close_email.html',
                                                                   {'receiver': rc, 'sender': user, 'id': id}),
                                                  to=[rc.email],)
-                            email.send()
+                            # email.send()
+                            thread = EmailThread(email)
+                            thread.start()
             elif 'noti_noti' in request.POST:
                 user.noti_noti = 0
                 user.save()
@@ -177,15 +207,15 @@ def user_data(request):
         data = []
         for tk in tk:
             if tk.status == 0:
-                status = r'<span class ="label label-danger"> chờ</span>'
+                status = r'<span class ="label label-danger"> Chờ</span>'
                 handler = '<p id="hd' + str(tk.id) + '">Không có ai</p>'
             else:
                 if tk.status == 1:
-                    status = r'<span class ="label label-warning"> đang xử lý </span>'
+                    status = r'<span class ="label label-warning"> Đang xử lý </span>'
                 elif tk.status == 2:
-                    status = r'<span class ="label label-success"> hoàn thành </span>'
+                    status = r'<span class ="label label-success"> Hoàn thành </span>'
                 else:
-                    status = r'<span class ="label label-default"> dóng </span>'
+                    status = r'<span class ="label label-default"> Đóng </span>'
                 handler = '<p id="hd' + str(tk.id) + '">'
                 for t in TicketAgent.objects.filter(ticketid=tk.id):
                     handler += t.agentid.username + "<br>"
@@ -201,7 +231,13 @@ def user_data(request):
             else:
                 option += '''<a  type="button" disabled class="btn btn-primary not-active" data-toggle="tooltip" title="trò chuyện"><span class="glyphicon glyphicon-comment" ></span></a>'''
             option += '''<a type="button" target=_blank class="btn btn-warning" href="/user/history_'''+str(tk.id)+ '''" data-toggle="tooltip" title="dòng thời gian"><i class="fa fa-history"></i></a>'''
-            data.append([id, tk.topicid.name, tk.title, status, handler, option])
+            if tk.lv_priority == 0:
+                level = r'<span class ="label label-success"> Thấp </span>'
+            elif tk.lv_priority == 1:
+                level = r'<span class ="label label-warning"> Trung bình </span>'
+            else:
+                level = r'<span class ="label label-danger"> Cao </span>'
+            data.append([id, tk.topicid.name, tk.title, level, status, handler, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -247,11 +283,11 @@ def detail_user(request):
 
 
 def login_user(request):
-    mess_resetpwd_error = 'Email is not registered or invalid'
-    mess_resetpwd_ok = 'Please confirm your email address to reset your account'
-    mess_register_error = 'Register information is invalid'
-    mess_register_ok = 'Please confirm your email address to complete the registration'
-    mess_login_error = 'login error'
+    mess_resetpwd_error = 'Email chưa đăng ký hoặc không hợp lệ'
+    mess_resetpwd_ok = 'Hãy kiểm tra email của bạn để cập nhật lại mật khẩu'
+    mess_register_error = 'Thông tin đăng ký không hợp lý'
+    mess_register_ok = 'Hãy kiểm tra email của bạn để hoàn tất đăng ký'
+    mess_login_error = 'đăng nhập thất bại'
     if request.session.has_key('user')and (Users.objects.get(username=request.session['user'])).status == 1:
         return redirect("/user")
     elif request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
@@ -278,13 +314,15 @@ def login_user(request):
                     email = EmailMessage(
                                 mail_subject, message, to=[to_email]
                     )
-                    email.send()
-                    return render(request, 'user/index.html',{'mess': mess_resetpwd_ok})
+                    # email.send()
+                    thread = EmailThread(email)
+                    thread.start()
+                    return render(request, 'user/index.html', {'mess': mess_resetpwd_ok})
                 else:
                     error = ''
                     for field in form:
                         error += field.errors
-                    return render(request, 'user/index.html',{'mess': mess_resetpwd_error, 'error':error})
+                    return render(request, 'user/index.html', {'mess': mess_resetpwd_error, 'error': error})
             elif 'aemail' in request.POST:
                 form = AgentResetForm(request.POST)
                 if form.is_valid():
@@ -302,8 +340,10 @@ def login_user(request):
                     email = EmailMessage(
                                 mail_subject, message, to=[to_email]
                     )
-                    email.send()
-                    return render(request, 'user/index.html',{'mess': mess_resetpwd_ok})
+                    # email.send()
+                    thread = EmailThread(email)
+                    thread.start()
+                    return render(request, 'user/index.html', {'mess': mess_resetpwd_ok})
                 else:
                     error = ''
                     for field in form:
@@ -315,7 +355,7 @@ def login_user(request):
                 if form.is_valid():
                     current_site = get_current_site(request)
                     user = form.save()
-                    
+
                     mail_subject = 'Activate your blog account.'
                     message = render_to_string('user/acc_active_email.html', {
                         'user': user,
@@ -328,7 +368,9 @@ def login_user(request):
                     email = EmailMessage(
                                 mail_subject, message, to=[to_email]
                     )
-                    email.send()
+                    # email.send()
+                    thread = EmailThread(email)
+                    thread.start()
                     return render(request, 'user/index.html',{'mess': mess_register_ok})
                 else:
                     error = ''
@@ -371,7 +413,7 @@ def login_user(request):
                     error = ''
                     for field in form:
                         error += field.errors
-                    return render(request, 'user/index.html',{'mess': mess_login_error,'error':error})
+                    return render(request, 'user/index.html', {'mess': mess_login_error,'error':error})
             # User đăng nhập
             else:
                 form = UserLoginForm(request.POST)
@@ -383,7 +425,7 @@ def login_user(request):
                     error = ''
                     for field in form:
                         error += field.errors
-                    return render(request, 'user/index.html',{'mess': mess_login_error, 'error':error})
+                    return render(request, 'user/index.html', {'mess': mess_login_error, 'error': error})
         return render(request, 'user/index.html', {})
 
 
@@ -432,7 +474,6 @@ def agresetpwd(request, uidb64, token):
         ag = Agents.objects.get(id=uid)
     except(TypeError, ValueError, OverflowError, Agents.DoesNotExist):
         ag = None
-    print(uid)
     if ag is not None and account_activation_token1.check_token(ag, token):
         if request.method == 'POST':
             form = ResetForm(request.POST)
@@ -444,7 +485,7 @@ def agresetpwd(request, uidb64, token):
                 return redirect('/')
         return render(request, 'user/formresetpass.html', {})
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Đường dẫn kích hoạt không hợp lệ!')
 
 
 def submitadmin(request):

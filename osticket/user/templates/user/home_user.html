@@ -30,11 +30,12 @@
                 <thead>
                     <tr>
                         <th width="5%">ID</th>
-                        <th width="15%">Topic</th>
-                        <th width="40%">Tiêu đề</th>
+                        <th width="10%">Chủ đề</th>
+                        <th width="25%">Tiêu đề</th>
+                        <th width="15%">Mức ưu tiên</th>
                         <th width="10%">Trạng thái</th>
                         <th width="10%">Người xử lý</th>
-                        <th width="20%">Tùy chọn</th>
+                        <th width="25%">Tùy chọn</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -51,9 +52,9 @@
                                 <div class="modal-body form-group">
                                     <label>Tiêu đề:</label>
                                     <p>{{tk.title}}</p>
-                                    <label>Topic:</label>
+                                    <label>Chủ đề:</label>
                                     <p>{{tk.topicid.name}} - {{tk.topicid.description}}</p>
-                                    <label>Mức ưu tiên :</label>
+                                    <label>Mức ưu tiên:</label>
                                     {% if tk.lv_priority == 0 %}
                                     <p>Thấp</p>
                                     {% elif tk.lv_prority == 1 %}
@@ -101,7 +102,7 @@
                          {% endfor%}
                          <label for="title"><b>Tiêu đề</b></label>
                          {{form.title}}
-                         <br /><label for="topic"><b>Topic</b></label><br />
+                         <br /><label for="topic"><b>Chủ đề</b></label><br />
                          <select name="topic" class="form-control" id="mySelect">
                              {% for tp in topic %}
                                 <option value="{{tp.id}}" name="{{tp.name}}">{{tp.name}} - {{tp.description}}</option>
@@ -137,11 +138,12 @@
             var table = $('#list_tk_user').DataTable({
                 "columnDefs": [
                     { "width": "5%", "targets": 0 },
-                    { "width": "20%", "targets": 1 },
-                    { "width": "35%", "targets": 2 },
-                    { "width": "10%", "targets": 3 },
+                    { "width": "10%", "targets": 1 },
+                    { "width": "25%", "targets": 2 },
+                    { "width": "15%", "targets": 3 },
                     { "width": "10%", "targets": 4 },
-                    { "width": "20%", "targets": 5 },
+                    { "width": "15%", "targets": 5 },
+                    { "width": "20%", "targets": 6 },
                 ],
                 "ajax": {
                     "type": "GET",
@@ -151,6 +153,7 @@
                         return JSON.stringify(result);
                     }
                 },
+                'dom': 'Rlfrtip',
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "order": [[ 0, "desc" ]],
                 "displayLength": 25,

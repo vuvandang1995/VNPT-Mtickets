@@ -136,7 +136,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-          <a href="{% url 'user:logout' %}" class="btn btn-primary">Đắng xuất</a>
+          <a href="{% url 'user:logout' %}" class="btn btn-primary">Đăng xuất</a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -548,6 +548,9 @@
             delete dict_ws[tk_id];
             $("body #chat"+tk_id+" .frame > ul").empty();
         })
+</script>
+<script src="{% static 'js/ColReorderWithResize.js' %}">
+
 </script>
 {% block js %}{% endblock %}
 </body>

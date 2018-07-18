@@ -1,5 +1,5 @@
 {% autoescape off %}
-Hi {{ user.username }},
-Please click on the link to reset your password,
+Xin chào {{ user.username }},
+Click vào đường dẫn bên dưới để cập nhật lại mật khẩu,
 http://{{ domain }}{% url 'user:agresetpassword' uidb64=uid token=token %}
 {% endautoescape %}

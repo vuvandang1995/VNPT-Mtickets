@@ -27,7 +27,7 @@ class RegistrationForm(forms.Form):
     })
     )
 
-    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$', error_messages={"invalid": "invalid phone number"})
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$', error_messages={"invalid": "số điện thoại không hợp lệ"})
 
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={               
@@ -51,26 +51,26 @@ class RegistrationForm(forms.Form):
             if password == password2 and password:
                 return password2
             else:
-                raise forms.ValidationError("Re-password doesn't match")
-        raise forms.ValidationError("Password is invalid")
+                raise forms.ValidationError("Mật khẩu nhắc lại không khớp")
+        raise forms.ValidationError("Mật khẩu không hợp lệ")
 
 
     # check xem user name đã tồn tại hay chưa
     def clean_username(self):
         username =  self.cleaned_data['username']
         if get_user(username) is not None:
-            raise forms.ValidationError("Username was existed")
+            raise forms.ValidationError("Tên đăng nhập đã tồn tại")
         return username
 
     # check email có đúng định dạng không, đã tồn tại chưa
     def clean_email(self):
         email = self.cleaned_data['email']
         if get_user_email(email) is not None:
-            raise forms.ValidationError("Email was registered")
+            raise forms.ValidationError("Email đã được đăng ký")
         try:
             validate_email(email)
         except:
-            raise forms.ValidationError("Email is invalid")
+            raise forms.ValidationError("Email không hợp lệ")
         return email
 
 
@@ -96,9 +96,9 @@ class UserResetForm(forms.Form):
         try:
             validate_email(uemail)
         except:
-            raise forms.ValidationError("Email is invalid")
+            raise forms.ValidationError("Email không hợp lệ")
         if get_user_email(uemail) is None:
-            raise forms.ValidationError("Email isn't registered")
+            raise forms.ValidationError("Email chưa được đăng ký")
         return uemail
 
 # form reset mật khẩu cho Agent
@@ -116,9 +116,9 @@ class AgentResetForm(forms.Form):
         try:
             validate_email(aemail)
         except:
-            raise forms.ValidationError("Email is invalid")
+            raise forms.ValidationError("Email không hợp lệ")
         if get_agent_email(aemail) is None:
-            raise forms.ValidationError("Email isn't registered")
+            raise forms.ValidationError("Email chưa được đăng ký")
         return aemail
 
 
@@ -146,8 +146,8 @@ class ResetForm(forms.Form):
             if pwd1 == pwd2 and pwd1:
                 return pwd1
             else:
-                raise forms.ValidationError("re-password doesn't match")
-        raise forms.ValidationError("password is invalid")
+                raise forms.ValidationError("Mật khẩu nhắc lại không khớp")
+        raise forms.ValidationError("Mật khẩu không hợp lệ")
     
     
 # form User đăng nhập
@@ -175,10 +175,10 @@ class UserLoginForm(forms.Form):
             username = self.cleaned_data['username']
             password = self.cleaned_data['password']
             if authenticate_user(username=username, password=password) is None:
-                raise forms.ValidationError('Account is not exist!')
+                raise forms.ValidationError('Tên đăng nhập hoặc mật khẩu không đúng!')
             u = get_user(username)
             if u.status == 0:
-                raise forms.ValidationError('Your account has been blocked or inactive!')
+                raise forms.ValidationError('Tài khoản bị khóa hoặc chưa kích hoạt!')
 
 
 # form Agent đăng nhập
@@ -206,10 +206,10 @@ class AgentLoginForm(forms.Form):
             agentname = self.cleaned_data['agentname']
             agentpass = self.cleaned_data['agentpass']
             if authenticate_agent(agentname=agentname, agentpass=agentpass) is None:
-                raise forms.ValidationError('Account is not exist!')
+                raise forms.ValidationError('Tên đăng nhập hoặc mật khẩu không đúng!')
             ag = get_agent(agentname)
             if ag.status == 0:
-                raise forms.ValidationError('Your account has been blocked or inactive!')
+                raise forms.ValidationError('Tài khoản bị khóa hoặc chưa kích hoạt')
         return agentname
 
 
@@ -240,5 +240,5 @@ class CreateNewTicketForm(forms.Form):
 class CommentForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={
         'placeholder': 'comment here',
-        'name':'content',
+        'name': 'content',
     }))
