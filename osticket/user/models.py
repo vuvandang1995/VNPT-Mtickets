@@ -31,6 +31,8 @@ class Topics(models.Model):
     name = models.CharField(max_length=255)
     status = models.IntegerField(default=0)
     description = models.TextField()
+    leader = models.ForeignKey('Agents', models.SET_NULL, null=True, db_column='agentid')
+
 
     class Meta:
         managed = True
@@ -67,7 +69,7 @@ class Tickets(models.Model):
     chat = models.CharField(max_length=30, null=True)
     content = models.TextField()
     sender = models.ForeignKey('Users', models.CASCADE, db_column='sender')
-    topicid = models.ForeignKey('Topics', models.DO_NOTHING, db_column='topicid')
+    topicid = models.ForeignKey('Topics', models.CASCADE, db_column='topicid')
     status = models.IntegerField(default=0)
     datestart = models.DateTimeField()
     dateend = models.DateTimeField()
@@ -229,8 +231,10 @@ def authenticate_agent(agentname, agentpass):
         pwd_valid = (agentpass == u.password)
         admin_valid = u.admin
         if login_valid and pwd_valid:
-            if admin_valid:
+            if admin_valid == 1:
                 return 1
+            elif admin_valid == 2:
+                return 2
             else:
                 return 0
         else:

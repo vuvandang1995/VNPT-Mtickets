@@ -34,8 +34,7 @@
                                         <th width="15%">Name</th>
                                         <th width="5%">Status</th>
                                         <th width="30%">Description</th>
-                                        <th width="15%">Department</th>
-                                        <th width="10%">Handler</th>
+                                        <th width="15%">Leader</th>
                                         <th width="20%">Option</th>
                                     </tr>
                                     </thead>
@@ -55,35 +54,22 @@
                                         {% endif %}
 
                                         <td id="description_topic{{tp.id}}">{{ tp.description}}</td>
-                                        <td id="department_topic{{tp.id}}">{{ tp.departmentid.name}}</td>
+                                        <td id="leader_topic{{tp.id}}">{{ tp.leader.fullname}}</td>
 
-                                        <td id="hd_topic{{tp.id}}">
-                                        {% for key, value in list_ag_tp %}
-                                            {% if key == tp.name%}
-                                                {% for ag in value%}
-                                                    {{ag.agentid.username}} </br>
-                                                {% endfor%}
-                                            {% endif%}
-                                        {% endfor%}
+
+                                        <td>
+                                            <button type="button" class="btn btn-primary close_" id="{{tp.id}}" data-toggle="tooltip" title="enable/disable">
+                                                <i class="fa fa-power-off"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-danger" id="{{tp.id}}" data-toggle="tooltip" title="delete">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-info" data-name="{{tp.name}}" data-title="edit" id="{{tp.id}}" data-toggle="modal" data-target="#topicModal">
+                                                <i class="fa fa-wrench" data-toggle="tooltip" title="change"></i>
+                                            </button>
                                         </td>
-
-                                        {% if tp.name == 'Other' %}
-                                            <td></td>
-                                        {% else %}
-                                            <td>
-                                                <button type="button" class="btn btn-primary close_" id="{{tp.id}}" data-toggle="tooltip" title="enable/disable">
-                                                    <i class="fa fa-power-off"></i>
-                                                </button>
-
-                                                <button type="button" class="btn btn-danger" id="{{tp.id}}" data-toggle="tooltip" title="delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-
-                                                <button type="button" class="btn btn-info" data-name="{{tp.name}}" data-title="edit" id="{{tp.id}}" data-toggle="modal" data-target="#topicModal">
-                                                    <i class="fa fa-wrench" data-toggle="tooltip" title="change"></i>
-                                                </button>
-                                            </td>
-                                        {% endif%}
                                     </tr>
                                     {% endfor%}
                                     </tbody>
@@ -110,9 +96,11 @@
                             <font id="deserr" color="red"></font><br>
 
                             <label for="agent"><b>Chọn quản trị viên Topic</b></label></br>
-                            <input class="form-control" type="text" name="leader" required>
+                            <input style="border-radius: 0px;width: 300px" type="text" id="search" name="search" class="input-large" placeholder="Nhập tên quản trị viên">
+                            <input type="hidden" name="username_leader" value="">
                             
                             <input type="hidden" name="topicid" value="">
+                            <font id="leadererr" color="red"></font><br>
 
                         <div class="msg"></div>
                         </div>
@@ -126,7 +114,9 @@
                 </div>
             </div>
             <script>
+                    
                 
+
                 function myFunction() {
                     var x = $('#mySelect option:selected').html();
                     $('#topicModal input:checkbox').prop('checked', false);

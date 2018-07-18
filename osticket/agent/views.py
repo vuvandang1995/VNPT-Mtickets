@@ -140,15 +140,15 @@ def home_admin_data(request):
         data = []
         for tk in tk:
             if tk.status == 0:
-                status = r'<span class ="label label-danger" id="leader'+str(tk.id)+'">pending</span>'
+                status = r'<span class ="label label-danger" id="leader'+str(tk.id)+'">Chờ</span>'
                 handler = '<p id="hd' + str(tk.id) + '">Nobody</p>'
             else:
                 if tk.status == 1:
-                    status = r'<span class ="label label-warning" id="leader'+str(tk.id)+'">processing</span>'
+                    status = r'<span class ="label label-warning" id="leader'+str(tk.id)+'">Đang xử lý</span>'
                 elif tk.status == 2:
-                    status = r'<span class ="label label-success" id="leader'+str(tk.id)+'">done</span>'
+                    status = r'<span class ="label label-success" id="leader'+str(tk.id)+'">Hoàn thành</span>'
                 else:
-                    status = r'<span class ="label label-default" id="leader'+str(tk.id)+'">closed</span>'
+                    status = r'<span class ="label label-default" id="leader'+str(tk.id)+'">Đóng</span>'
                 handler = '<p id="hd' + str(tk.id) + '">'
                 for t in TicketAgent.objects.filter(ticketid=tk.id):
                     handler += t.agentid.username + "<br>"
@@ -156,11 +156,13 @@ def home_admin_data(request):
             id = r'''<button type="button" class="btn" data-toggle="modal" data-target="#'''+str(tk.id)+'''content">'''+str(tk.id)+'''</button>'''
             sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
-            option = r'''<button type="button" class="btn btn-primary" id="'''+str(tk.id)+'''" data-toggle="tooltip" title="open/close"><i class="fa fa-power-off"></i></button>
-            <button type="button" class="btn btn-danger" id="'''+str(tk.id)+'''" data-toggle="tooltip" title="delete"><i class="fa fa-trash-o"></i></button>
-            <button type="button" class="btn btn-info" data-title="forward" id="'''+str(tk.id)+'''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="forward" ></i></button>
-            <a type="button" target=_blank class="btn btn-warning" href="/agent/history/'''+str(tk.id)+ '''" data-toggle="tooltip" title="history"><i class="fa fa-history"></i></a>'''
-            data.append([id, tk.title, topic, sender, status, handler, option])
+            if tk.lv_priority == 0:
+               level = r'<span class ="label label-success"> Thấp </span>'
+            elif tk.lv_priority == 1:
+               level = r'<span class ="label label-warning"> Trung bình </span>'
+            else:
+               level = r'<span class ="label label-danger"> Cao </span>'
+            data.append([id, tk.title, topic, sender, status, handler, level])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -189,62 +191,75 @@ def manager_topic(request):
             elif 'delete' in request.POST:
                 topictid = request.POST['delete']
                 tp = Topics.objects.get(id=topictid)
-                tk = Tickets.objects.filter(topicid=tp)
-                tp_other = Topics.objects.get(name='Other')
-                for ticket in tk:
-                    ticket.topicid = tp_other
-                    ticket.save()
+                # tk = Tickets.objects.filter(topicid=tp)
+                # tp_other = Topics.objects.get(name='Other')
+                # for ticket in tk:
+                #     ticket.topicid = tp_other
+                #     ticket.save()
                 tp.delete()
             elif 'add_topic' in request.POST:
-                list_agent = request.POST['list_agent[]']
-                list_agent = json.loads(list_agent)
                 if request.POST['topicid'] == '0':
-                    print(request.POST)
                     topicname = request.POST['add_topic']
                     description = request.POST['description']
-                    department = Departments.objects.get(id=request.POST['department'])
-                    tp = Topics.objects.create(name=topicname, description=description, departmentid=department)
-                    for ag in list_agent:
-                        ag = Agents.objects.get(username=ag)
-                        TopicAgent.objects.create(agentid=ag, topicid=tp)
+                    leader = Agents.objects.get(username=request.POST['leader'])
+                    tp = Topics.objects.create(name=topicname, description=description, leader=leader)
+                    # TopicAgent.objects.create(agentid=leader, topicid=tp)
+                    if leader.admin != 2:
+                        leader.admin = 2
+                        leader.save()
                 else:
                     tp = Topics.objects.get(id=request.POST['topicid'])
                     tp.name = request.POST['add_topic']
                     tp.description = request.POST['description']
-                    tp.departmentid = Departments.objects.get(id=request.POST['department'])
+                    leader_old = Agents.objects.get(id=tp.leader.id)
+                    leader_new = Agents.objects.get(username=request.POST['leader'])
+                    tp.leader = leader_new
+                    if leader_new.admin != 2:
+                        leader_new.admin = 2
+                        leader_new.save()
                     tp.save()
-                    if not list_agent:
-                        try:
-                            tpag = TopicAgent.objects.filter(topicid=tp)
-                            tpag.delete()
-                        except:
-                            pass
-                    else:
-                        try:
-                            tpag = TopicAgent.objects.filter(topicid=tp)
-                            tpag.delete()
-                        except:
-                            pass
-                        for ag in list_agent:
-                            ag = Agents.objects.get(username=ag)
-                            TopicAgent.objects.create(agentid=ag, topicid=tp)
+
+                    count_tp = Topics.objects.filter(leader=leader_old).count()
+                    # try:
+                    #     tpag = TopicAgent.objects.filter(agentid=leader_old)
+                    #     tpag.delete()
+                    # except:
+                    #     pass
+                    if count_tp < 1:
+                    # leader = Agents.objects.get(username=request.POST['leader'])
+                    # TopicAgent.objects.create(agentid=leader, topicid=tp)
+                        leader_old.admin = 0
+                        leader_old.save()
         return render(request, 'agent/manager_topic.html', content)
     else:
         return redirect('/')
 
+def fullname_agent_data(request):
+    if request.session.has_key('admin'):
+        agent_leader = Agents.objects.exclude(admin=1)
+        list_agent_leader = []
+        for ag in agent_leader:
+            list_agent_leader.append({"username": ag.username, "fullname": ag.fullname})
+        return JsonResponse(list_agent_leader, safe=False)
+    else:
+        return redirect('/')
 
 
 def manager_agent(request):
     if request.session.has_key('admin'):
         admin = Agents.objects.get(username=request.session['admin'])
         list_tk = {}
+        list_tp = {}
         ag = Agents.objects.all()
         topic = Topics.objects.all()
         for ag in ag:
             list_tk[ag.username] = count_tk(ag.username)
+            tpag = TopicAgent.objects.filter(agentid=ag).values('topicid')
+            list_tp[ag.username] = [tp.name for tp in Topics.objects.filter(id__in=tpag)]
         content = {'agent': Agents.objects.all(),
                    'admin': admin,
                    'list_tk': list_tk.items(),
+                   'list_tp': list_tp,
                    'today': timezone.now().date(),
                    'agent_name': mark_safe(json.dumps(admin.username)),
                    'fullname': mark_safe(json.dumps(admin.fullname)),
@@ -269,9 +284,12 @@ def manager_agent(request):
                     phone = request.POST['phone']
                     username = request.POST['username']
                     password = request.POST['password']
-                    department = Departments.objects.get(id=request.POST['department'])
-                    ag = Agents.objects.create(fullname=fullname, username=username, phone=phone, email=email, password=password, departmentid=department)
+                    ag = Agents.objects.create(fullname=fullname, username=username, phone=phone, email=email, password=password)
                     ag.save()
+                    # list_topic = request.POST['list_topic[]']
+                    # list_topic = json.loads(list_topic)
+                    # for list_topic in list_topic:
+                    #     TopicAgent.objects.create(agentid=ag, topicid=Topics.objects.get(name=list_topic))
                 else:
                     ag = Agents.objects.get(id=request.POST['agentid'])
                     fullname = request.POST['add_agent']
@@ -280,7 +298,6 @@ def manager_agent(request):
                     ag.fullname = fullname
                     ag.email = email
                     ag.phone = phone
-                    ag.topicid = Topics.objects.get(id=topic)
                     ag.save()
                     username = ag.username
         return render(request, 'agent/manager_agent.html', content)

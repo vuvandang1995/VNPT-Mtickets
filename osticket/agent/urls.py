@@ -7,6 +7,7 @@ app_name = 'agent'
 urlpatterns = [
     path('admin/', views.home_admin, name='home_admin'),
     path('admin/data', views.home_admin_data, name='home_admin_data'),
+    path('admin/leader', views.fullname_agent_data, name='fullname_agent_data'),
     path('topic/', views.manager_topic, name='manager_topic'),
     path('agent/', views.manager_agent, name='manager_agent'),
     path('', views.home_agent, name="index"),
