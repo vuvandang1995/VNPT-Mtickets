@@ -5,3 +5,4 @@
 <a href="/user/"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>Ticket 3 is processing!</p><small><i class="fa fa-clock-o"></i>2:01 PM 19/6/2018</small></div></a>
 <a href="javascript:register_popup('chat1', 1);" class="noti_chat"><div style="float:left;width:15%" class="btn btn-info btn-circle m-r-10"><i class="fa fa-envelope-o"></i></div><div style="float:right; width:80%"><p>1</p><small><i class="fa fa-clock-o"></i>5:11 PM 19/6/2018</small></div></a>*&*%^chat
 <a href="javascript:register_popup('chat3', 3);" class="noti_chat"><div style="float:left;width:15%" class="btn btn-info btn-circle m-r-10"><i class="fa fa-envelope-o"></i></div><div style="float:right; width:80%"><p>3</p><small><i class="fa fa-clock-o"></i>6:09 PM 19/6/2018</small></div></a>*&*%^chat
+

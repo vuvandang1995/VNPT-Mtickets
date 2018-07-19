@@ -74,8 +74,8 @@ def history(request, id):
                 action += str(tem.action).replace('received ticket forward from (agent)',
                                                   'nhận xử lý yêu cầu được chuyển từ nhân viên')
                 cont = "<span class='glyphicon glyphicon-user' ></span>"
-            elif "received ticket forward from (admin)" in tem.action:
-                action += str(tem.action).replace('received ticket forward from (admin)',
+            elif "received ticket forward from (leader)" in tem.action:
+                action += str(tem.action).replace('received ticket forward from (leader)',
                                                   'nhận xử lý yêu cầu được giao từ quản trị')
                 cont = "<span class='glyphicon glyphicon-user' ></span>"
             else:
