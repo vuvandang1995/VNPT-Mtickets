@@ -284,10 +284,20 @@ $(document).ready(function(){
 
      $("body").on('click', '#chat_with_user', function(){
          var tkid = $(this).children('input').val();
+         $('body .chat'+tkid).hide();
          $("body .noti_chat"+tkid).hide();
          $('body .chat'+tkid).show();
          $("body .mytext").focus();
-         
+         if (typeof(Storage) !== "undefined") {
+            var herf = $(this).attr('href');
+            var chat = herf.substring(herf.indexOf("(")+1, herf.indexOf(")")) + ',' + tkid;
+            // Gán dữ liệu
+            sessionStorage.setItem(tkid, chat);
+             
+            // Lấy dữ liệu
+        } else {
+            document.write('Trình duyệt của bạn không hỗ trợ local storage');
+        }
 
          if (dict_ws[tkid] == undefined){
              dict_ws[tkid] = new WebSocket(

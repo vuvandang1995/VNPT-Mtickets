@@ -334,7 +334,7 @@ def home_agent(request):
         list_tp = ""
         for tp in tp:
             list_tp += str(tp.topicid.name) + "!"
-        content = {'ticket': Tickets.objects.filter(status=0, topicid__in=topic, ).order_by('-id'),
+        content = {'ticket': Tickets.objects.filter(status=0).order_by('-id'),
                     'agent': agent, 
                     'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
