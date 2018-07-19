@@ -11,6 +11,7 @@ urlpatterns = [
     path('topic/', views.manager_topic, name='manager_topic'),
     path('agent/', views.manager_agent, name='manager_agent'),
     path('', views.home_agent, name="index"),
+    path('leader', views.home_leader, name="home_leader"),
     path('logout', views.logout, name="logout"),
     path('assign/<int:id>', views.assign_ticket, name="assign_ticket"),
     path('history/<int:id>', views.history, name="history"),
@@ -24,4 +25,5 @@ urlpatterns = [
     path('manage_user/data', views.manage_user_data, name="manage_user_data"),
     path('profile', views.profile, name="profile"),
     path('logout_admin/', views.logout_admin, name='logout_admin'),
+    path('logout_leader/', views.logout_leader, name='logout_leader'),
 ]
