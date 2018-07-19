@@ -1,4 +1,4 @@
-{% extends 'agent/base_leader.html' %}
+{% extends 'agent/base_admin.html' %}
 {% block title %}Manage agents{% endblock %}
 {% load static %}
 {% block content %}
@@ -56,7 +56,7 @@
 
                                 <input type="hidden" id="phone_agent{{ag.id}}" value="{{ag.phone}}">
 
-                                {% if ag.admin == 0 %}
+                                {% if ag.admin != 1 %}
                                     <td><span class="label label-danger">no</span></td>
                                 {% else %}
                                     <td><span class="label label-success">yes</span></td>
@@ -86,7 +86,7 @@
                                 
                                 <td>
                                     {% csrf_token %}
-                                    {% if ag.admin == 0 %}
+                                    {% if ag.admin != 1 %}
                                     <button type="button" class="btn btn-primary close_"  id="{{ag.id}}" data-toggle="tooltip" title="block/unblock">
                                         <i class="fa fa-power-off"></i>
                                     </button>

@@ -294,6 +294,8 @@ def login_user(request):
         return redirect('/agent')
     elif request.session.has_key('admin'):
         return redirect('/agent/admin')
+    elif request.session.has_key('leader'):
+        return redirect('/agent/leader')
     else:
         if request.method == 'POST':
             # post form để User yêu cầu reset mật khẩu, gửi link về mail
@@ -407,6 +409,13 @@ def login_user(request):
                         if ag.status == 1:
                             request.session['agent'] = agentname
                             return redirect('/agent')
+                        else:
+                            return render(request, 'user/index.html', {'mess': 'your account has been blocked'})
+                    elif authenticate_agent(agentname=agentname, agentpass=agentpass) == 2:
+                        ag = Agents.objects.get(username=agentname)
+                        if ag.status == 1:
+                            request.session['leader'] = agentname
+                            return redirect('/agent/leader')
                         else:
                             return render(request, 'user/index.html', {'mess': 'your account has been blocked'})
                 else:

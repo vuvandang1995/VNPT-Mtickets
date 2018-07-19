@@ -309,6 +309,10 @@ def logout_admin(request):
     del request.session['admin']
     return redirect("/")
 
+def logout_leader(request):
+    del request.session['leader']
+    return redirect("/")
+
 
 def logout(request):
     del request.session['agent']
@@ -331,7 +335,8 @@ def home_agent(request):
         for tp in tp:
             list_tp += str(tp.topicid.name) + "!"
         content = {'ticket': Tickets.objects.filter(status=0, topicid__in=topic, ).order_by('-id'),
-                    'agent': agent, 'agent_name': mark_safe(json.dumps(agent.username)),
+                    'agent': agent, 
+                    'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'user_total': user_total,
                     'tk_open': tk_open,
@@ -370,6 +375,9 @@ def home_agent(request):
         return render(request, 'agent/home_agent.html', content)
     else:
         return redirect("/")
+
+
+
 
 
 def assign_ticket(request, id):
@@ -912,6 +920,64 @@ def manage_user_data(request):
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
 
+
+def home_leader(request):
+    if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
+        # leader = Agents.objects.get(username=request.session.get('leader'))
+        agent = Agents.objects.get(username=request.session.get('leader'))
+        tpag = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        topic = Topics.objects.filter(id__in=tpag)
+        user_total = Users.objects.count()
+        process = Tickets.objects.filter(topicid__in=topic, status__in=[1,2])
+        done = Tickets.objects.filter(status=3)
+        tk_open = Tickets.objects.filter(status=0, topicid__in=topic).count()
+        tk_processing = TicketAgent.objects.filter(agentid=agent, ticketid__in=process).count()
+        tk_done = TicketAgent.objects.filter(agentid=agent, ticketid__in=done).count()
+        tp = TopicAgent.objects.filter(agentid=agent)
+        list_tp = ""
+        for tp in tp:
+            list_tp += str(tp.topicid.name) + "!"
+        content = {'ticket': Tickets.objects.filter(status=0, topicid__in=topic, ).order_by('-id'),
+                    'agent': agent, 
+                    'agent_name': mark_safe(json.dumps(agent.username)),
+                    'fullname': mark_safe(json.dumps(agent.fullname)),
+                    'user_total': user_total,
+                    'tk_open': tk_open,
+                    'tk_processing': tk_processing,
+                    'tk_done': tk_done,
+                    'noti_noti': agent.noti_noti,
+                    'noti_chat': agent.noti_chat,
+                    'list_tp': mark_safe(json.dumps(list_tp))}
+        if request.method == 'POST':
+            if 'tkid' in request.POST:
+                ticket = Tickets.objects.get(id=request.POST['tkid'])
+                ticket.status = 1
+                ticket.save()
+                TicketLog.objects.create(agentid=agent, ticketid=ticket, action='assign ticket',
+                                         date=timezone.now().date(),
+                                         time=timezone.now().time())
+                TicketAgent.objects.create(agentid=agent, ticketid=ticket)
+                user = Users.objects.get(id=ticket.sender.id)
+                # if user.receive_email == 1:
+                #     email = EmailMessage(
+                #         'Assign ticket',
+                #         render_to_string('agent/mail/assign_mail.html',
+                #                          {'receiver': user,
+                #                           'domain': (get_current_site(request)).domain,
+                #                           'sender': agent,
+                #                           'ticketid': ticket.id}),
+                #         to=[user.email],
+                #     )
+                #     email.send()
+            if 'noti_noti' in request.POST:
+                agent.noti_noti = 0
+                agent.save()
+            if 'noti_chat' in request.POST:
+                agent.noti_chat = 0
+                agent.save()
+        return render(request, 'agent/home_leader.html', content)
+    else:
+        return redirect("/")
 
 
 

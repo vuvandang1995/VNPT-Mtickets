@@ -59,8 +59,12 @@
                     <ul class="navbar-nav my-lg-0">
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted  " href="{% url 'agent:logout_leader' %}"><i class="fa fa-power-off"></i> Logout</a>
-
+                            <a class="nav-link dropdown-toggle text-muted  " href="{% url 'agent:logout_admin' %}"><i class="fa fa-power-off"></i> Logout</a>
+                            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                <ul class="dropdown-user">
+                                    <li><a href="{% url 'agent:logout_admin' %}"><i class="fa fa-power-off"></i> Logout</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -78,6 +82,7 @@
                         <li><a href="{% url 'agent:home_admin' %}"><i class="fa fa-ticket"></i> Tickets </a></li>
                         <li><a href="{% url 'agent:manager_agent' %}"><i class="fa fa fa-user-secret"></i> Agents </a></li>
                         <li><a href="{% url 'agent:manager_topic' %}"><i class="fa fa-list-alt"></i> Topics </a></li>
+                        <li><a href="{% url 'agent:history_all_ticket' today|safe today|safe %}"><i class="fa fa-history"></i> History all ticket </a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
