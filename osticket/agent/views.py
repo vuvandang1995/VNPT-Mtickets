@@ -234,6 +234,7 @@ def manager_topic(request):
     else:
         return redirect('/')
 
+
 def fullname_agent_data(request):
     if request.session.has_key('admin'):
         agent_leader = Agents.objects.exclude(admin=1)
@@ -309,6 +310,7 @@ def logout_admin(request):
     del request.session['admin']
     return redirect("/")
 
+
 def logout_leader(request):
     del request.session['leader']
     return redirect("/")
@@ -375,9 +377,6 @@ def home_agent(request):
         return render(request, 'agent/home_agent.html', content)
     else:
         return redirect("/")
-
-
-
 
 
 def assign_ticket(request, id):
@@ -577,30 +576,48 @@ def processing_ticket_data(request):
 
 
 def history(request,id):
-    if (request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1) or request.session.has_key('admin'):
+    if (request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1) or request.session.has_key('leader'):
         tems = TicketLog.objects.filter(ticketid=id)
         result = []
         for tem in tems:
             if tem.userid is not None:
-                action = "<b>User " + str(tem.userid.username) + "</b><br/>"+str(tem.action)
+                action = "<b>User " + str(tem.userid.username) + "</b><br/>"
             else:
-                action = "<b>Agent " + str(tem.agentid.username) + "</b><br/>"+str(tem.action)
+                if tem.agentid.admin == 0:
+                    action = "<b>Nhân viên " + str(tem.agentid.username) + "</b><br/>"
+                else:
+                    action = "<b>Quản trị " + str(tem.agentid.username) + "</b><br/>"
             if tem.action == 'create ticket':
+                action += 'tạo mới yêu cầu'
                 cont = "<i class='fa fa-plus' ></i>"
             elif tem.action == 'close ticket':
+                action += 'đóng yêu yêu cầu'
                 cont = "<i class='fa fa-power-off' ></i>"
             elif tem.action == 'assign ticket':
+                action += 'nhận xử lý yêu cầu'
                 cont = "<i class='fa fa-thumb-tack' ></i>"
             elif tem.action == 'done ticket':
+                action += 'xử lý xong yêu cầu'
                 cont = "<i class='fa fa-check' ></i>"
             elif tem.action == 're-process ticket':
+                action += 'xử lý lại yêu cầu'
                 cont = "<i class='fa fa-refresh' ></i>"
             elif tem.action == 're-open ticket':
+                action += 'mở lại yêu cầu'
                 cont = "<i class='fa fa-repeat' ></i>"
             elif tem.action == 'give up ticket':
+                action += 'từ bỏ xử lý yêu cầu'
                 cont = "<i class='fa fa-sign-out' ></i>"
+            elif "received ticket forward from (agent)" in tem.action:
+                action += str(tem.action).replace('received ticket forward from (agent)',
+                                                  'nhận xử lý yêu cầu được chuyển từ nhân viên ')
+                cont = "<i class='fa fa-user-secret' ></i>"
+            elif "received ticket forward from (leader)" in tem.action:
+                action += str(tem.action).replace('received ticket forward from (leader)',
+                                                  'nhận xử lý yêu cầu được giao từ quản trị ')
+                cont = "<i class='fa fa-user-secret' ></i>"
             else:
-                cont = "<i class='fa fa-user-secret'></i>"
+                cont = "<i class='fa fa-user-secret' ></i>"
             result.append({"id": tem.id,
                            "title": action,
                            "content": cont,
@@ -627,7 +644,7 @@ def history(request,id):
         if request.session.has_key('agent'):
             return render(request, 'agent/history_for_agent.html', {'tk': tk, 'id': str(id)})
         else:
-            return render(request, 'agent/history_for_admin.html', {'tk': tk, 'id': str(id), 'today': timezone.now().date()})
+            return render(request, 'agent/history_for_leader.html', {'tk': tk, 'id': str(id), 'today': timezone.now().date()})
     else:
         return redirect("/")
 
@@ -923,61 +940,191 @@ def manage_user_data(request):
 
 def home_leader(request):
     if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
-        # leader = Agents.objects.get(username=request.session.get('leader'))
-        agent = Agents.objects.get(username=request.session.get('leader'))
-        tpag = TopicAgent.objects.filter(agentid=agent).values('topicid')
-        topic = Topics.objects.filter(id__in=tpag)
-        user_total = Users.objects.count()
-        process = Tickets.objects.filter(topicid__in=topic, status__in=[1,2])
-        done = Tickets.objects.filter(status=3)
-        tk_open = Tickets.objects.filter(status=0, topicid__in=topic).count()
-        tk_processing = TicketAgent.objects.filter(agentid=agent, ticketid__in=process).count()
-        tk_done = TicketAgent.objects.filter(agentid=agent, ticketid__in=done).count()
-        tp = TopicAgent.objects.filter(agentid=agent)
-        list_tp = ""
-        for tp in tp:
-            list_tp += str(tp.topicid.name) + "!"
-        content = {'ticket': Tickets.objects.filter(status=0, topicid__in=topic, ).order_by('-id'),
-                    'agent': agent, 
-                    'agent_name': mark_safe(json.dumps(agent.username)),
-                    'fullname': mark_safe(json.dumps(agent.fullname)),
-                    'user_total': user_total,
-                    'tk_open': tk_open,
-                    'tk_processing': tk_processing,
-                    'tk_done': tk_done,
-                    'noti_noti': agent.noti_noti,
-                    'noti_chat': agent.noti_chat,
-                    'list_tp': mark_safe(json.dumps(list_tp))}
+        leader = Agents.objects.get(username=request.session.get('leader'))
+        list_topic = Topics.objects.filter(leader=leader)
+        list_ticket = {}
+        list_ag = {}
+        for tp in list_topic:
+            list_ticket[tp.name] = Tickets.objects.filter(topicid=tp)
+            ag = TopicAgent.objects.filter(topicid=tp)
+            list_ag[tp.name] = [a.agentid for a in ag]
+        content = {'tickets': list_ticket,
+                   'leng': len(list_topic),
+                   'topic': list_topic,
+                   'list_ag': list_ag,
+                   'agent_name': mark_safe(json.dumps(leader.username)),
+                   'fullname': mark_safe(json.dumps(leader.fullname)),
+                   }
         if request.method == 'POST':
-            if 'tkid' in request.POST:
-                ticket = Tickets.objects.get(id=request.POST['tkid'])
-                ticket.status = 1
-                ticket.save()
-                TicketLog.objects.create(agentid=agent, ticketid=ticket, action='assign ticket',
+            if 'close' in request.POST:
+                ticketid = request.POST['close']
+                tk = Tickets.objects.get(id=ticketid)
+                if tk.status == 3:
+                    if not TicketAgent.objects.filter(ticketid=tk):
+                        tk.status = 0
+                        action = "re-open ticket"
+                    else:
+                        tk.status = 1
+                        action = "re-process ticket"
+                else:
+                    tk.status = 3
+                    action = "close ticket"
+                tk.save()
+                TicketLog.objects.create(agentid=leader, ticketid=tk,
+                                         action=action,
                                          date=timezone.now().date(),
                                          time=timezone.now().time())
-                TicketAgent.objects.create(agentid=agent, ticketid=ticket)
-                user = Users.objects.get(id=ticket.sender.id)
-                # if user.receive_email == 1:
-                #     email = EmailMessage(
-                #         'Assign ticket',
-                #         render_to_string('agent/mail/assign_mail.html',
-                #                          {'receiver': user,
-                #                           'domain': (get_current_site(request)).domain,
-                #                           'sender': agent,
-                #                           'ticketid': ticket.id}),
-                #         to=[user.email],
-                #     )
-                #     email.send()
-            if 'noti_noti' in request.POST:
-                agent.noti_noti = 0
-                agent.save()
-            if 'noti_chat' in request.POST:
-                agent.noti_chat = 0
-                agent.save()
+            elif 'delete' in request.POST:
+                ticketid = request.POST['delete']
+                tk = Tickets.objects.get(id=ticketid)
+                tk.delete()
+                try:
+                    os.remove(r'notification/chat/chat_' + ticketid + '.txt')
+                except:
+                    pass
+            elif 'ticketid' in request.POST:
+                list_agent = request.POST['list_agent[]']
+                list_agent = json.loads(list_agent)
+                ticketid = request.POST['ticketid']
+                if not list_agent:
+                    try:
+                        tk = Tickets.objects.get(id=ticketid)
+                        tkag1 = TicketAgent.objects.filter(ticketid=tk)
+                        tkag1.delete()
+                        tk.status = 0
+                        tk.save()
+                        action = "received ticket forward from (leader)" + leader.username
+                        tklog = TicketLog.objects.filter(action=action)
+                        tklog.delete()
+                    except:
+                        tk.status = 0
+                        tk.save()
+                else:
+                    try:
+                        tk = Tickets.objects.get(id=ticketid)
+                        tkag1 = TicketAgent.objects.filter(ticketid=tk)
+                        tkag1.delete()
+                        action = "received ticket forward from (leader)" + leader.username
+                        tklog = TicketLog.objects.filter(action=action)
+                        tklog.delete()
+                    except:
+                        pass
+                    for agentid in list_agent:
+                        leader = Agents.objects.get(username=agentid)
+                        tk = Tickets.objects.get(id=ticketid)
+                        tkag = TicketAgent(agentid=leader, ticketid=tk)
+                        tkag.save()
+                        tk.status = 1
+                        tk.save()
+                        action = "received ticket forward from (leader)" + leader.username
+                        if leader.receive_email == 1:
+                            email = EmailMessage(
+                                'Forward ticket',
+                                render_to_string('agent/mail/forward_mail_leader.html',
+                                                 {'receiver': leader,
+                                                  #   'domain': (get_current_site(request)).domain,
+                                                  'domain': "113.190.232.90:8892",
+                                                  'sender': 'Leader'}),
+                                to=[leader.email],
+                            )
+                            email.send()
+                        TicketLog.objects.create(agentid=leader, ticketid=tk,
+                                                 action=action,
+                                                 date=timezone.now().date(),
+                                                 time=timezone.now().time())
         return render(request, 'agent/home_leader.html', content)
     else:
         return redirect("/")
+
+
+def home_leader_data(request, id):
+    if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
+        agent = Agents.objects.get(username=request.session['leader'])
+        list_topic = Topics.objects.filter(leader=agent)
+        list_ticket = []
+        for tp in list_topic:
+            tksdpr = Tickets.objects.filter(topicid=tp)
+            data = []
+            for tk in tksdpr:
+                if tk.status == 0:
+                    status = r'<span class ="label label-danger" id="leader' + str(tk.id) + '">Chờ</span>'
+                    handler = '<p id="hd' + str(tk.id) + '">Nobody</p>'
+                else:
+                    if tk.status == 1:
+                        status = r'<span class ="label label-warning" id="leader' + str(tk.id) + '">Đang xử lý</span>'
+                    elif tk.status == 2:
+                        status = r'<span class ="label label-success" id="leader' + str(tk.id) + '">Hoàn thành</span>'
+                    else:
+                        status = r'<span class ="label label-default" id="leader' + str(tk.id) + '">Đóng</span>'
+                    handler = '<p id="hd' + str(tk.id) + '">'
+                    for t in TicketAgent.objects.filter(ticketid=tk.id):
+                        handler += t.agentid.username + "<br>"
+                    handler += '</p>'
+                idtk = r'''<button type="button" class="btn" data-toggle="modal" data-target="#''' + str(
+                    tk.id) + '''content">''' + str(tk.id) + '''</button>'''
+                topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
+                if tk.lv_priority == 0:
+                    level = r'<span class ="label label-success"> Thấp </span>'
+                elif tk.lv_priority == 1:
+                    level = r'<span class ="label label-warning"> Trung bình </span>'
+                else:
+                    level = r'<span class ="label label-danger"> Cao </span>'
+                sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
+                option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="open/close"><i class="fa fa-power-off"></i></button>
+                            <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="delete"><i class="fa fa-trash-o"></i></button>
+                            <button type="button" class="btn btn-info" data-title="forward" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="forward" ></i></button>
+                            <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="history"><i class="fa fa-history"></i></a>'''
+                data.append([idtk, tk.title, topic, status, level, sender, handler, str(tk.dateend)[:-16], option])
+            ticket = {"data": data}
+            tickets = json.loads(json.dumps(ticket))
+            list_ticket.append(tickets)
+        return JsonResponse(list_ticket[id-1], safe=False)
+
+
+def leader_manage_agent(request):
+    if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
+        if request.method == 'POST':
+            if 'delete' in request.POST:
+                ss, tpid, agid = request.POST['delete'].split('_')
+                TopicAgent.objects.get(topicid=Topics.objects.get(id=tpid), agentid=Agents.objects.get(id=agid)).delete()
+            elif 'topicid' in request.POST:
+                agen = Agents.objects.get(username=request.POST['leader'])
+                top = Topics.objects.get(id=request.POST['topicid'])
+                try:
+                    TopicAgent.objects.get(agentid=agen, topicid=top)
+                except ObjectDoesNotExist:
+                    TopicAgent.objects.create(agentid=agen, topicid=top)
+        leader = Agents.objects.get(username=request.session.get('leader'))
+        list_topic = Topics.objects.filter(leader=leader)
+        list_ag = {}
+        list_tk = {}
+        for tp in list_topic:
+            ag = TopicAgent.objects.filter(topicid=tp)
+            list_ag[tp] = [a.agentid for a in ag]
+        for ag in Agents.objects.all():
+            list_tk[ag.username] = count_tk(ag.username)
+        content = {'list_ag': list_ag,
+                   'topic': list_topic,
+                   'leng': len(list_topic),
+                   'topic': list_topic,
+                   'list_tk': list_tk,
+                   'agent_name': mark_safe(json.dumps(leader.username)),
+                   'fullname': mark_safe(json.dumps(leader.fullname)),
+                   }
+        return render(request, 'agent/leader_manage_agent.html', content)
+    else:
+        return redirect("/")
+
+
+def leader_agent_data(request):
+    if request.session.has_key('leader'):
+        agent = Agents.objects.filter(admin=0)
+        list_agent = []
+        for ag in agent:
+            list_agent.append({"username": ag.username, "fullname": ag.fullname})
+        return JsonResponse(list_agent, safe=False)
+    else:
+        return redirect('/')
 
 
 

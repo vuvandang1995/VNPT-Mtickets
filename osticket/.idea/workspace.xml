@@ -11,40 +11,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
+      <file leaf-file-name="leader_manage_agent.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="552" lean-forward="true" selection-start-line="552" selection-end-line="552" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ColReorderWithResize.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/static/js/ColReorderWithResize.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="1227" column="29" selection-start-line="1227" selection-start-column="29" selection-end-line="1227" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home_user.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/user/templates/user/home_user.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2156">
-              <caret line="155" selection-start-line="155" selection-end-line="155" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="219" column="68" lean-forward="true" selection-start-line="219" selection-start-column="68" selection-end-line="220" selection-end-column="58" />
+            <state relative-caret-position="36">
+              <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
               <folding>
-                <element signature="e#0#45#0" expanded="true" />
+                <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="leader_manage_agent.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="792">
+              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manager_topic.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+              <folding>
+                <element signature="n#div#1;n#div#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -52,13 +47,26 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>leader</find>
+      <find>list_topic</find>
+      <find>topicModal</find>
+    </findStrings>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/user/models.py" />
         <option value="$PROJECT_DIR$/user/static/js/detail_user.js" />
         <option value="$PROJECT_DIR$/user/templates/user/detail_user.html" />
-        <option value="$PROJECT_DIR$/agent/views.py" />
         <option value="$PROJECT_DIR$/user/templates/user/history.html" />
         <option value="$PROJECT_DIR$/user/templates/user/agresetpwd.html" />
         <option value="$PROJECT_DIR$/user/templates/user/resetpwd.html" />
@@ -67,25 +75,33 @@
         <option value="$PROJECT_DIR$/user/templates/user/acc_active_email.html" />
         <option value="$PROJECT_DIR$/user/forms.py" />
         <option value="$PROJECT_DIR$/user/templates/user/index.html" />
-        <option value="$PROJECT_DIR$/user/views.py" />
         <option value="$PROJECT_DIR$/user/templates/user/home_user.html" />
         <option value="$PROJECT_DIR$/user/static/js/ColReorderWithResize.js" />
         <option value="$PROJECT_DIR$/user/templates/user/base.html" />
+        <option value="$PROJECT_DIR$/user/static/js/home_leader.js" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/history_for_leader.html" />
+        <option value="$PROJECT_DIR$/user/views.py" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/home_leader.html" />
+        <option value="$PROJECT_DIR$/agent/urls.py" />
+        <option value="$PROJECT_DIR$/agent/views.py" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/base_leader.html" />
+        <option value="$PROJECT_DIR$/user/static/js/leader_manage_agent.js" />
+        <option value="$PROJECT_DIR$/user/static/js/lead_manage_topic.js" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-5" />
-    <option name="y" value="-5" />
-    <option name="width" value="1376" />
-    <option name="height" value="738" />
+    <option name="x" value="201" />
+    <option name="y" value="176" />
+    <option name="width" value="1364" />
+    <option name="height" value="728" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -122,14 +138,48 @@
               <item name="user" type="462c0819:PsiDirectoryNode" />
               <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="osticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="osticket" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="osticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="osticket" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="osticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="osticket" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="osticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="osticket" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../MTK_ver2/osticket" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Learning\Git\VNPT_mticket\VNPT-Mtickets\osticket\user\static\js" />
+      <recent name="E:\Learning\Git\VNPT_mticket\VNPT-Mtickets\osticket\agent\templates\agent" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -157,18 +207,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="-5" width="1376" height="738" extended-state="6" />
+    <frame x="-5" y="-5" width="1930" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20833333" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13224447" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.25340137" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.2" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -177,11 +228,87 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13224447" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29666665" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="7" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="25" column="64" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2904">
+          <caret line="132" column="37" selection-start-line="132" selection-start-column="35" selection-end-line="132" selection-end-column="37" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_leader.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12144">
+          <caret line="552" selection-start-line="552" selection-end-line="552" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/ColReorderWithResize.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26994">
+          <caret line="1227" column="29" selection-start-line="1227" selection-start-column="29" selection-end-line="1227" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4818">
+          <caret line="219" column="68" selection-start-line="219" selection-start-column="68" selection-end-line="220" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/templates/user/home_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1584">
+          <caret line="72" column="48" selection-start-line="72" selection-start-column="48" selection-end-line="72" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3036">
@@ -207,9 +334,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4444">
           <caret line="202" column="164" selection-start-line="202" selection-start-column="164" selection-end-line="202" selection-end-column="164" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -217,14 +341,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5104">
           <caret line="236" column="5" lean-forward="true" selection-start-line="236" selection-start-column="5" selection-end-line="236" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/home_user.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/detail_user.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -240,13 +358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/detail_user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -254,25 +365,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_admin.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/manage_user.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-66" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2222">
-          <caret line="103" column="70" selection-start-line="103" selection-start-column="34" selection-end-line="103" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36-32/Lib/threading.py">
@@ -296,24 +391,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/confirm_admin.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/conversation.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/create_tk.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/detail_user.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="51" column="75" selection-start-line="51" selection-start-column="75" selection-end-line="51" selection-end-column="75" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/formresetpass.html">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/acc_active_email.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -333,9 +416,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-457">
           <caret line="208" column="83" selection-start-line="208" selection-start-column="83" selection-end-line="208" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -346,23 +426,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/submit_code_admin.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/history.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/home_agent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2627" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/login.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/index.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -373,37 +442,194 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/ColReorderWithResize.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
+        <state relative-caret-position="26994">
           <caret line="1227" column="29" selection-start-line="1227" selection-start-column="29" selection-end-line="1227" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/home_user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-412" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="219" column="68" lean-forward="true" selection-start-line="219" selection-start-column="68" selection-end-line="220" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="552" lean-forward="true" selection-start-line="552" selection-end-line="552" />
+        <state relative-caret-position="217">
+          <caret line="551" lean-forward="true" selection-start-line="551" selection-end-line="551" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/home_agent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="99" column="54" lean-forward="true" selection-start-line="99" selection-start-column="54" selection-end-line="99" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/home_admin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/home_leader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-856">
+          <caret line="163" column="30" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_for_leader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="33" column="106" selection-start-line="33" selection-start-column="106" selection-end-line="33" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2040" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="123" column="4" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="128" column="42" lean-forward="true" selection-start-line="126" selection-start-column="36" selection-end-line="128" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/manager_agent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-74" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_leader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="117" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/urls.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/home_user.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2156">
-          <caret line="155" selection-start-line="155" selection-end-line="155" />
+        <state relative-caret-position="2398">
+          <caret line="109" column="34" selection-start-line="105" selection-start-column="25" selection-end-line="109" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_leader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3740">
+          <caret line="170" column="86" selection-start-line="170" selection-start-column="86" selection-end-line="170" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/manager_topic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="75" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/lead_manage_topic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="652">
+          <caret line="53" column="49" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="166" column="22" selection-start-line="165" selection-start-column="8" selection-end-line="166" selection-end-column="22" />
+          <folding>
+            <element signature="n#li#0;n#ul#1;n#div#1;n#nav#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#li#1;n#ul#1;n#div#1;n#nav#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#li#2;n#ul#1;n#div#1;n#nav#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="137" column="19" selection-start-line="137" selection-start-column="19" selection-end-line="137" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1092" selection-start-line="1092" selection-end-line="1092" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+            <element signature="e#864#6231#0" />
+            <element signature="e#6268#8098#0" />
+            <element signature="e#11678#14397#0" />
+            <element signature="e#14686#17685#0" />
+            <element signature="e#17724#18946#0" />
+            <element signature="e#18985#26575#0" />
+            <element signature="e#26619#29975#0" />
+            <element signature="e#30007#33953#0" />
+            <element signature="e#34006#35325#0" />
+            <element signature="e#41640#43109#0" />
+            <element signature="e#53708#56862#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
