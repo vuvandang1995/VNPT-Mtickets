@@ -11,36 +11,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="leader_manage_agent.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+      <file leaf-file-name="home_leader.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_leader.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+            <state relative-caret-position="471">
+              <caret line="114" column="18" selection-start-line="114" selection-start-column="18" selection-end-line="114" selection-end-column="18" />
               <folding>
-                <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="leader_manage_agent.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+            <state relative-caret-position="215">
+              <caret line="985" column="24" lean-forward="true" selection-start-line="985" selection-start-column="24" selection-end-line="985" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#59#0" expanded="true" />
+                <element signature="e#864#6231#0" />
+                <element signature="e#6268#8098#0" />
+                <element signature="e#11678#14397#0" />
+                <element signature="e#14686#17685#0" />
+                <element signature="e#17724#18946#0" />
+                <element signature="e#18985#26575#0" />
+                <element signature="e#26619#29975#0" />
+                <element signature="e#30007#33953#0" />
+                <element signature="e#34006#35325#0" />
+                <element signature="e#41640#43109#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manager_topic.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+      <file leaf-file-name="home_admin.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/static/js/home_admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
-              <folding>
-                <element signature="n#div#1;n#div#0;n#!!top" />
-              </folding>
+            <state relative-caret-position="462">
+              <caret line="156" column="55" lean-forward="true" selection-start-line="156" selection-start-column="55" selection-end-line="156" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home_leader.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/static/js/home_leader.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="152" column="25" selection-start-line="152" selection-start-column="12" selection-end-line="152" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -59,6 +79,7 @@
       <find>leader</find>
       <find>list_topic</find>
       <find>topicModal</find>
+      <find>home_l</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -81,13 +102,13 @@
         <option value="$PROJECT_DIR$/user/static/js/home_leader.js" />
         <option value="$PROJECT_DIR$/agent/templates/agent/history_for_leader.html" />
         <option value="$PROJECT_DIR$/user/views.py" />
-        <option value="$PROJECT_DIR$/agent/templates/agent/home_leader.html" />
         <option value="$PROJECT_DIR$/agent/urls.py" />
-        <option value="$PROJECT_DIR$/agent/views.py" />
-        <option value="$PROJECT_DIR$/agent/templates/agent/base_leader.html" />
         <option value="$PROJECT_DIR$/user/static/js/leader_manage_agent.js" />
         <option value="$PROJECT_DIR$/user/static/js/lead_manage_topic.js" />
         <option value="$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/base_leader.html" />
+        <option value="$PROJECT_DIR$/agent/views.py" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/home_leader.html" />
       </list>
     </option>
   </component>
@@ -208,16 +229,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-5" y="-5" width="1930" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13224447" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13224447" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.2" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.2" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -261,9 +281,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="550">
           <caret line="25" column="64" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -279,7 +296,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_leader.html">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -468,20 +493,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/home_admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/home_leader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-856">
-          <caret line="163" column="30" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_for_leader.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -513,13 +524,6 @@
         <state relative-caret-position="-74" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_leader.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="117" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -541,13 +545,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2398">
           <caret line="109" column="34" selection-start-line="105" selection-start-column="25" selection-end-line="109" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_leader.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3740">
-          <caret line="170" column="86" selection-start-line="170" selection-start-column="86" selection-end-line="170" selection-end-column="86" />
         </state>
       </provider>
     </entry>
@@ -577,17 +574,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_admin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="2750">
           <caret line="137" column="19" selection-start-line="137" selection-start-column="19" selection-end-line="137" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="56" lean-forward="true" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_leader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="129" column="35" lean-forward="true" selection-start-line="129" selection-start-column="35" selection-end-line="129" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agent/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1092" selection-start-line="1092" selection-end-line="1092" />
+        <state relative-caret-position="215">
+          <caret line="985" column="24" lean-forward="true" selection-start-line="985" selection-start-column="24" selection-end-line="985" selection-end-column="24" />
           <folding>
             <element signature="e#0#59#0" expanded="true" />
             <element signature="e#864#6231#0" />
@@ -600,35 +629,32 @@
             <element signature="e#30007#33953#0" />
             <element signature="e#34006#35325#0" />
             <element signature="e#41640#43109#0" />
-            <element signature="e#53708#56862#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+    <entry file="file://$PROJECT_DIR$/user/static/js/home_admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="18" column="56" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="56" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="462">
+          <caret line="156" column="55" lean-forward="true" selection-start-line="156" selection-start-column="55" selection-end-line="156" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
+    <entry file="file://$PROJECT_DIR$/user/static/js/home_leader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+        <state relative-caret-position="322">
+          <caret line="152" column="25" selection-start-line="152" selection-start-column="12" selection-end-line="152" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_leader.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="20" column="32" lean-forward="true" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+        <state relative-caret-position="471">
+          <caret line="114" column="18" selection-start-line="114" selection-start-column="18" selection-end-line="114" selection-end-column="18" />
           <folding>
-            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

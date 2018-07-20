@@ -1070,10 +1070,11 @@ def home_leader_data(request, id):
                 else:
                     level = r'<span class ="label label-danger"> Cao </span>'
                 sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
-                option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="open/close"><i class="fa fa-power-off"></i></button>
-                            <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="delete"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-info" data-title="forward" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="forward" ></i></button>
-                            <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="history"><i class="fa fa-history"></i></a>'''
+                option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Mở / Đóng yêu cầu"><i class="fa fa-power-off"></i></button>
+                            <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Xóa yêu cầu"><i class="fa fa-trash-o"></i></button>
+                            <button type="button" class="btn btn-info" data-title="forward" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
+                            <button type="button" class="btn btn-success" data-title="change" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#change_modal"><i class="fa fa-arrow-right" data-toggle="tooltip" title="Đổi chủ đề" ></i></button>
+                            <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="Dòng thời gian"><i class="fa fa-history"></i></a>'''
                 data.append([idtk, tk.title, topic, status, level, sender, handler, str(tk.dateend)[:-16], option])
             ticket = {"data": data}
             tickets = json.loads(json.dumps(ticket))
