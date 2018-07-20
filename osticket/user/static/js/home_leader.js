@@ -5,9 +5,9 @@ $(document).ready(function(){
         $('#list_ticket_leader_'+i).DataTable({
             "columnDefs": [
                 { "width": "5%", "targets": 0 },
-                { "width": "10%", "targets": 1 },
-                { "width": "15%", "targets": 2 },
-                { "width": "10%", "targets": 3 },
+                { "width": "12%", "targets": 1 },
+                { "width": "11%", "targets": 2 },
+                { "width": "12%", "targets": 3 },
                 { "width": "10%", "targets": 4 },
                 { "width": "10%", "targets": 5 },
                 { "width": "10%", "targets": 6 },
@@ -104,7 +104,7 @@ $(document).ready(function(){
                 array2.push(array[j].replace(/\s/g,''));
             }
             var date = formatAMPM(new Date());
-            var r = confirm('Are you sure?');
+            var r = confirm('Bạn có chắc ??');
             if (r == true){
                 $.ajax({
                     type:'POST',
@@ -147,11 +147,11 @@ $(document).ready(function(){
         //$(".closefd").prop('disabled', true);
         var token = $("input[name=csrfmiddlewaretoken]").val();
         var id = $("input[name=ticketid]").val();
-
         var list_agent = [];
         var date = formatAMPM(new Date());
         $('#forward_modal input:checkbox').each(function() {
             if ($(this).is(":checked")){
+                alert(this.name);
                 list_agent.push(this.name);
             }
         });
@@ -221,4 +221,24 @@ $(document).ready(function(){
 
     });
 
+    $('#change_modal').on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+        var ticketid = button.attr('id');
+        $("input[name=ticketid]").val(ticketid);
+    });
+
+    $(".change_topic").click(function(){
+        var token = $("input[name=csrfmiddlewaretoken]").val();
+        var id = $("input[name=ticketid]").val();
+        var topicid = $("#mySelect").val();
+        $.ajax({
+            type:'POST',
+            url:location.href,
+            data: {'csrfmiddlewaretoken':token, 'ticketid_change': id, 'topicid':topicid},
+            success: function(){
+                document.getElementById("change_topic_close").click();
+                $('.tk_table').DataTable().ajax.reload();
+            }
+        });
+    });
 });

@@ -25,6 +25,9 @@ allchar = string.ascii_letters + string.digits
 MAX_UPLOAD_SIZE = 10485760
 dic = {}
 dic_time = {}
+Level_0 = 30
+Level_1 = 20
+Level_2 = 10
 
 
 class EmailThread(threading.Thread):
@@ -43,40 +46,24 @@ def history(request, id):
         result = []
         for tem in tems:
             if tem.userid is not None:
-                action = "<b>User " + str(tem.userid.username) + "</b><br/>"
+                action = "<b>User " + str(tem.userid.username) + "</b><br/>" + tem.action
             else:
-                action = "<b>Nhân viên " + str(tem.agentid.username) + "</b><br/>"
-            if tem.action == 'create ticket':
-                action += 'tạo mới yêu cầu'
+                action = "<b>Nhân viên " + str(tem.agentid.username) + "</b><br/>" + tem.action
+            if tem.action == 'tạo mới yêu cầu':
                 cont = "<span class='glyphicon glyphicon-plus' ></span>"
-            elif tem.action == 'close ticket':
-                action += 'đóng yêu yêu cầu'
+            elif tem.action == 'đóng yêu yêu cầu':
                 cont = "<span class='glyphicon glyphicon-off' ></span>"
-            elif tem.action == 'assign ticket':
-                action += 'nhận xử lý yêu cầu'
+            elif tem.action == 'nhận xử lý yêu cầu':
                 cont = "<span class='glyphicon glyphicon-pushpin' ></span>"
-            elif tem.action == 'done ticket':
-                action += 'xử lý xong yêu cầu'
+            elif tem.action == 'xử lý xong yêu cầu':
                 cont = "<span class='glyphicon glyphicon-ok' ></span>"
-            elif tem.action == 're-process ticket':
-                action += 'xử lý lại yêu cầu'
+            elif tem.action == 'xử lý lại yêu cầu':
                 cont = "<span class='glyphicon glyphicon-refresh' ></span>"
-            elif tem.action == 're-open ticket':
-                action += 'mở lại yêu cầu'
+            elif tem.action == 'mở lại yêu cầu':
                 cont = "<span class='glyphicon glyphicon-repeat' ></span>"
-            elif tem.action == 'give up ticket':
-                action += 'từ bỏ xử lý yêu cầu'
+            elif tem.action == 'từ bỏ xử lý yêu cầu':
                 cont = "<span class='glyphicon glyphicon-log-out' ></span>"
-            elif tem.action == 'join to handler ticket':
-                action += 'tham gia xử lý yêu cầu'
-                cont = "<span class='glyphicon glyphicon-user' ></span>"
-            elif "received ticket forward from (agent)" in tem.action:
-                action += str(tem.action).replace('received ticket forward from (agent)',
-                                                  'nhận xử lý yêu cầu được chuyển từ nhân viên')
-                cont = "<span class='glyphicon glyphicon-user' ></span>"
-            elif "received ticket forward from (leader)" in tem.action:
-                action += str(tem.action).replace('received ticket forward from (leader)',
-                                                  'nhận xử lý yêu cầu được giao từ quản trị')
+            elif tem.action == 'tham gia xử lý yêu cầu':
                 cont = "<span class='glyphicon glyphicon-user' ></span>"
             else:
                 cont = "<span class='glyphicon glyphicon-user' ></span>"
@@ -92,7 +79,7 @@ def history(request, id):
         elif maxtime.ticketid.status == 1:
             status = '<font color="orange">đang xử lý</font>'
         elif maxtime.ticketid.status == 2:
-            status = '<font color="green">xong</font>'
+            status = '<font color="green">hoàn thành</font>'
         else:
             status = '<font color="gray">đóng</font>'
         tim = str(timezone.datetime.combine(maxtime.date, maxtime.time) - timezone.datetime.combine(
@@ -134,7 +121,7 @@ def homeuser(request):
                 ticket.save()
                 TicketLog.objects.create(userid=user,
                                          ticketid=ticket,
-                                         action='close ticket',
+                                         action='đóng yêu cầu',
                                          date=timezone.now().date(),
                                          time=timezone.now().time())
                 try:
@@ -168,7 +155,12 @@ def homeuser(request):
                     ticket.topicid = Topics.objects.get(id=request.POST['topic'])
                     ticket.lv_priority = request.POST['level']
                     ticket.datestart = timezone.now()
-                    ticket.dateend = (timezone.now() + timezone.timedelta(days=3))
+                    if request.POST['level'] == 0:
+                        ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_0))
+                    elif request.POST['level'] == 1:
+                        ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_1))
+                    else:
+                        ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_2))
                     if request.FILES.get('attach') is not None:
                         if request.FILES['attach']._size < MAX_UPLOAD_SIZE:
                             ticket.attach = request.FILES['attach']
@@ -178,7 +170,7 @@ def homeuser(request):
                     ticket.save()
                     TicketLog.objects.create(userid=user,
                                              ticketid=ticket,
-                                             action='create ticket',
+                                             action='tạo mới yêu cầu',
                                              date=timezone.now().date(),
                                              time=timezone.now().time())
                     # if topicA.type_send == 1:
@@ -237,7 +229,10 @@ def user_data(request):
                 level = r'<span class ="label label-warning"> Trung bình </span>'
             else:
                 level = r'<span class ="label label-danger"> Cao </span>'
-            data.append([id, tk.topicid.name, tk.title, level, status, handler, option])
+            if tk.expired == 1:
+                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            datestart = tk.datestart + timezone.timedelta(hours=7)
+            data.append([id, tk.topicid.name, tk.title, str(datestart)[:-16], level, status, handler, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -287,7 +282,7 @@ def login_user(request):
     mess_resetpwd_ok = 'Hãy kiểm tra email của bạn để cập nhật lại mật khẩu'
     mess_register_error = 'Thông tin đăng ký không hợp lý'
     mess_register_ok = 'Hãy kiểm tra email của bạn để hoàn tất đăng ký'
-    mess_login_error = 'đăng nhập thất bại'
+    mess_login_error = 'Đăng nhập thất bại'
     if request.session.has_key('user')and (Users.objects.get(username=request.session['user'])).status == 1:
         return redirect("/user")
     elif request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
@@ -454,7 +449,7 @@ def activate(request, uidb64, token):
         user.save()
         return redirect('/')
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Đường dẫn không hợp lệ!')
 
 
 def resetpwd(request, uidb64, token):
@@ -474,7 +469,7 @@ def resetpwd(request, uidb64, token):
                 return redirect('/')
         return render(request, 'user/formresetpass.html', {})
     else:
-        return HttpResponse('Activation link is invalid!')
+        return HttpResponse('Đường dẫn không hợp lệ!!')
 
 
 def agresetpwd(request, uidb64, token):

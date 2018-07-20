@@ -1,7 +1,7 @@
 {% autoescape off %}
-Hi {{ receiver.fullname }},
-{{sender.fullname}} just finished your ticket.
-Click link below to check
+Xin chào {{ receiver.fullname }},
+{{sender.fullname}} vừa xử lý xong yêu cầu của bạn.
+Hãy kiểm tra
 http://{{ domain }}{% url 'user:homeuser'%}
-Thank for your patience!
+Cảm ơn!
 {% endautoescape %}

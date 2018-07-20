@@ -81,39 +81,64 @@
                             </div>
                         </div>
                     {% endfor%}
-                    <div id="forward_modal" class="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Agent List</h3>
-                        </div>
-                        <div class="modal-body form-group">
-                            {% for tp in topic %}
-                                <div class="tpic" style="display:none;">
-                                    <input type="hidden" value="{{tp.name}}">
-                                    {% for key,value in list_ag.items %}
-                                        {% if key == tp.name %}
-                                            {% for va in value %}
-                                                <div id="{{ va.username }}">
-                                                    <input class="inputText" type="checkbox" name="{{ va.username }}" > {{ va.username }} - {{va.fullname}} <br>
-                                                </div>
-                                            {% endfor %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
-                            <input type="hidden" name="ticketid" value="">
-                        </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success forward_ticket">Forward</button>
-                            <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "forward_ticket_close">Close</button>
-                            <center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>
+                {% endfor %}
+                <div id="forward_modal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Danh sách nhân viên xử lý</h3>
+                            </div>
+                            <div class="modal-body form-group">
+                                {% for tp in topic %}
+                                    <div class="tpic" style="display:none;">
+                                        <input type="hidden" value="{{tp.name}}">
+                                        {% for key,value in list_ag.items %}
+                                            {% if key == tp.name %}
+                                                {% for va in value %}
+                                                    <div id="{{ va.username }}">
+                                                        <input class="inputText" type="checkbox" name="{{ va.username }}" > {{ va.username }} - {{va.fullname}} <br>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                                <input type="hidden" name="ticketid" value="">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success forward_ticket">Chuyển tiếp</button>
+                                <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "forward_ticket_close">Đóng</button>
+                                <center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                {% endfor %}
+
+                <div id="change_modal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Chuyển chủ đề</h3>
+                            </div>
+                            <div class="modal-body form-group">
+                                <select name="topic" class="form-control" id="mySelect">
+                                     {% for tp in topic_all %}
+                                        <option value="{{tp.id}}" name="{{tp.name}}">{{tp.name}} - {{tp.description}}</option>
+                                     {% endfor %}
+                                 </select>
+                                <input type="hidden" name="ticketid" value="">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success change_topic">Chuyển</button>
+                                <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "change_topic_close">Đóng</button>
+                                <center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- End PAge Content -->
             </div>
 

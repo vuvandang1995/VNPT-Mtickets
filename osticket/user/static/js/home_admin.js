@@ -3,11 +3,11 @@ $(document).ready(function(){
         "columnDefs": [
             { "width": "5%", "targets": 0 },
             { "width": "20%", "targets": 1 },
-            { "width": "15%", "targets": 2 },
-            { "width": "5%", "targets": 3 },
-            { "width": "10%", "targets": 4 },
-            { "width": "5%", "targets": 5 },
-            { "width": "40%", "targets": 6 },
+            { "width": "20%", "targets": 2 },
+            { "width": "15%", "targets": 3 },
+            { "width": "12%", "targets": 4 },
+            { "width": "13%", "targets": 5 },
+            { "width": "15%", "targets": 6 },
         ],
         "ajax": {
             "type": "GET",
@@ -135,7 +135,6 @@ $(document).ready(function(){
            });
         }
     });
-
     $(".forward_ticket").click(function(){
         $('.loading').show();
         $(this).prop('disabled', true);
@@ -143,7 +142,7 @@ $(document).ready(function(){
         //$(".closefd").prop('disabled', true);
         var token = $("input[name=csrfmiddlewaretoken]").val();
         var id = $("input[name=ticketid]").val();
-        
+
         var list_agent = [];
         var date = formatAMPM(new Date());
         $('#forward_modal input:checkbox').each(function() {
@@ -157,7 +156,7 @@ $(document).ready(function(){
             data: {'list_agent[]': JSON.stringify(list_agent),'csrfmiddlewaretoken':token, 'ticketid': id},
             success: function(){
                 document.getElementById("forward_ticket_close").click();
-                $('#list_ticket_leader').DataTable().ajax.reload();
+                $('.tk_table').DataTable().ajax.reload();
                 list_agent.push('leader_forward');
                 list_agent.push(id);
                 group_agent_Socket.send(JSON.stringify({
@@ -173,7 +172,7 @@ $(document).ready(function(){
                 'ws://' + window.location.host +
                 '/ws/user/' + sender + '/');
 
-                message = 'Ticket '+id+' is processing by admin!' 
+                message = 'Ticket '+id+' is processing by admin!'
                 Socket1.onopen = function (event) {
                     setTimeout(function(){
                         Socket1.send(JSON.stringify({
@@ -214,7 +213,9 @@ $(document).ready(function(){
                 $('input[name='+array[i].replace(/\s/g,'')+']').prop('checked', true);
             }
         }
-        
+
     });
+
+
     
 });

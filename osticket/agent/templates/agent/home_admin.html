@@ -6,11 +6,11 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Quản lý yêu cầu</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                        <li class="breadcrumb-item active">Quản lý yêu cầu</li>
                     </ol>
                 </div>
             </div>
@@ -93,12 +93,12 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Title</th>
-                                            <th>Topic</th>
-                                            <th>Sender</th>
-                                            <th>Status</th>
-                                            <th>Handler</th>
-                                            <th>Độ ưu tiên</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Chủ đề</th>
+                                            <th>Người gửi</th>
+                                            <th>Ưu tiên</th>
+                                            <th>Trạng thái</th>
+                                            <th>Người xử lý</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -141,38 +141,38 @@
                         </div>
                     </div>
                 {% endfor%}
-            <div id="forward_modal" class="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Agent List</h3>
-                        </div>
-                        <div class="modal-body form-group">
-                            {% for tp in topic %}
-                                <div class="tpic" style="display:none;">
-                                    <input type="hidden" value="{{tp.name}}">
-                                    {% for key,value in list_ag.items %}
-                                        {% if key == tp.name %}
-                                            {% for va in value %}
-                                                <div id="{{ va.username }}">
-                                                    <input class="inputText" type="checkbox" name="{{ va.username }}" > {{ va.username }} - {{va.fullname}} <br>
-                                                </div>
-                                            {% endfor %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
-                            <input type="hidden" name="ticketid" value="">
-                        </div>
+            <!--<div id="forward_modal" class="modal">-->
+                <!--<div class="modal-dialog">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<h3 class="modal-title">Agent List</h3>-->
+                        <!--</div>-->
+                        <!--<div class="modal-body form-group">-->
+                            <!--{% for tp in topic %}-->
+                                <!--<div class="tpic" style="display:none;">-->
+                                    <!--<input type="hidden" value="{{tp.name}}">-->
+                                    <!--{% for key,value in list_ag.items %}-->
+                                        <!--{% if key == tp.name %}-->
+                                            <!--{% for va in value %}-->
+                                                <!--<div id="{{ va.username }}">-->
+                                                    <!--<input class="inputText" type="checkbox" name="{{ va.username }}" > {{ va.username }} - {{va.fullname}} <br>-->
+                                                <!--</div>-->
+                                            <!--{% endfor %}-->
+                                        <!--{% endif %}-->
+                                    <!--{% endfor %}-->
+                                <!--</div>-->
+                            <!--{% endfor %}-->
+                            <!--<input type="hidden" name="ticketid" value="">-->
+                        <!--</div>-->
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success forward_ticket">Forward</button>
-                            <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "forward_ticket_close">Close</button>
-                            <center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <!--<div class="modal-footer">-->
+                            <!--<button type="button" class="btn btn-success forward_ticket">Forward</button>-->
+                            <!--<button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "forward_ticket_close">Close</button>-->
+                            <!--<center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <!-- End Container fluid  -->
             <!-- footer -->
             <!-- End footer -->

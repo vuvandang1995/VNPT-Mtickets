@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
-
+from user.views import EmailThread
 from user.models import *
 from .forms import ForwardForm, AddForm
 from django.core.mail import EmailMessage
@@ -59,13 +59,13 @@ def home_admin(request):
                 if tk.status == 3:
                     if not TicketAgent.objects.filter(ticketid=tk):
                         tk.status = 0
-                        action = "re-open ticket"
+                        action = "mở lại yêu cầu"
                     else:
                         tk.status = 1
-                        action = "re-process ticket"
+                        action = "xử lý lại yêu cầu"
                 else:
                     tk.status = 3
-                    action = "close ticket"
+                    action = "đóng yêu cầu"
                 tk.save()
                 TicketLog.objects.create(agentid=admin, ticketid=tk,
                                          action=action,
@@ -90,7 +90,7 @@ def home_admin(request):
                         tkag1.delete()
                         tk.status = 0
                         tk.save()
-                        action = "received ticket forward from (admin)" + admin.username
+                        action = "nhận yêu cầu được giao bởi (admin)" + admin.username
                         tklog = TicketLog.objects.filter(action=action)
                         tklog.delete()
                     except:
@@ -101,7 +101,7 @@ def home_admin(request):
                         tk = Tickets.objects.get(id=ticketid)
                         tkag1 = TicketAgent.objects.filter(ticketid=tk)
                         tkag1.delete()
-                        action = "received ticket forward from (admin)" + admin.username
+                        action = "nhận yêu cầu được giao bởi (admin)" + admin.username
                         tklog = TicketLog.objects.filter(action=action)
                         tklog.delete()
                     except:
@@ -113,7 +113,7 @@ def home_admin(request):
                         tkag.save()
                         tk.status = 1
                         tk.save()
-                        action = "received ticket forward from (admin)" + admin.username
+                        action = "nhận yêu cầu được giao bởi (admin)" + admin.username
                         if agent.receive_email == 1:
                             email = EmailMessage(
                                 'Forward ticket',
@@ -124,7 +124,8 @@ def home_admin(request):
                                                   'sender': 'Leader'}),
                                 to=[agent.email],
                             )
-                            email.send()
+                            thread = EmailThread(email)
+                            thread.start()
                         TicketLog.objects.create(agentid=agent, ticketid=tk,
                                                  action=action,
                                                  date=timezone.now().date(),
@@ -141,7 +142,7 @@ def home_admin_data(request):
         for tk in tk:
             if tk.status == 0:
                 status = r'<span class ="label label-danger" id="leader'+str(tk.id)+'">Chờ</span>'
-                handler = '<p id="hd' + str(tk.id) + '">Nobody</p>'
+                handler = '<p id="hd' + str(tk.id) + '">Không có ai</p>'
             else:
                 if tk.status == 1:
                     status = r'<span class ="label label-warning" id="leader'+str(tk.id)+'">Đang xử lý</span>'
@@ -162,7 +163,9 @@ def home_admin_data(request):
                level = r'<span class ="label label-warning"> Trung bình </span>'
             else:
                level = r'<span class ="label label-danger"> Cao </span>'
-            data.append([id, tk.title, topic, sender, status, handler, level])
+            if tk.expired == 1:
+                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            data.append([id, tk.title, topic, sender, level, status, handler])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -174,9 +177,9 @@ def manager_topic(request):
         agent = Agents.objects.exclude(username=request.session['admin'])
         tp = Topics.objects.all()
         content = {'topic': Topics.objects.all(),
-                    'admin': admin, 
-                    'today': timezone.now().date(), 
-                    'agent_name': mark_safe(json.dumps(admin.username)),
+                   'admin': admin,
+                   'today': timezone.now().date(),
+                   'agent_name': mark_safe(json.dumps(admin.username)),
                    'fullname': mark_safe(json.dumps(admin.fullname)), 
                    'agent':agent,}
         if request.method == 'POST':
@@ -352,22 +355,23 @@ def home_agent(request):
                 ticket = Tickets.objects.get(id=request.POST['tkid'])
                 ticket.status = 1
                 ticket.save()
-                TicketLog.objects.create(agentid=agent, ticketid=ticket, action='assign ticket',
+                TicketLog.objects.create(agentid=agent, ticketid=ticket, action='nhận xử lý yêu cầu',
                                          date=timezone.now().date(),
                                          time=timezone.now().time())
                 TicketAgent.objects.create(agentid=agent, ticketid=ticket)
                 user = Users.objects.get(id=ticket.sender.id)
-                # if user.receive_email == 1:
-                #     email = EmailMessage(
-                #         'Assign ticket',
-                #         render_to_string('agent/mail/assign_mail.html',
-                #                          {'receiver': user,
-                #                           'domain': (get_current_site(request)).domain,
-                #                           'sender': agent,
-                #                           'ticketid': ticket.id}),
-                #         to=[user.email],
-                #     )
-                #     email.send()
+                if user.receive_email == 1:
+                    email = EmailMessage(
+                        'nhận xử lý yêu cầu',
+                        render_to_string('agent/mail/assign_mail.html',
+                                         {'receiver': user,
+                                          'domain': (get_current_site(request)).domain,
+                                          'sender': agent,
+                                          'ticketid': ticket.id}),
+                        to=[user.email],
+                    )
+                    thread = EmailThread(email)
+                    thread.start()
             if 'noti_noti' in request.POST:
                 agent.noti_noti = 0
                 agent.save()
@@ -385,14 +389,14 @@ def assign_ticket(request, id):
         agent = Agents.objects.get(username=request.session['agent'])
         ticket.status = 1
         ticket.save()
-        TicketLog.objects.create(agentid=agent, ticketid=ticket, action='assign ticket',
+        TicketLog.objects.create(agentid=agent, ticketid=ticket, action='nhận xử lý yêu cầu',
                                  date=timezone.now().date(),
                                  time=timezone.now().time())
         TicketAgent.objects.create(agentid=agent, ticketid=ticket)
         user = Users.objects.get(id=ticket.sender.id)
         if user.receive_email == 1:
             email = EmailMessage(
-                'Assign ticket',
+                'nhận xử lý yêu cầu',
                 render_to_string('agent/mail/assign_mail.html',
                                  {'receiver': user,
                                  'domain': "113.190.232.90:8892",
@@ -401,7 +405,8 @@ def assign_ticket(request, id):
                                   'ticketid': ticket.id}),
                 to=[user.email],
             )
-            email.send()
+            thread = EmailThread(email)
+            thread.start()
         return redirect("/agent")
     else:
         return redirect("/")
@@ -458,17 +463,18 @@ def processing_ticket(request):
                                     ForwardTickets.objects.get(senderid=sender, receiverid=rc, ticketid=tk)
                                 except ObjectDoesNotExist:
                                     ForwardTickets.objects.create(senderid=sender, receiverid=rc, ticketid=tk,content=text)
-                                    # if rc.receive_email == 1:
-                                    #     email = EmailMessage(
-                                    #         'Forward ticket',
-                                    #         render_to_string('agent/mail/forward_mail.html',
-                                    #                         {'receiver': rc,
-                                    #                         'domain': "113.190.232.90:8892",
-                                    #                         # 'domain': (get_current_site(request)).domain,
-                                    #                         'sender': sender}),
-                                    #         to=[rc.email],
-                                    #     )
-                                    #     email.send()
+                                    if rc.receive_email == 1:
+                                        email = EmailMessage(
+                                            'Chuyển yêu cầu',
+                                            render_to_string('agent/mail/forward_mail.html',
+                                                            {'receiver': rc,
+                                                            'domain': "113.190.232.90:8892",
+                                                            # 'domain': (get_current_site(request)).domain,
+                                                            'sender': sender}),
+                                            to=[rc.email],
+                                        )
+                                        thread = EmailThread(email)
+                                        thread.start()
                     return redirect("/agent/processing_ticket")
                 elif request.POST['type'] == 'add_agent':
                     list_agent = request.POST['list_agent[]']
@@ -487,7 +493,7 @@ def processing_ticket(request):
                                     AddAgents.objects.create(senderid=sender, receiverid=rc, ticketid=tk, content=text)
                                     if rc.receive_email == 1:
                                         email = EmailMessage(
-                                            'Add in a ticket',
+                                            'Thêm vào xử lý yêu cầu',
                                             render_to_string('agent/mail/add_mail.html',
                                                             {'receiver': rc,
                                                             'domain': "113.190.232.90:8892",
@@ -495,7 +501,8 @@ def processing_ticket(request):
                                                             'sender': sender}),
                                             to=[rc.email]
                                         )
-                                        email.send()
+                                        thread = EmailThread(email)
+                                        thread.start()
                     return redirect("/agent/processing_ticket")
                 elif request.POST['type'] == 'process_done':
                     tkid = request.POST['tkid']
@@ -504,21 +511,22 @@ def processing_ticket(request):
                     ticket.status = stt
                     ticket.save()
                     if stt == 1:
-                        action = 're-process ticket'
+                        action = 'xử lý lại yêu cầu'
                     else:
-                        action = 'done ticket'
+                        action = 'xử lý xong yêu cầu'
                         user = Users.objects.get(id=ticket.sender.id)
-                        # if user.receive_email == 1:
-                        #     email = EmailMessage(
-                        #         'Finished ticket',
-                        #         render_to_string('agent/mail/done_mail.html',
-                        #                         {'receiver': user,
-                        #                         'domain': (get_current_site(request)).domain,
-                        #                         'sender': sender,
-                        #                         'ticketid': ticket.id}),
-                        #         to=[user.email],
-                        #     )
-                        #     email.send()
+                        if user.receive_email == 1:
+                            email = EmailMessage(
+                                'Yêu cầu đã xử lý xong',
+                                render_to_string('agent/mail/done_mail.html',
+                                                {'receiver': user,
+                                                'domain': (get_current_site(request)).domain,
+                                                'sender': sender,
+                                                'ticketid': ticket.id}),
+                                to=[user.email],
+                            )
+                            thread = EmailThread(email)
+                            thread.start()
                     TicketLog.objects.create(agentid=sender, ticketid=ticket,
                                             action=action,
                                             date=timezone.now().date(),
@@ -530,7 +538,7 @@ def processing_ticket(request):
                     except MultipleObjectsReturned:
                         tk = TicketAgent.objects.get(ticketid=ticket, agentid=sender)
                         tk.delete()
-                        TicketLog.objects.create(agentid=sender, ticketid=ticket, action='give up ticket',
+                        TicketLog.objects.create(agentid=sender, ticketid=ticket, action='từ bỏ xử lý yêu cầu',
                                                 date=timezone.now().date(),
                                                 time=timezone.now().time())
         return render(request, 'agent/processing_ticket.html', content)
@@ -547,11 +555,11 @@ def processing_ticket_data(request):
         for tk in tksdpr:
             option = ''
             if tk.status == 1:
-                status = r'<span class ="label label-warning" > Processing</span>'
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_done" data-toggle="tooltip" title="done" ><i class="fa fa-check"></i></button>'''
+                status = r'<span class ="label label-warning" > Đang xử lý</span>'
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_done" data-toggle="tooltip" title="Hoàn thành" ><i class="fa fa-check"></i></button>'''
             else:
-                status = r'<span class ="label label-success" > Done</span>'
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_processing" data-toggle="tooltip" title="process" ><i class="fa fa-wrench"></i></button>'''
+                status = r'<span class ="label label-success" > Hoàn thành</span>'
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_processing" data-toggle="tooltip" title="Xử lý" ><i class="fa fa-wrench"></i></button>'''
             id = r'''<th scope="row"><button type="button" class="btn" data-toggle="modal" data-target="#''' + str(tk.id) + '''content">''' + str(tk.id) + '''</button></th>'''
             handler = '<p id="hd' + str(tk.id) + '">'
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
@@ -561,14 +569,16 @@ def processing_ticket_data(request):
                 handler += t.agentid.username + "<br>"
             handler += '</p>'
             option += r'''<input type="hidden" id="user''' + str(tk.id) + '''" value="'''+tk.sender.username+'''">
-            <a href='javascript:register_popup_agent("chat''' + str(tk.id) + '''", ''' + str(tk.id) + ''', "'''+tk.sender.fullname+'''", "'''+tk.sender.username+'''");' type="button" class="btn btn-primary" data-toggle="tooltip" title="conversation" id="chat_with_user"><i class="fa fa-commenting"></i><input type="hidden" value="''' + str(tk.id) + '''"/></a>
-            <button id="''' + str(tk.id) + '''" type="button" class="btn btn-info fw_agent" data-toggle="modal" data-title="forward" data-target="#forward_add"><i class="fa fa-share-square-o" data-toggle="tooltip" title="forward" ></i></button>
-            <button id="''' + str(tk.id) + '''" type="button" class="btn btn-info add_agent" data-toggle="modal" data-title="add" data-target="#forward_add"><i class="fa fa-user-plus" data-toggle="tooltip" title="add" ></i></button>'''
+            <a href='javascript:register_popup_agent("chat''' + str(tk.id) + '''", ''' + str(tk.id) + ''', "'''+tk.sender.fullname+'''", "'''+tk.sender.username+'''");' type="button" class="btn btn-primary" data-toggle="tooltip" title="Trò chuyện" id="chat_with_user"><i class="fa fa-commenting"></i><input type="hidden" value="''' + str(tk.id) + '''"/></a>
+            <button id="''' + str(tk.id) + '''" type="button" class="btn btn-info fw_agent" data-toggle="modal" data-title="forward" data-target="#forward_add"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
+            <button id="''' + str(tk.id) + '''" type="button" class="btn btn-info add_agent" data-toggle="modal" data-title="add" data-target="#forward_add"><i class="fa fa-user-plus" data-toggle="tooltip" title="Thêm nhân viên" ></i></button>'''
             if tem == 1:
-                option += r'''<button id="''' + str(tk.id) + '''" disabled type="button" class="btn btn-danger give_up" data-toggle="tooltip" title="give up" ><i class="fa fa-minus-circle"></i></button>'''
+                option += r'''<button id="''' + str(tk.id) + '''" disabled type="button" class="btn btn-danger give_up" data-toggle="tooltip" title="Từ bỏ" ><i class="fa fa-minus-circle"></i></button>'''
             else:
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-danger give_up" data-toggle="tooltip" title="give up" ><i class="fa fa-minus-circle"></i></button>'''
-            option +='''<a target="_blank" href="/agent/history/'''+str(tk.id)+ '''" type="button" class="btn btn-warning" data-toggle="tooltip" title="history" ><span class="glyphicon glyphicon-floppy-disk" ></span><i class="fa fa-history"></i></a>'''
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-danger give_up" data-toggle="tooltip" title="Từ bỏ" ><i class="fa fa-minus-circle"></i></button>'''
+            option +='''<a target="_blank" href="/agent/history/'''+str(tk.id)+ '''" type="button" class="btn btn-warning" data-toggle="tooltip" title="Dòng thời gian" ><span class="glyphicon glyphicon-floppy-disk" ></span><i class="fa fa-history"></i></a>'''
+            if tk.expired == 1:
+                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
             data.append([id, tk.title, topic, handler, status, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
@@ -584,38 +594,23 @@ def history(request,id):
                 action = "<b>User " + str(tem.userid.username) + "</b><br/>"
             else:
                 if tem.agentid.admin == 0:
-                    action = "<b>Nhân viên " + str(tem.agentid.username) + "</b><br/>"
+                    action = "<b>Nhân viên " + str(tem.agentid.username) + "</b><br/>" + tem.action
                 else:
-                    action = "<b>Quản trị " + str(tem.agentid.username) + "</b><br/>"
-            if tem.action == 'create ticket':
-                action += 'tạo mới yêu cầu'
+                    action = "<b>Quản trị " + str(tem.agentid.username) + "</b><br/>" + tem.action
+            if tem.action == 'tạo mới yêu cầu':
                 cont = "<i class='fa fa-plus' ></i>"
-            elif tem.action == 'close ticket':
-                action += 'đóng yêu yêu cầu'
+            elif tem.action == 'đóng yêu cầu':
                 cont = "<i class='fa fa-power-off' ></i>"
-            elif tem.action == 'assign ticket':
-                action += 'nhận xử lý yêu cầu'
+            elif tem.action == 'nhận xử lý yêu cầu':
                 cont = "<i class='fa fa-thumb-tack' ></i>"
-            elif tem.action == 'done ticket':
-                action += 'xử lý xong yêu cầu'
+            elif tem.action == 'xử lý xong yêu cầu':
                 cont = "<i class='fa fa-check' ></i>"
-            elif tem.action == 're-process ticket':
-                action += 'xử lý lại yêu cầu'
+            elif tem.action == 'xử lý lại yêu cầu':
                 cont = "<i class='fa fa-refresh' ></i>"
-            elif tem.action == 're-open ticket':
-                action += 'mở lại yêu cầu'
+            elif tem.action == 'mở lại yêu cầu':
                 cont = "<i class='fa fa-repeat' ></i>"
-            elif tem.action == 'give up ticket':
-                action += 'từ bỏ xử lý yêu cầu'
+            elif tem.action == 'từ bỏ xử lý yêu cầu':
                 cont = "<i class='fa fa-sign-out' ></i>"
-            elif "received ticket forward from (agent)" in tem.action:
-                action += str(tem.action).replace('received ticket forward from (agent)',
-                                                  'nhận xử lý yêu cầu được chuyển từ nhân viên ')
-                cont = "<i class='fa fa-user-secret' ></i>"
-            elif "received ticket forward from (leader)" in tem.action:
-                action += str(tem.action).replace('received ticket forward from (leader)',
-                                                  'nhận xử lý yêu cầu được giao từ quản trị ')
-                cont = "<i class='fa fa-user-secret' ></i>"
             else:
                 cont = "<i class='fa fa-user-secret' ></i>"
             result.append({"id": tem.id,
@@ -626,17 +621,17 @@ def history(request,id):
         maxtime = TicketLog.objects.filter(ticketid=id).latest('id')
         mintime = TicketLog.objects.filter(ticketid=id).earliest('id')
         if maxtime.ticketid.status == 0:
-            status = '<font color="red">pending</font>'
+            status = '<font color="red"> chờ </font>'
         elif maxtime.ticketid.status == 1:
-            status = '<font color="orange">processing</font>'
+            status = '<font color="orange"> đang xử lý </font>'
         elif maxtime.ticketid.status == 2:
-            status = '<font color="green">done</font>'
+            status = '<font color="green"> hoàn thành </font>'
         else:
-            status = '<font color="gray">close</font>'
+            status = '<font color="gray"> đóng </font>'
         tim = str(timezone.datetime.combine(maxtime.date, maxtime.time) - timezone.datetime.combine(
             mintime.date, mintime.time))[:-7]
         result.append({"id": 0,
-                       "content": "Ticket no."+str(id)+" " + status + " (exist time " + tim + ")",
+                       "content": "Yêu cầu số "+str(id)+" " + status + " (thời gian tồn tại " + tim + ")",
                        "type": "point",
                        "group": "overview",
                        "start": str(mintime.date) + "T" + str(mintime.time)[:-7]})
@@ -706,7 +701,7 @@ def inbox(request):
                 if 'agree' not in request.POST:
                     if sender.receive_email == 1:
                         email = EmailMessage(
-                            'Deny forward request',
+                            'Từ chối nhận xử lý yêu cầu',
                             render_to_string('agent/mail/deny_mail.html',
                                              {'receiver': sender,
                                              'domain': "113.190.232.90:8892",
@@ -714,20 +709,21 @@ def inbox(request):
                                               'sender': agent}),
                             to=[sender.email]
                         )
-                        email.send()
+                        thread = EmailThread(email)
+                        thread.start()
                 else:
                     try:
                         TicketAgent.objects.get(ticketid=ticket, agentid=agent)
                     except TicketAgent.DoesNotExist:
                         agticket.agentid = agent
                         agticket.save()
-                        action = "received ticket forward from (agent)" + sender.username
+                        action = "nhận xử lý yêu cầu được gửi bởi nhân viên " + sender.username
                         TicketLog.objects.create(agentid=agent, ticketid=ticket, action=action,
                                                  date=timezone.now().date(),
                                                  time=timezone.now().time())
                         if sender.receive_email == 1:
                             email = EmailMessage(
-                                'Accept forward request',
+                                'Chấp nhận yêu cầu chuyển đến',
                                 render_to_string('agent/mail/accept_mail.html',
                                                  {'receiver': sender,
                                                  'domain': "113.190.232.90:8892",
@@ -735,7 +731,8 @@ def inbox(request):
                                                   'sender': agent}),
                                 to=[sender.email]
                             )
-                            email.send()
+                            thread = EmailThread(email)
+                            thread.start()
                     else:
                         agticket.delete()
             elif 'add' in request.POST:
@@ -752,7 +749,7 @@ def inbox(request):
                 if 'agree' not in request.POST:
                     if sender.receive_email == 1:
                         email = EmailMessage(
-                            'Deny add request',
+                            'Từ chối',
                             render_to_string('agent/mail/deny_mail.html',
                                              {'receiver': sender,
                                              'domain': "113.190.232.90:8892",
@@ -760,19 +757,20 @@ def inbox(request):
                                               'sender': agent}),
                             to=[sender.email]
                         )
-                        email.send()
+                        thread = EmailThread(email)
+                        thread.start()
                 else:
                     try:
                         TicketAgent.objects.get(ticketid=ticket, agentid=agent)
                     except TicketAgent.DoesNotExist:
                         TicketAgent.objects.create(ticketid=ticket, agentid=agent)
-                        action = 'join to handler ticket'
+                        action = 'tham gia xử lý yêu cầu'
                         TicketLog.objects.create(agentid=agent, ticketid=ticket, action=action,
                                                  date=timezone.now().date(),
                                                  time=timezone.now().time())
                         if sender.receive_email == 1:
                             email = EmailMessage(
-                                'Accept add request',
+                                'Chấp nhận yêu cầu',
                                 render_to_string('agent/mail/accept_mail.html',
                                                  {'receiver': sender,
                                                  'domain': "113.190.232.90:8892",
@@ -780,7 +778,8 @@ def inbox(request):
                                                   'sender': agent}),
                                 to=[sender.email]
                             )
-                            email.send()
+                            thread = EmailThread(email)
+                            thread.start()
             elif 'noti_noti' in request.POST:
                 agent.noti_noti = 0
                 agent.save()
@@ -927,12 +926,13 @@ def manage_user_data(request):
         data = []
         for us in users:
             if us.status == 0:
-                st = r'''<p id="stt''' + str(us.id) +'''"><span class="label label-danger">inactive</span></p>'''
-                option = r'''<p id="button''' + str(us.id) +'''"><button id="''' + str(us.id) + '''" class="unblock btn btn-success" type="button" data-toggle="tooltip" title="unblock" ><span class="glyphicon glyphicon glyphicon-ok" ></span> Unblock</button></p>'''
+                st = r'''<p id="stt''' + str(us.id) +'''"><span class="label label-danger">Khóa</span></p>'''
+                option = r'''<p id="button''' + str(us.id) +'''"><button id="''' + str(us.id) + '''" class="unblock btn btn-success" type="button" data-toggle="tooltip" title="mở khóa" ><span class="glyphicon glyphicon glyphicon-ok" ></span> Mở khóa</button></p>'''
             else:
-                st = r'''<p id="stt''' + str(us.id) +'''"><span class="label label-success">active</span></p>'''
-                option = r'''<p id="button''' + str(us.id) +'''"><button id="''' + str(us.id) + '''" class="block btn btn-danger" type="button" data-toggle="tooltip" title="block" ><span class="glyphicon glyphicon-lock" ></span> Block</button></p>'''
-            data.append([us.id, us.fullname, us.email, us.username, st, str(us.created)[:-13], option])
+                st = r'''<p id="stt''' + str(us.id) +'''"><span class="label label-success">Kích hoạt</span></p>'''
+                option = r'''<p id="button''' + str(us.id) +'''"><button id="''' + str(us.id) + '''" class="block btn btn-danger" type="button" data-toggle="tooltip" title="Khóa" ><span class="glyphicon glyphicon-lock" ></span> Khóa</button></p>'''
+            created = us.created + timezone.timedelta(hours=7)
+            data.append([us.id, us.fullname, us.email, us.username, st, str(created)[:-16], option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -941,6 +941,7 @@ def manage_user_data(request):
 def home_leader(request):
     if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
         leader = Agents.objects.get(username=request.session.get('leader'))
+        print(leader.username)
         list_topic = Topics.objects.filter(leader=leader)
         list_ticket = {}
         list_ag = {}
@@ -954,84 +955,90 @@ def home_leader(request):
                    'list_ag': list_ag,
                    'agent_name': mark_safe(json.dumps(leader.username)),
                    'fullname': mark_safe(json.dumps(leader.fullname)),
+                   'topic_all': Topics.objects.all()
                    }
-        if request.method == 'POST':
-            if 'close' in request.POST:
-                ticketid = request.POST['close']
-                tk = Tickets.objects.get(id=ticketid)
-                if tk.status == 3:
-                    if not TicketAgent.objects.filter(ticketid=tk):
-                        tk.status = 0
-                        action = "re-open ticket"
-                    else:
-                        tk.status = 1
-                        action = "re-process ticket"
+        if 'close' in request.POST:
+            ticketid = request.POST['close']
+            tk = Tickets.objects.get(id=ticketid)
+            if tk.status == 3:
+                if not TicketAgent.objects.filter(ticketid=tk):
+                    tk.status = 0
+                    action = "mở lại yêu cầu"
                 else:
-                    tk.status = 3
-                    action = "close ticket"
-                tk.save()
-                TicketLog.objects.create(agentid=leader, ticketid=tk,
-                                         action=action,
-                                         date=timezone.now().date(),
-                                         time=timezone.now().time())
-            elif 'delete' in request.POST:
-                ticketid = request.POST['delete']
-                tk = Tickets.objects.get(id=ticketid)
-                tk.delete()
+                    tk.status = 1
+                    action = "xử lý lại yêu cầu"
+            else:
+                tk.status = 3
+                action = "đóng yêu cầu"
+            tk.save()
+            TicketLog.objects.create(agentid=leader, ticketid=tk,
+                                     action=action,
+                                     date=timezone.now().date(),
+                                     time=timezone.now().time())
+        elif 'delete' in request.POST:
+            ticketid = request.POST['delete']
+            tk = Tickets.objects.get(id=ticketid)
+            tk.delete()
+            try:
+                os.remove(r'notification/chat/chat_' + ticketid + '.txt')
+            except:
+                pass
+        elif 'ticketid' in request.POST:
+            list_agent = request.POST['list_agent[]']
+            list_agent = json.loads(list_agent)
+            ticketid = request.POST['ticketid']
+            if not list_agent:
                 try:
-                    os.remove(r'notification/chat/chat_' + ticketid + '.txt')
+                    tk = Tickets.objects.get(id=ticketid)
+                    tkag1 = TicketAgent.objects.filter(ticketid=tk)
+                    tkag1.delete()
+                    tk.status = 0
+                    tk.save()
+                    action = "nhận xử lý yêu cầu được giao từ quản trị viên " + leader.username
+                    tklog = TicketLog.objects.filter(action=action)
+                    tklog.delete()
+                except:
+                    tk.status = 0
+                    tk.save()
+            else:
+                try:
+                    tk = Tickets.objects.get(id=ticketid)
+                    tkag1 = TicketAgent.objects.filter(ticketid=tk)
+                    tkag1.delete()
+                    action = "nhận xử lý yêu cầu được giao từ quản trị viên " + leader.username
+                    tklog = TicketLog.objects.filter(action=action)
+                    tklog.delete()
                 except:
                     pass
-            elif 'ticketid' in request.POST:
-                list_agent = request.POST['list_agent[]']
-                list_agent = json.loads(list_agent)
-                ticketid = request.POST['ticketid']
-                if not list_agent:
-                    try:
-                        tk = Tickets.objects.get(id=ticketid)
-                        tkag1 = TicketAgent.objects.filter(ticketid=tk)
-                        tkag1.delete()
-                        tk.status = 0
-                        tk.save()
-                        action = "received ticket forward from (leader)" + leader.username
-                        tklog = TicketLog.objects.filter(action=action)
-                        tklog.delete()
-                    except:
-                        tk.status = 0
-                        tk.save()
-                else:
-                    try:
-                        tk = Tickets.objects.get(id=ticketid)
-                        tkag1 = TicketAgent.objects.filter(ticketid=tk)
-                        tkag1.delete()
-                        action = "received ticket forward from (leader)" + leader.username
-                        tklog = TicketLog.objects.filter(action=action)
-                        tklog.delete()
-                    except:
-                        pass
-                    for agentid in list_agent:
-                        leader = Agents.objects.get(username=agentid)
-                        tk = Tickets.objects.get(id=ticketid)
-                        tkag = TicketAgent(agentid=leader, ticketid=tk)
-                        tkag.save()
-                        tk.status = 1
-                        tk.save()
-                        action = "received ticket forward from (leader)" + leader.username
-                        if leader.receive_email == 1:
-                            email = EmailMessage(
-                                'Forward ticket',
-                                render_to_string('agent/mail/forward_mail_leader.html',
-                                                 {'receiver': leader,
-                                                  #   'domain': (get_current_site(request)).domain,
-                                                  'domain': "113.190.232.90:8892",
-                                                  'sender': 'Leader'}),
-                                to=[leader.email],
-                            )
-                            email.send()
-                        TicketLog.objects.create(agentid=leader, ticketid=tk,
-                                                 action=action,
-                                                 date=timezone.now().date(),
-                                                 time=timezone.now().time())
+                for agentid in list_agent:
+                    agent = Agents.objects.get(username=agentid)
+                    tk = Tickets.objects.get(id=ticketid)
+                    tkag = TicketAgent(agentid=agent, ticketid=tk)
+                    tkag.save()
+                    tk.status = 1
+                    tk.save()
+                    action = "nhận xử lý yêu cầu được giao từ quản trị viên " + leader.username
+                    if agent.receive_email == 1:
+                        email = EmailMessage(
+                            'Chuyển yêu cầu',
+                            render_to_string('agent/mail/forward_mail_leader.html',
+                                             {'receiver': agent,
+                                              #   'domain': (get_current_site(request)).domain,
+                                              'domain': "113.190.232.90:8892",
+                                              'sender': 'Leader'}),
+                            to=[agent.email],
+                        )
+                        thread = EmailThread(email)
+                        thread.start()
+                    TicketLog.objects.create(agentid=agent, ticketid=tk,
+                                             action=action,
+                                             date=timezone.now().date(),
+                                             time=timezone.now().time())
+        elif 'ticketid_change' in request.POST:
+            tp = Topics.objects.get(id=request.POST['topicid'])
+            tk = Tickets.objects.get(id=request.POST['ticketid_change'])
+            tk.topicid = tp
+            tk.save()
         return render(request, 'agent/home_leader.html', content)
     else:
         return redirect("/")
@@ -1072,10 +1079,13 @@ def home_leader_data(request, id):
                 sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
                 option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Mở / Đóng yêu cầu"><i class="fa fa-power-off"></i></button>
                             <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Xóa yêu cầu"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-info" data-title="forward" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
+                            <button type="button" class="btn btn-info" data-title="forward" id="'''+str(tk.id)+'''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
                             <button type="button" class="btn btn-success" data-title="change" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#change_modal"><i class="fa fa-arrow-right" data-toggle="tooltip" title="Đổi chủ đề" ></i></button>
                             <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="Dòng thời gian"><i class="fa fa-history"></i></a>'''
-                data.append([idtk, tk.title, topic, status, level, sender, handler, str(tk.dateend)[:-16], option])
+                if tk.expired == 1:
+                    status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+                dateend = tk.dateend + timezone.timedelta(hours=7)
+                data.append([idtk, tk.title, topic, status, level, sender, handler, str(dateend)[:-16], option])
             ticket = {"data": data}
             tickets = json.loads(json.dumps(ticket))
             list_ticket.append(tickets)

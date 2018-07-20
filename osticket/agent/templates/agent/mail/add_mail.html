@@ -1,6 +1,6 @@
 {% autoescape off %}
-Hi {{ receiver.fullname }},
-{{sender.fullname}} have just add you in a ticket.
-Accept it if you can handle.
+Xin chào {{ receiver.fullname }},
+{{sender.fullname}} vừa mới yêu cầu thêm bạn vào cùng xử lý một yêu cầu.
+Hãy kiểm tra.
 http://{{ domain }}{% url 'agent:inbox'%}
 {% endautoescape %}
