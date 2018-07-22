@@ -284,7 +284,6 @@ $(document).ready(function(){
 
      $("body").on('click', '#chat_with_user', function(){
          var tkid = $(this).children('input').val();
-         $('body .chat'+tkid).hide();
          $("body .noti_chat"+tkid).hide();
          $('body .chat'+tkid).show();
          $("body .mytext").focus();
