@@ -6,11 +6,11 @@
         <!-- Bread crumb -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-primary">Manage topics</h3> </div>
+                <h3 class="text-primary">Quản lý chủ đề</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Manage topics</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Quản lý chủ đề</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,7 @@
                         <div class="card">
                             <div class="card-title">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-title="add" data-target="#topicModal" >
-                                    <i class="fa fa-plus"></i> Create new topic
+                                    <i class="fa fa-plus"></i> Tạo mới chủ đề
                                 </button>
                             </div>
                             <div class="card-body">
@@ -31,11 +31,11 @@
                                     <thead>
                                     <tr>
                                         <th width="5%">ID</th>
-                                        <th width="15%">Name</th>
-                                        <th width="5%">Status</th>
-                                        <th width="30%">Description</th>
-                                        <th width="15%">Leader</th>
-                                        <th width="20%">Option</th>
+                                        <th width="15%">Tên</th>
+                                        <th width="10%">Trạng thái</th>
+                                        <th width="25%">Mô tả</th>
+                                        <th width="15%">Quản trị</th>
+                                        <th width="20%">Tùy chọn</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -48,9 +48,9 @@
                                         <td>{{tp.name}}</td>
 
                                         {% if tp.status == 0 %}
-                                        <td><span class="label label-success">enable</span></td>
+                                        <td><span class="label label-success">Mở</span></td>
                                         {% else %}
-                                        <td><span class="label label-danger">disable</span></td>
+                                        <td><span class="label label-danger">Đóng</span></td>
                                         {% endif %}
 
                                         <td id="description_topic{{tp.id}}">{{ tp.description}}</td>
@@ -58,16 +58,16 @@
 
 
                                         <td>
-                                            <button type="button" class="btn btn-primary close_" id="{{tp.id}}" data-toggle="tooltip" title="enable/disable">
+                                            <button type="button" class="btn btn-primary close_" id="{{tp.id}}" data-toggle="tooltip" title="mở / đóng">
                                                 <i class="fa fa-power-off"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-danger" id="{{tp.id}}" data-toggle="tooltip" title="delete">
+                                            <button type="button" class="btn btn-danger" id="{{tp.id}}" data-toggle="tooltip" title="xóa">
                                                 <i class="fa fa-trash"></i>
                                             </button>
 
                                             <button type="button" class="btn btn-info" data-name="{{tp.name}}" data-title="edit" id="{{tp.id}}" data-toggle="modal" data-target="#topicModal">
-                                                <i class="fa fa-wrench" data-toggle="tooltip" title="change"></i>
+                                                <i class="fa fa-wrench" data-toggle="tooltip" title="Thay đổi"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -84,15 +84,15 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title">Add New Topic</h3>
+                            <h3 class="modal-title">Tạo mới chử đề</h3>
                         </div>
 
                         <div class="modal-body form-group">
-                            <label for="topicname"><b>Topic name</b></label>
-                            <input class="form-control" type="text" placeholder="Enter Topic name" name="topicname" required>
+                            <label for="topicname"><b>Tên chủ đề</b></label>
+                            <input class="form-control" type="text" placeholder="Nhập chủ đề" name="topicname" required>
                             <font id="nameerr" color="red"></font><br>
-                            <label for="description"><b>Description</b></label>
-                            <input class="form-control" type="text" placeholder="Enter description" name="description" required>
+                            <label for="description"><b>Mô tả</b></label>
+                            <input class="form-control" type="text" placeholder="Mô tả" name="description" required>
                             <font id="deserr" color="red"></font><br>
 
                             <label for="agent"><b>Chọn quản trị viên Topic</b></label></br>
@@ -106,8 +106,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" id="addTopic" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id = "add_topic_close">Close</button>
+                            <button type="button" id="addTopic" class="btn btn-primary">Lưu</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id = "add_topic_close">Đóng</button>
                         </div>
 
                     </div>

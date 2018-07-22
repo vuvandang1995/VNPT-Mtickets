@@ -55,6 +55,7 @@ class Agents(models.Model):
         managed = True
         db_table = 'agents'
 
+
 class TopicAgent(models.Model):
     agentid = models.ForeignKey('Agents', models.CASCADE, db_column='agentid')
     topicid = models.ForeignKey('Topics', models.CASCADE, db_column='topicid')
@@ -76,6 +77,7 @@ class Tickets(models.Model):
     attach = models.FileField(null=True, blank=True, upload_to='photos')
     note = models.TextField()
     lv_priority = models.IntegerField(default=1)
+    expired = models.IntegerField(default=0)
 
     class Meta:
         managed = True
@@ -113,7 +115,6 @@ class AddAgents(models.Model):
         db_table = 'add_agents'
 
 
-
 def get_user(usname):
     try:
         return Users.objects.get(username=usname)
@@ -135,6 +136,7 @@ def count_tk(agentname):
         return done, processing
     except Agents.DoesNotExist:
         return None
+
 
 def get_list_agent(department):
     try:

@@ -5,9 +5,9 @@ $(document).ready(function(){
             { "width": "5%", "targets": 0 },
             { "width": "25%", "targets": 1 },
             { "width": "15%", "targets": 2 },
-            { "width": "5%", "targets": 3 },
-            { "width": "15%", "targets": 4 },
-            { "width": "35%", "targets": 5 },
+            { "width": "13%", "targets": 3 },
+            { "width": "12%", "targets": 4 },
+            { "width": "30%", "targets": 5 },
         ],
         "ajax": {
             "type": "GET",
@@ -34,7 +34,7 @@ $(document).ready(function(){
         });
         $("body input[name=ticketid]").val(tkid);
         $("body #content").val('');
-        $('body #title').html("Forward ticket no."+tkid+" to agents")
+        $('body #title').html("Chuyển tiếp yêu cầu số "+tkid+" đến nhân viên")
         var array = $('body #hd'+tkid).html().split(",");
         var list_agent = [];
         $('body #forward_add input:checkbox').each(function() {
@@ -64,7 +64,7 @@ $(document).ready(function(){
         });
         $("body input[name=ticketid]").val(tkid);
         $("body #content").val('');
-        $('body #title').html("Add ticket no."+tkid+" to agents")
+        $('body #title').html("Thêm nhân viên vào cùng xử lý yêu cầu "+tkid)
         var array = $('body #hd'+tkid).html().split(",");
         var list_agent = [];
         $('body #forward_add input:checkbox').each(function() {
@@ -235,7 +235,7 @@ $(document).ready(function(){
     $("body").on('click', '.give_up', function(){
         var id = $(this).attr('id');
         var token = $("input[name=csrfmiddlewaretoken]").val();
-        if(confirm("Are you sure ?\n*You can't give up when there is only you handle this ticket.")){
+        if(confirm("*Chỉ có thể từ bở nếu có ít nhất 2 nhân viên xử lý*")){
              $.ajax({
                  type:'POST',
                  url:location.href,

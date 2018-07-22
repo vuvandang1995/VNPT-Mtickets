@@ -81,11 +81,13 @@
                             </div>
                         </div>
                     {% endfor%}
-                    <div id="forward_modal" class="modal">
+
+                {% endfor %}
+                <div id="forward_modal" class="modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h3 class="modal-title">Agent List</h3>
+                                <h3 class="modal-title">Danh sách nhân viên xử lý</h3>
                             </div>
                             <div class="modal-body form-group">
                                 {% for tp in topic %}
@@ -106,16 +108,40 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success forward_ticket">Forward</button>
-                                <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "forward_ticket_close">Close</button>
+                                <button type="button" class="btn btn-success forward_ticket">Chuyển tiếp</button>
+                                <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "forward_ticket_close">Đóng</button>
                                 <center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+
+                <div id="change_modal" class="modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Chuyển chủ đề</h3>
+                            </div>
+                            <div class="modal-body form-group">
+                                <select name="topic" class="form-control" id="mySelect">
+                                     {% for tp in topic_all %}
+                                        <option value="{{tp.id}}" name="{{tp.name}}">{{tp.name}} - {{tp.description}}</option>
+                                     {% endfor %}
+                                 </select>
+                                <input type="hidden" name="ticketid" value="">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success change_topic">Chuyển</button>
+                                <button type="button" class="btn btn-default closefd" data-dismiss="modal" id = "change_topic_close">Đóng</button>
+                                <center class="loading" hidden><i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i></center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- End PAge Content -->
             </div>
+
              <!--End Container fluid  -->
              <!--footer -->
              <!--End footer -->
