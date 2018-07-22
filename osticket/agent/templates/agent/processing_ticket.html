@@ -8,11 +8,11 @@
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Processing Ticket</h3> </div>
+            <h3 class="text-primary">Yêu cầu đang xử lý</h3> </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                <li class="breadcrumb-item active">Processing Ticket</li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Yêu cầu đang xử lý</li>
             </ol>
         </div>
     </div>
@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-title">
-                        <h4>Processing tickets </h4>
+                        <h4>Yêu cầu đang xử lý </h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -29,11 +29,11 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Title</th>
-                                        <th>Topic</th>
-                                        <th>Handler</th>
-                                        <th>Status</th>
-                                        <th>Option</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Chủ đề</th>
+                                        <th>Người xử lý</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tùy chọn</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -49,29 +49,29 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Ticket no.{{tk.id}}</h4>
+                    <h4 class="modal-title">Yêu cầu số {{tk.id}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body form-group">
-                    <b>Owner:</b>
+                    <b>Người gửi:</b>
                     <p>{{tk.sender.fullname}}</p>
-                    <b>Title:</b>
+                    <b>Tiêu đề:</b>
                     <p>{{tk.title}}</p>
-                    <b>Topic:</b>
+                    <b>Chủ đề:</b>
                     <p>{{tk.topicid.name}}</p>
-                    <b>Content:</b>
+                    <b>Nội dung:</b>
                     <p>{{tk.content}}</p>
-                    <b>Date Start:</b>
+                    <b>Ngày gửi:</b>
                     <p>{{ tk.datestart}}</p>
-                    <b>Date End:</b>
+                    <b>Ngày hết hạn:</b>
                     <p>{{tk.dateend}}</p>
                     {% if tk.attach != '' %}
-                    <b>Attach:</b><br>
+                    <b>Đính kèm:</b><br>
                     <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">
                         {% endif %}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -84,11 +84,11 @@
                 <h4 class="modal-title" id="title"></h4>
             </div>
             <div class="modal-body form-group">
-                <label><b>Content</b></label>
+                <label><b>Nội dung</b></label>
                 <br />
-                <textarea class="form-control" type="text" placeholder="Enter content" id="content" required></textarea>
+                <textarea class="form-control" type="text" placeholder="Nhập nội dung" id="content" required></textarea>
                 <br />
-                <label><b>Receiver</b></label>
+                <label><b>Người nhận</b></label>
                 <br />
                 <!--{% for agent in agent %}-->
                 <!--<div id="{{ agent.username }}">-->
@@ -111,8 +111,8 @@
                 {% endfor %}
                 <br>
                 <input type="hidden" name="ticketid" value="">
-                <button type="submit" class="btn btn-info" value="OK" id="fw_add"><span class="glyphicon glyphicon-share"></span>Submit</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="close_fw_add">Close</button>
+                <button type="submit" class="btn btn-info" value="OK" id="fw_add"><span class="glyphicon glyphicon-share"></span>Gửi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="close_fw_add">Đóng</button>
             </div>
         </div>
     </div>

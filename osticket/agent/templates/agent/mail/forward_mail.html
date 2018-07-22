@@ -1,6 +1,6 @@
 {% autoescape off %}
-Hi {{ receiver.fullname }},
-{{sender.fullname}} have just forward a ticket to you.
-Accept it if you can handle.
+Xin chào {{ receiver.fullname }},
+{{sender.fullname}} vừa chuyển tiếp một yêu cầu cho bạn.
+Hãy kiểm tra.
 http://{{ domain }}{% url 'agent:inbox'%}
 {% endautoescape %}

@@ -49,13 +49,13 @@
                 {% csrf_token %}
                 <div class="form-group has-feedback">
                   <label for="uname"><b>Tên đăng nhập</b></label>
-                  <input class="form-control" type="text" name="username" required>
+                  <input class="form-control" type="text" placeholder="Nhập tên đăng nhập" name="username" required>
                   <div class="invalid-msg"></div>
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
                   <label for="psw"><b>Mật khẩu</b></label>
-                  <input  class="form-control" type="password" name="password" required>
+                  <input  class="form-control" type="password" placeholder="Nhập mật khẩu" name="password" required>
                   <div class="invalid-msg1"></div>
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
@@ -75,13 +75,13 @@
               {% csrf_token %}
               <div class="form-group has-feedback">
                 <label for="uname"><b>Tên đăng nhập</b></label>
-                <input class="form-control" type="text" name="agentname" required>
+                <input class="form-control" type="text" placeholder="Nhập tên đăng nhập" name="agentname" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="psw"><b>Mật khẩu</b></label>
-                <input  class="form-control" type="password" name="agentpass" required>
+                <input  class="form-control" type="password" placeholder="Nhập mật khẩu" name="agentpass" required>
                 <div class="invalid-msg1"></div>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
@@ -100,37 +100,37 @@
               {% csrf_token %}
               <div class="form-group has-feedback">
                 <label for="fullname"><b>Họ và tên</b></label>
-                <input class="form-control inputText" type="text" name="fullname" required>
+                <input class="form-control inputText" type="text" placeholder="Nhập họ tên" name="fullname" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-font form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="username"><b>Tên đăng nhập</b></label>
-                <input class="form-control inputText" type="text" name="username" id="username_" required>
+                <input class="form-control inputText" type="text" placeholder="Nhập tên đăng nhập" name="username" id="username_" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="email"><b>Email</b></label></br>
-                <input class="form-control inputText" type="text" name="email" id="email_" required>
+                <input class="form-control inputText" type="text" placeholder="Nhập email" name="email" id="email_" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="phone"><b>Số điện thoại</b></label>
-                <input class="form-control inputText" type="text" name="phone" id="phone" required>
+                <input class="form-control inputText" type="text" placeholder="Nhập số điện thoại" name="phone" id="phone" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-phone form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="psw"><b>Mật khẩu</b></label>
-                <input class="form-control inputText" type="password" name="password" id="p1" required>
+                <input class="form-control inputText" type="password" placeholder="Nhập mật khẩu" name="password" id="p1" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
               <div class="form-group has-feedback">
                 <label for="psw-repeat"><b>Nhắc lại mật khẩu</b></label>
-                <input class="form-control inputText" type="password" name="password2" id="p2" required>
+                <input class="form-control inputText" type="password" placeholder="Nhập lại mật khẩu" name="password2" id="p2" required>
                 <div class="invalid-msg"></div>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
               </div>
@@ -157,7 +157,7 @@
                 <form method="POST">
                     {% csrf_token %}
                     <label for="uname"><b>Email của bạn</b></label><br/>
-                    <input class="form-control" type="text" name="uemail" required><br/>
+                    <input class="form-control" type="text" name="uemail" placeholder="Nhập email" required><br/>
                     <div class="invalid-msg"></div><br/>
                     <button type="submit" class="btn btn-primary" value="OK" id="uemail" >Cập nhật</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -178,7 +178,7 @@
                 <form method="POST">
                     {% csrf_token %}
                     <label for="uname"><b>Email của bạn</b></label><br/>
-                    <input class="form-control" type="text" name="aemail" required><br/>
+                    <input class="form-control" type="text" placeholder="Nhập email" name="aemail" required><br/>
                     <div class="invalid-msg"></div><br/>
                     <button type="submit" class="btn btn-primary" value="OK" id="uemail" >Cập nhật</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
