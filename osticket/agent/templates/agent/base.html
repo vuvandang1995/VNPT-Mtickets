@@ -155,12 +155,23 @@
                         <li> <a href="{% url 'agent:processing_ticket' %}" aria-expanded="false"><i class="fa fa-hourglass-2"></i><span class="hide-menu">Yêu cầu đang xử lý</span></a></li>
                         <li> <a href="{% url 'agent:closed_ticket' %}" aria-expanded="false"><i class="fa fa-check-circle"></i><span class="hide-menu">Yêu cầu đã đóng</span></a></li>
                         <li> <a href="{% url 'agent:manage_user' %}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Quản lý user</span></a></li>
+                        <li> <a aria-expanded="false"><i class="fa fa-commenting-o"></i><span class="hide-menu">Trao đổi với Leader</span> <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                              {% for leader in list_leader %}
+                                <li>
+                                    <a class="chat_leader" href='javascript:register_popup_leader("chat{{leader.id}}", {{leader.id}}, "{{leader.fullname}}", "{{leader.username}}");'>{{leader.fullname}}</a>
+                                    <input type="hidden" value="{{leader.id}}">
+                                </li>
+                              {% endfor%}
+                            </ul>
+                          </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </div>
+
         <div id="info_user">
         {% csrf_token %}
         {% block content %}
@@ -635,79 +646,78 @@
     };
     
 
+    var me = {};
+    me.avatar = "https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/User_man_male_profile_account_person_people.png";
+
+    var you = {};
+    you.avatar = "https://cdn2.iconfinder.com/data/icons/rcons-users-color/32/support_man-512.png";      
+
+    //-- No use time. It is a javaScript effect.
+    function insertChat1(who, text, time, tkid){
+        if (time === undefined){
+            time = 0;
+        }
+        var control = "";
+        var date = time;
+        
+        if (who == "me"){
+            control = '<li style="width:100%">' +
+                            '<div class="msj macro">' +
+                            '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                                '<div class="text text-l">' +
+                                    '<p>'+ text +'</p>' +
+                                    '<p><small>'+date+'</small></p>' +
+                                '</div>' +
+                            '</div>' +
+                        '</li>';                    
+        }else{
+            control = '<li style="width:100%;">' +
+                            '<div class="msj-rta macro">' +
+                                '<div class="text text-r">' +
+                                    '<p>'+text+'</p>' +
+                                    '<p><small>'+date+'</small></p>' +
+                                '</div>' +
+                            '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
+                    '</li>';
+        }
+        setTimeout(
+            function(){                        
+                $("body #chat"+tkid+" .frame > ul").append(control).scrollTop($("body #chat"+tkid+" .frame > ul").prop('scrollHeight'));
+            }, time);
+        
+    }
+
     var dict_ws = {};
     var listkeys = [];
     listkeys =  Object.keys(sessionStorage);
-    if (sessionStorage.length){
+    if (sessionStorage.length) {
         for (i=0; i < sessionStorage.length; i++){
-            var listchat = [];
-            listchat = sessionStorage.getItem(listkeys[i]).split(',');
-            register_popup_agent(listchat[0].replace(/"/g, ''), listchat[1], listchat[2].replace(/"/g, ''), listchat[3].replace(/"/g, ''));
-            var tkid = listchat[4];
+            if (listkeys[i] != 'id_chat_leader'){
+                var listchat = [];
+                listchat = sessionStorage.getItem(listkeys[i]).split(',');
+                register_popup_agent(listchat[0].replace(/"/g, ''), listchat[1], listchat[2].replace(/"/g, ''), listchat[3].replace(/"/g, ''));
+                var tkid = listchat[4];
 
-            if (dict_ws[tkid] == undefined){
-                dict_ws[tkid] = new WebSocket(
-                'ws://' + window.location.host +
-                '/ws/' + tkid + '/');
-            }
-
-            var me = {};
-            me.avatar = "https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/User_man_male_profile_account_person_people.png";
-
-            var you = {};
-            you.avatar = "https://cdn2.iconfinder.com/data/icons/rcons-users-color/32/support_man-512.png";      
-
-            //-- No use time. It is a javaScript effect.
-            function insertChat(who, text, time){
-                if (time === undefined){
-                    time = 0;
+                if (dict_ws[tkid] == undefined){
+                    dict_ws[tkid] = new WebSocket(
+                    'ws://' + window.location.host +
+                    '/ws/' + tkid + '/');
                 }
-                var control = "";
-                var date = time;
-                
-                if (who == "me"){
-                    control = '<li style="width:100%">' +
-                                    '<div class="msj macro">' +
-                                    '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
-                                        '<div class="text text-l">' +
-                                            '<p>'+ text +'</p>' +
-                                            '<p><small>'+date+'</small></p>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</li>';                    
-                }else{
-                    control = '<li style="width:100%;">' +
-                                    '<div class="msj-rta macro">' +
-                                        '<div class="text text-r">' +
-                                            '<p>'+text+'</p>' +
-                                            '<p><small>'+date+'</small></p>' +
-                                        '</div>' +
-                                    '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
-                            '</li>';
-                }
-                setTimeout(
-                    function(){                        
-                        $("body #chat"+tkid+" .frame > ul").append(control).scrollTop($("body #chat"+tkid+" .frame > ul").prop('scrollHeight'));
-                    }, time);
-                
-            }
 
-            
-            
+
+                dict_ws[tkid].onmessage = function(e) {
+                    var data = JSON.parse(e.data);
+                    var message = data['message'];
+                    var who = data['who'];
+                    var time = data['time'];
+                    insertChat1(who, message, time, tkid);
+                };
+                
+                break;
+            }
         }
     }
-    for (i=0; i < sessionStorage.length; i++){
-        var listchat = [];
-        listchat = sessionStorage.getItem(listkeys[i]).split(',');
-        var tkid = listchat[4];
-        dict_ws[tkid].onmessage = function(e) {
-            var data = JSON.parse(e.data);
-            var message = data['message'];
-            var who = data['who'];
-            var time = data['time'];
-            insertChat(who, message, time);
-        };
-    }
+
     
 
     $("body").on('click', '.noti_chat', function(){
@@ -764,6 +774,9 @@
             
         }
 
+
+        
+
         
         dict_ws[tkid].onmessage = function(e) {
             var data = JSON.parse(e.data);
@@ -776,6 +789,83 @@
         
     });
 
+
+    $("body").on('click', '.chat_leader', function(){
+        var tkid = $(this).next('input').val().replace(/\s/g,'');
+        var tkid = tkid * 34252435254 + tkid - 1;
+        if (typeof(Storage) !== "undefined") {
+            sessionStorage.setItem('id_chat_leader', tkid);
+        } else {
+            document.write('Trình duyệt của bạn không hỗ trợ local storage');
+        }
+        $("body .noti_chat"+tkid).hide();
+        $('body .chat'+tkid).show();
+        $("body .mytext").focus();
+        
+
+        if (dict_ws[tkid] == undefined){
+            dict_ws[tkid] = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/' + tkid + '/');
+        }
+
+        var me = {};
+        me.avatar = "https://cdn2.iconfinder.com/data/icons/perfect-flat-icons-2/512/User_man_male_profile_account_person_people.png";
+
+        var you = {};
+        you.avatar = "https://cdn2.iconfinder.com/data/icons/rcons-users-color/32/support_man-512.png";      
+
+        //-- No use time. It is a javaScript effect.
+        function insertChat(who, text, time){
+            if (time === undefined){
+                time = 0;
+            }
+            var control = "";
+            var date = time;
+            
+            if (who == "me"){
+                control = '<li style="width:100%">' +
+                                '<div class="msj macro">' +
+                                '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                                    '<div class="text text-l">' +
+                                        '<p>'+ text +'</p>' +
+                                        '<p><small>'+date+'</small></p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</li>';                    
+            }else{
+                control = '<li style="width:100%;">' +
+                                '<div class="msj-rta macro">' +
+                                    '<div class="text text-r">' +
+                                        '<p>'+text+'</p>' +
+                                        '<p><small>'+date+'</small></p>' +
+                                    '</div>' +
+                                '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
+                        '</li>';
+            }
+            setTimeout(
+                function(){                        
+                    $("body #chat"+tkid+" .frame > ul").append(control).scrollTop($("body #chat"+tkid+" .frame > ul").prop('scrollHeight'));
+                }, time);
+            
+        }
+
+
+        
+
+        
+        dict_ws[tkid].onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var message = data['message'];
+            var who = data['who'];
+            var time = data['time'];
+            insertChat(who, message, time);
+        };
+
+        
+    });
+
+    
     $('body').on('click', 'header', function(){
         $(this).next().slideToggle(300, 'swing');
     })
@@ -784,8 +874,19 @@
         $("body .mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
     })
 
+    $('body').on('click', '.xxx1', function(){
+        $("body .mytext1").trigger({type: 'keydown', which: 13, keyCode: 13});
+    })
+
     $("body .mytext").focus();
     $('body').on('keyup', '.mytext', function(e){
+        if (e.keyCode === 13) {
+            $(this).parent().parent().next().children('span').click();
+        }
+    })
+
+    $("body .mytext1").focus();
+    $('body').on('keyup', '.mytext1', function(e){
         if (e.keyCode === 13) {
             $(this).parent().parent().next().children('span').click();
         }
@@ -819,12 +920,49 @@
         };
     })
 
+    $('body').on('click', '.xxx1', function(){
+        var message = $(this).parent().parent().children().children().children('input').val();
+        if (sessionStorage.length) {
+            for (i=0; i < sessionStorage.length; i++){
+                if (listkeys[i] == 'id_chat_leader'){
+                    var tk_id = sessionStorage.getItem('id_chat_leader');
+                    var date = formatAMPM(new Date());
+                    if (message != ''){
+                        dict_ws[tk_id].send(JSON.stringify({
+                            'message' : message,
+                            'who' : 'you',
+                            'time' : date
+                        }));
+                    }
+                    $(this).parent().parent().children().children().children('input').val('');
+                }
+            }
+        }
+        
+    })
+
 
     $('body').on('click', '.chat-close', function(){
         var tk_id = $(this).parent().next().children('h4').html().split('-')[0].replace(/\s/g,'');
         dict_ws[tk_id].close();
         delete dict_ws[tk_id];
+        sessionStorage.removeItem(tk_id);
         $("body #chat"+tk_id+" .frame > ul").empty();
+    })
+
+    $('body').on('click', '.chat-close1', function(){
+        if (sessionStorage.length) {
+            for (i=0; i < sessionStorage.length; i++){
+                if (listkeys[i] == 'id_chat_leader'){
+                    var tk_id = sessionStorage.getItem('id_chat_leader');
+                    dict_ws[tk_id].close();
+                    delete dict_ws[tk_id];
+                    sessionStorage.removeItem(tk_id);
+                    $("body #chat"+tk_id+" .frame > ul").empty();
+                }
+            }
+        }
+        
     })
 
 

@@ -1,8 +1,7 @@
 $(document).ready(function(){
-    var numItems = $('.tk_table').length;
-    var i;
-    for (i=1; i <= numItems; i++){
-        $('#list_ticket_leader_'+i).DataTable({
+    $('body .tk_table').each( function(){
+        var topicname = $(this).attr('id').split('__')[1];
+        $(this).DataTable({
             "columnDefs": [
                 { "width": "5%", "targets": 0 },
                 { "width": "12%", "targets": 1 },
@@ -16,7 +15,7 @@ $(document).ready(function(){
             ],
             "ajax": {
                 "type": "GET",
-                "url": location.href +"data" + i,
+                "url": location.href +"data/" + topicname,
                 "contentType": "application/json; charset=utf-8",
                 "data": function(result){
                     return JSON.stringify(result);
@@ -27,105 +26,64 @@ $(document).ready(function(){
             "displayLength": 25,
             'dom': 'Rlfrtip',
         });
-        $("#list_ticket_leader_"+i).on('click', '.btn-primary', function(){
-            var id = $(this).attr('id');
-            var token = $("input[name=csrfmiddlewaretoken]").val();
-            var r = confirm('Bạn có chắc ?');
-            var array = $('#hd'+id).html().split("<br>");
-            var stt = $('#leader'+id).html();
-            var date = formatAMPM(new Date());
-            var array2 = [];
-            for (j = 0; j < array.length-1; j++) {
-                array2.push(array[j].replace(/\s/g,''));
-            }
-            if (r == true){
-                $.ajax({
-                    type:'POST',
-                    url:location.href,
-                    data: {'close':id, 'csrfmiddlewaretoken':token},
-                    success: function(){
-                        $('.tk_table').DataTable().ajax.reload();
-                        if (stt != 'Đóng'){
-                            array2.push('admin_close_ticket');
-                            array2.push(id);
-                            var sender = $('#sender'+id).html();
-                            group_agent_Socket.send(JSON.stringify({
-                                'message' : array2,
-                                'time' : date,
-                            }));
+        
+    });
+    
 
-                            var Socket1 = new WebSocket(
-                            'ws://' + window.location.host +
-                            '/ws/user/' + sender + '/');
-
-                            message = 'Ticket '+id+' is closed by admin!'
-                            Socket1.onopen = function (event) {
-                                setTimeout(function(){
-                                    Socket1.send(JSON.stringify({
-                                        'message' : message,
-                                        'time' : date,
-                                    }));
-                                    Socket1.close();
-                                }, 1000);
-                            };
-                        }else{
-                            array2.push('admin_open_ticket');
-                            array2.push(id);
-                            group_agent_Socket.send(JSON.stringify({
-                                'message' : array2,
-                                'time' : date,
-                            }));
-                            var sender = $('#sender'+id).html();
-                            var Socket1 = new WebSocket(
-                            'ws://' + window.location.host +
-                            '/ws/user/' + sender + '/');
-
-                            message = 'Ticket '+id+' is opened by admin!'
-                            Socket1.onopen = function (event) {
-                                setTimeout(function(){
-                                    Socket1.send(JSON.stringify({
-                                        'message' : message,
-                                        'time' : date,
-                                    }));
-                                    Socket1.close();
-                                }, 1000);
-                            };
-                        }
-                    }
-               });
-            }
-        });
-        $("#list_ticket_leader_"+i).on('click', '.btn-danger', function(){
-            var id = $(this).attr('id');
-            var token = $("input[name=csrfmiddlewaretoken]").val();
-            var array = $('#hd'+id).html().split("<br>");
-            var array2 = [];
-            for (j = 0; j < array.length-1; j++) {
-                array2.push(array[j].replace(/\s/g,''));
-            }
-            var date = formatAMPM(new Date());
-            var r = confirm('Bạn có chắc ??');
-            if (r == true){
-                $.ajax({
-                    type:'POST',
-                    url:location.href,
-                    data: {'delete':id, 'csrfmiddlewaretoken':token},
-                    success: function(){
-                        // window.location.reload();
-                        array2.push('admin_delete_ticket');
+    $('body').on('click', '.btn-primary', function(){
+        var id = $(this).attr('id');
+        var token = $("input[name=csrfmiddlewaretoken]").val();
+        var r = confirm('Bạn có chắc ?');
+        var array = $('#hd'+id).html().split("<br>");
+        var stt = $('#leader'+id).html();
+        var date = formatAMPM(new Date());
+        var array2 = [];
+        for (j = 0; j < array.length-1; j++) {
+            array2.push(array[j].replace(/\s/g,''));
+        }
+        if (r == true){
+            $.ajax({
+                type:'POST',
+                url:location.href,
+                data: {'close':id, 'csrfmiddlewaretoken':token},
+                success: function(){
+                    $('.tk_table').DataTable().ajax.reload();
+                    if (stt != 'Đóng'){
+                        array2.push('admin_close_ticket');
                         array2.push(id);
+                        var sender = $('#sender'+id).html();
                         group_agent_Socket.send(JSON.stringify({
                             'message' : array2,
                             'time' : date,
                         }));
 
-                        $("#list_ticket_leader_"+i).DataTable().ajax.reload();
+                        var Socket1 = new WebSocket(
+                        'ws://' + window.location.host +
+                        '/ws/user/' + sender + '/');
+
+                        message = 'Ticket '+id+' is closed by admin!'
+                        Socket1.onopen = function (event) {
+                            setTimeout(function(){
+                                Socket1.send(JSON.stringify({
+                                    'message' : message,
+                                    'time' : date,
+                                }));
+                                Socket1.close();
+                            }, 1000);
+                        };
+                    }else{
+                        array2.push('admin_open_ticket');
+                        array2.push(id);
+                        group_agent_Socket.send(JSON.stringify({
+                            'message' : array2,
+                            'time' : date,
+                        }));
                         var sender = $('#sender'+id).html();
                         var Socket1 = new WebSocket(
                         'ws://' + window.location.host +
                         '/ws/user/' + sender + '/');
 
-                        message = 'Ticket '+id+' is deleted by admin!'
+                        message = 'Ticket '+id+' is opened by admin!'
                         Socket1.onopen = function (event) {
                             setTimeout(function(){
                                 Socket1.send(JSON.stringify({
@@ -136,10 +94,57 @@ $(document).ready(function(){
                             }, 1000);
                         };
                     }
-               });
-            }
-        });
-    };
+                }
+            });
+        }
+    });
+
+    $("body").on('click', '.btn-danger', function(){
+        var id = $(this).attr('id');
+        var token = $("input[name=csrfmiddlewaretoken]").val();
+        var array = $('#hd'+id).html().split("<br>");
+        var array2 = [];
+        for (j = 0; j < array.length-1; j++) {
+            array2.push(array[j].replace(/\s/g,''));
+        }
+        var date = formatAMPM(new Date());
+        var r = confirm('Bạn có chắc ??');
+        if (r == true){
+            $.ajax({
+                type:'POST',
+                url:location.href,
+                data: {'delete':id, 'csrfmiddlewaretoken':token},
+                success: function(){
+                    // window.location.reload();
+                    array2.push('admin_delete_ticket');
+                    array2.push(id);
+                    group_agent_Socket.send(JSON.stringify({
+                        'message' : array2,
+                        'time' : date,
+                    }));
+
+                    $('.tk_table').DataTable().ajax.reload();
+                    var sender = $('#sender'+id).html();
+                    var Socket1 = new WebSocket(
+                    'ws://' + window.location.host +
+                    '/ws/user/' + sender + '/');
+
+                    message = 'Ticket '+id+' is deleted by admin!'
+                    Socket1.onopen = function (event) {
+                        setTimeout(function(){
+                            Socket1.send(JSON.stringify({
+                                'message' : message,
+                                'time' : date,
+                            }));
+                            Socket1.close();
+                        }, 1000);
+                    };
+                }
+            });
+        }
+    });
+
+
     $(".forward_ticket").click(function(){
         $('.loading').show();
         $(this).prop('disabled', true);
@@ -151,7 +156,6 @@ $(document).ready(function(){
         var date = formatAMPM(new Date());
         $('#forward_modal input:checkbox').each(function() {
             if ($(this).is(":checked")){
-                alert(this.name);
                 list_agent.push(this.name);
             }
         });
