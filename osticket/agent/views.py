@@ -330,6 +330,9 @@ def home_agent(request):
         tpag = TopicAgent.objects.filter(agentid=agent).values('topicid')
         topic = Topics.objects.filter(id__in=tpag)
         user_total = Users.objects.count()
+        tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        idleader = Topics.objects.filter(id__in=tpag1).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         process = Tickets.objects.filter(topicid__in=topic, status__in=[1,2])
         done = Tickets.objects.filter(status=3)
         tk_open = Tickets.objects.filter(status=0, topicid__in=topic).count()
@@ -339,7 +342,7 @@ def home_agent(request):
         list_tp = ""
         for tp in tp:
             list_tp += str(tp.topicid.name) + "!"
-        content = {'ticket': Tickets.objects.filter(status=0).order_by('-id'),
+        content = {'ticket': Tickets.objects.filter(status=0, topicid__in=topic).order_by('-id'),
                     'agent': agent, 
                     'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
@@ -349,7 +352,8 @@ def home_agent(request):
                     'tk_done': tk_done,
                     'noti_noti': agent.noti_noti,
                     'noti_chat': agent.noti_chat,
-                    'list_tp': mark_safe(json.dumps(list_tp))}
+                    'list_tp': mark_safe(json.dumps(list_tp)),
+                    'list_leader': list_leader}
         if request.method == 'POST':
             if 'tkid' in request.POST:
                 ticket = Tickets.objects.get(id=request.POST['tkid'])
@@ -418,6 +422,8 @@ def processing_ticket(request):
         agent = Agents.objects.exclude(Q(username=request.session['agent']) | Q(admin=1))
         tpag = TopicAgent.objects.filter(agentid=sender).values('topicid')
         tp = Topics.objects.filter(id__in=tpag)
+        idleader = Topics.objects.filter(id__in=tpag).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         list_ag = {}
         for t in tp:
             ag = TopicAgent.objects.filter(topicid=t, agentid__in=agent)
@@ -439,7 +445,8 @@ def processing_ticket(request):
                    'form1': form1,
                    'agent_name': mark_safe(json.dumps(sender.username)),
                    'fullname': mark_safe(json.dumps(sender.fullname)),
-                   'list_tp': mark_safe(json.dumps(list_tp))}
+                   'list_tp': mark_safe(json.dumps(list_tp)),
+                   'list_leader': list_leader}
         if request.method == 'POST':
             if 'noti_noti' in request.POST:
                 sender.noti_noti = 0
@@ -674,6 +681,9 @@ def inbox(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
         topicag = TopicAgent.objects.filter(agentid=agent)
+        tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        idleader = Topics.objects.filter(id__in=tpag1).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         list_tp = ""
         for tp1 in topicag:
             list_tp += str(tp1.topicid.name) + "!"
@@ -683,7 +693,8 @@ def inbox(request):
                    'addin': AddAgents.objects.filter(receiverid=agent), 
                    'agent_name': mark_safe(json.dumps(agent.username)), 
                    'fullname': mark_safe(json.dumps(agent.fullname)),
-                   'list_tp': mark_safe(json.dumps(list_tp))}
+                   'list_tp': mark_safe(json.dumps(list_tp)),
+                   'list_leader': list_leader}
         if request.method == 'POST':
             
             if 'forward' in request.POST:
@@ -795,6 +806,9 @@ def outbox(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
         topicag = TopicAgent.objects.filter(agentid=agent)
+        tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        idleader = Topics.objects.filter(id__in=tpag1).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         list_tp = ""
         for tp1 in topicag:
             list_tp += str(tp1.topicid.name) + "!"
@@ -804,7 +818,8 @@ def outbox(request):
                     'addout': AddAgents.objects.filter(senderid=agent),
                     'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
-                    'list_tp': mark_safe(json.dumps(list_tp))}
+                    'list_tp': mark_safe(json.dumps(list_tp)),
+                    'list_leader': list_leader}
         if request.method == 'POST':
             if 'forward' in request.POST:
                 fwticket = ForwardTickets.objects.get(id=request.POST['tkid'])
@@ -827,6 +842,9 @@ def outbox(request):
 def profile(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        idleader = Topics.objects.filter(id__in=tpag1).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         topicag = TopicAgent.objects.filter(agentid=agent)
         list_tp = ""
         for tp1 in topicag:
@@ -859,7 +877,8 @@ def profile(request):
                                                      'topic': tpag,
                                                      'agent_name': mark_safe(json.dumps(agent.username)),
                                                      'fullname': mark_safe(json.dumps(agent.fullname)),
-                                                     'list_tp': mark_safe(json.dumps(list_tp))})
+                                                     'list_tp': mark_safe(json.dumps(list_tp)),
+                                                     'list_leader': list_leader})
     else:
         return redirect("/")
 
@@ -867,6 +886,9 @@ def profile(request):
 def closed_ticket(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        idleader = Topics.objects.filter(id__in=tpag1).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         tem = Tickets.objects.filter(status=3)
         topicag = TopicAgent.objects.filter(agentid=agent)
         list_tp = ""
@@ -877,7 +899,8 @@ def closed_ticket(request):
                     'ticket': TicketAgent.objects.filter(agentid=agent, ticketid__in=tem), 
                     'agent_name': mark_safe(json.dumps(agent.username)), 
                     'fullname': mark_safe(json.dumps(agent.fullname)),
-                    'list_tp': mark_safe(json.dumps(list_tp))}
+                    'list_tp': mark_safe(json.dumps(list_tp)),
+                    'list_leader': list_leader}
         if request.method == 'POST':
             if 'noti_noti' in request.POST:
                 agent.noti_noti = 0
@@ -893,6 +916,9 @@ def closed_ticket(request):
 def manager_user(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
+        idleader = Topics.objects.filter(id__in=tpag1).values('leader')
+        list_leader = Agents.objects.filter(id__in=idleader)
         topicag = TopicAgent.objects.filter(agentid=agent)
         list_tp = ""
         for tp1 in topicag:
@@ -915,7 +941,8 @@ def manager_user(request):
                     'user':users, 
                     'agent_name': mark_safe(json.dumps(agent.username)), 
                     'fullname': mark_safe(json.dumps(agent.fullname)),
-                    'list_tp': mark_safe(json.dumps(list_tp))})
+                    'list_tp': mark_safe(json.dumps(list_tp)),
+                    'list_leader': list_leader})
     else:
         return redirect("/")
 
@@ -1044,52 +1071,52 @@ def home_leader(request):
         return redirect("/")
 
 
-def home_leader_data(request, id):
+def home_leader_data(request, topicname):
     if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
         agent = Agents.objects.get(username=request.session['leader'])
-        list_topic = Topics.objects.filter(leader=agent)
-        list_ticket = []
-        for tp in list_topic:
-            tksdpr = Tickets.objects.filter(topicid=tp)
-            data = []
-            for tk in tksdpr:
-                if tk.status == 0:
-                    status = r'<span class ="label label-danger" id="leader' + str(tk.id) + '">Chờ</span>'
-                    handler = '<p id="hd' + str(tk.id) + '">Nobody</p>'
+        # list_topic = Topics.objects.filter(leader=agent)
+        # list_ticket = []
+        # for tp in list_topic:
+        tp = Topics.objects.get(name=topicname)
+        tksdpr = Tickets.objects.filter(topicid=tp)
+        data = []
+        for tk in tksdpr:
+            if tk.status == 0:
+                status = r'<span class ="label label-danger" id="leader' + str(tk.id) + '">Chờ</span>'
+                handler = '<p id="hd' + str(tk.id) + '">Nobody</p>'
+            else:
+                if tk.status == 1:
+                    status = r'<span class ="label label-warning" id="leader' + str(tk.id) + '">Đang xử lý</span>'
+                elif tk.status == 2:
+                    status = r'<span class ="label label-success" id="leader' + str(tk.id) + '">Hoàn thành</span>'
                 else:
-                    if tk.status == 1:
-                        status = r'<span class ="label label-warning" id="leader' + str(tk.id) + '">Đang xử lý</span>'
-                    elif tk.status == 2:
-                        status = r'<span class ="label label-success" id="leader' + str(tk.id) + '">Hoàn thành</span>'
-                    else:
-                        status = r'<span class ="label label-default" id="leader' + str(tk.id) + '">Đóng</span>'
-                    handler = '<p id="hd' + str(tk.id) + '">'
-                    for t in TicketAgent.objects.filter(ticketid=tk.id):
-                        handler += t.agentid.username + "<br>"
-                    handler += '</p>'
-                idtk = r'''<button type="button" class="btn" data-toggle="modal" data-target="#''' + str(
-                    tk.id) + '''content">''' + str(tk.id) + '''</button>'''
-                topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
-                if tk.lv_priority == 0:
-                    level = r'<span class ="label label-success"> Thấp </span>'
-                elif tk.lv_priority == 1:
-                    level = r'<span class ="label label-warning"> Trung bình </span>'
-                else:
-                    level = r'<span class ="label label-danger"> Cao </span>'
-                sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
-                option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Mở / Đóng yêu cầu"><i class="fa fa-power-off"></i></button>
-                            <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Xóa yêu cầu"><i class="fa fa-trash-o"></i></button>
-                            <button type="button" class="btn btn-info" data-title="forward" id="'''+str(tk.id)+'''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
-                            <button type="button" class="btn btn-success" data-title="change" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#change_modal"><i class="fa fa-arrow-right" data-toggle="tooltip" title="Đổi chủ đề" ></i></button>
-                            <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="Dòng thời gian"><i class="fa fa-history"></i></a>'''
-                if tk.expired == 1:
-                    status += r'<br><span class ="label label-danger"> Quá hạn </span>'
-                dateend = tk.dateend + timezone.timedelta(hours=7)
-                data.append([idtk, tk.title, topic, status, level, sender, handler, str(dateend)[:-16], option])
-            ticket = {"data": data}
-            tickets = json.loads(json.dumps(ticket))
-            list_ticket.append(tickets)
-        return JsonResponse(list_ticket[id-1], safe=False)
+                    status = r'<span class ="label label-default" id="leader' + str(tk.id) + '">Đóng</span>'
+                handler = '<p id="hd' + str(tk.id) + '">'
+                for t in TicketAgent.objects.filter(ticketid=tk.id):
+                    handler += t.agentid.username + "<br>"
+                handler += '</p>'
+            idtk = r'''<button type="button" class="btn" data-toggle="modal" data-target="#''' + str(
+                tk.id) + '''content">''' + str(tk.id) + '''</button>'''
+            topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
+            if tk.lv_priority == 0:
+                level = r'<span class ="label label-success"> Thấp </span>'
+            elif tk.lv_priority == 1:
+                level = r'<span class ="label label-warning"> Trung bình </span>'
+            else:
+                level = r'<span class ="label label-danger"> Cao </span>'
+            sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
+            option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Mở / Đóng yêu cầu"><i class="fa fa-power-off"></i></button>
+                        <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Xóa yêu cầu"><i class="fa fa-trash-o"></i></button>
+                        <button type="button" class="btn btn-info" data-title="forward" id="'''+str(tk.id)+'''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
+                        <button type="button" class="btn btn-success" data-title="change" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#change_modal"><i class="fa fa-arrow-right" data-toggle="tooltip" title="Đổi chủ đề" ></i></button>
+                        <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="Dòng thời gian"><i class="fa fa-history"></i></a>'''
+            if tk.expired == 1:
+                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            dateend = tk.dateend + timezone.timedelta(hours=7)
+            data.append([idtk, tk.title, topic, status, level, sender, handler, str(dateend)[:-16], option])
+        ticket = {"data": data}
+        tickets = json.loads(json.dumps(ticket))
+        return JsonResponse(tickets, safe=False)
 
 
 def leader_manage_agent(request):

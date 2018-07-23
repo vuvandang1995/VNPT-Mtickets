@@ -74,10 +74,37 @@ function register_popup_agent(id, name, user_tk, user_tk1)
             popups.unshift(id);
             calculate_popups();
         }else{
-            // var element = '<div class="live-chat popup-box chat-popup" id="'+ id +'"><header id="xxx" class="clearfix"><div class="popup-head-right"><a class="chat-close" href="javascript:close_popup(\''+ id +'\');">&#10005;</a></div><div class="popup-head-left"><h4>'+ name +'</h4></div><span class="chat-message-counter">'+popups+'</span></header><div class="chat"><div class="chat-history"><div class="chat-message clearfix"><img src="" alt="" width="32" height="32"><div class="chat-message-content clearfix"><span class="chat-time">13:35</span><h5>John Doe</h5><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, explicabo quasi ratione odio dolorum harum.</p></div> <!-- end chat-message-content --></div> <!-- end chat-message --><hr></div> <!-- end chat-history --><p class="chat-feedback">Your partner is typing…</p><form action="#" method="post"><fieldset><input type="text" placeholder="Type your message…" autofocus><input type="hidden"></fieldset></form></div></div>';
-            // var element = '<div class="live-chat popup-box chat-popup" id="'+ id +'"><header id="xxx" class="clearfix"><div class="popup-head-right"><a class="chat-close" href="javascript:close_popup(\''+ id +'\');">&#10005;</a></div><div class="popup-head-left"><h4>'+ name +'</h4></div><span class="chat-message-counter">'+popups+'</span></header><div class="frame chat"><ul></ul></div></div>';
             var element = '<div class="live-chat popup-box chat-popup" id="'+ id +'"><header class="clearfix header-chat"><div class="popup-head-right"><a class="chat-close" href="javascript:close_popup(\''+ id +'\');">&#10005;</a></div><div class="popup-head-left"><h4>'+name+' - '+user_tk+'</h4><input class="user_name" type="hidden" value="'+ user_tk1 +'"></div><span class="chat-message-counter">'+popups+'</span></header><div class="frame chat'+name+'"><ul></ul><div><div class="msj-rta macro"><div class="text text-r" style="background:whitesmoke !important"><input id="chat-message-input'+ name +'" class="mytext" placeholder="Type a message"/></div></div><div style="padding:10px;"><span id="chat-message-submit'+ name +'" class="fa fa-send xxx"></span></div></div></div></div>';
-            //document.getElementById("info_user").innerHTML = document.getElementById("info_user").innerHTML + element;
+            
+            $('#info_user').append(element);
+            popups.push(id);
+            popups2.push(id);
+                    
+            calculate_popups();
+        }
+    }else{
+        for(var iii = 0; iii < popups.length; iii++)
+        {
+            if(id == popups[iii])
+            {
+                Array.remove(popups, iii);
+                popups.unshift(id);
+                calculate_popups();
+            }
+        }
+    }
+    
+}
+
+
+function register_popup_leader(id, name, user_tk, user_tk1)
+{
+    if (check_popup(id, popups) == false){
+        if (check_popup(id, popups2)){
+            popups.unshift(id);
+            calculate_popups();
+        }else{
+            var element = '<div class="live-chat popup-box chat-popup" id="'+ id +'"><header class="clearfix header-chat"><div class="popup-head-right"><a class="chat-close1" href="javascript:close_popup(\''+ id +'\');">&#10005;</a></div><div class="popup-head-left"><h4>'+name+' - '+user_tk+'</h4><input class="user_name" type="hidden" value="'+ user_tk1 +'"></div><span class="chat-message-counter">'+popups+'</span></header><div class="frame chat'+name+'"><ul></ul><div><div class="msj-rta macro"><div class="text text-r" style="background:whitesmoke !important"><input id="chat-message-input'+ name +'" class="mytext1" placeholder="Type a message"/></div></div><div style="padding:10px;"><span id="chat-message-submit'+ name +'" class="fa fa-send xxx1"></span></div></div></div></div>';
             
             $('#info_user').append(element);
             popups.push(id);

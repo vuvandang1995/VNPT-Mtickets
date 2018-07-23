@@ -29,7 +29,7 @@
                                 Chủ đề {{ key }}
                             </div>
                             <div class="card-body tk_div" id="tabdiv_{{ forloop.counter }}">
-                                <table style="width:100%;"  class="display nowrap table table-hover table-striped table-bordered tk_table" id="list_ticket_leader_{{ forloop.counter }}">
+                                <table style="width:100%;"  class="display nowrap table table-hover table-striped table-bordered tk_table" id="list_ticket_leader__{{ key }}">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -92,9 +92,9 @@
                             <div class="modal-body form-group">
                                 {% for tp in topic %}
                                     <div class="tpic" style="display:none;">
-                                        <input type="hidden" value="{{tp.name}}">
                                         {% for key,value in list_ag.items %}
                                             {% if key == tp.name %}
+                                                <input type="hidden" value="{{tp.name}}">
                                                 {% for va in value %}
                                                     <div id="{{ va.username }}">
                                                         <input class="inputText" type="checkbox" name="{{ va.username }}" > {{ va.username }} - {{va.fullname}} <br>
