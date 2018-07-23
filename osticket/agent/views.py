@@ -309,6 +309,47 @@ def manager_agent(request):
         return redirect('/')
 
 
+def statistic(request, all, month, year):
+    if request.session.has_key('admin'):
+        admin = Agents.objects.get(username=request.session['admin'])
+        agents = Agents.objects.filter(admin=0)
+        ticketd = Tickets.objects.filter(expired=0)
+        tickets = Tickets.objects.filter(expired=1)
+        if all == 1:
+            tklogd = TicketLog.objects.filter(action='đóng yêu cầu', date__year=year, ticketid__in=ticketd)
+            tklogs = TicketLog.objects.filter(action='đóng yêu cầu', date__year=year, ticketid__in=tickets)
+        else:
+            tklogd = TicketLog.objects.filter(action='đóng yêu cầu', date__month=month, date__year=year,
+                                              ticketid__in=ticketd)
+            tklogs = TicketLog.objects.filter(action='đóng yêu cầu', date__month=month, date__year=year,
+                                              ticketid__in=tickets)
+        list_ag = {}
+        sumd = 0
+        sums = 0
+        for ag in agents:
+            tkidd = [tk.ticketid for tk in tklogd]
+            tkids = [tk.ticketid for tk in tklogs]
+            d = TicketAgent.objects.filter(agentid=ag, ticketid__in=tkidd).count()
+            s = TicketAgent.objects.filter(agentid=ag, ticketid__in=tkids).count()
+            list_ag[ag] = [d, s]
+            sumd += d
+            sums += s
+        content = {'agent': Agents.objects.all(),
+                   'admin': admin,
+                   'list_ag': list_ag,
+                   'sumd':sumd,
+                   'sums':sums,
+                   'today': timezone.now().date(),
+                   'all':all,
+                   'month': month,
+                   'year': year,
+                   'agent_name': mark_safe(json.dumps(admin.username)),
+                   'fullname': mark_safe(json.dumps(admin.fullname)),}
+        return render(request, 'agent/statistic.html', content)
+    else:
+        return redirect('/')
+
+
 def logout_admin(request):
     del request.session['admin']
     return redirect("/")
@@ -343,7 +384,7 @@ def home_agent(request):
         for tp in tp:
             list_tp += str(tp.topicid.name) + "!"
         content = {'ticket': Tickets.objects.filter(status=0, topicid__in=topic).order_by('-id'),
-                    'agent': agent, 
+                    'agent': agent,
                     'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'user_total': user_total,
@@ -1165,4 +1206,41 @@ def leader_agent_data(request):
         return redirect('/')
 
 
+def leader_profile(request):
+    if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
+        agent = Agents.objects.get(username=request.session['leader'])
+        topicag = Topics.objects.filter(leader=agent)
+        list_tp = ""
+        for tp1 in topicag:
+            list_tp += str(tp1.name) + "!"
+        if request.method == 'POST':
+            if 'change_user' in request.POST:
+                u = Agents.objects.get(id=request.POST['agentid'])
+                fullname = request.POST['change_user']
+                email = request.POST['email']
+                phone = request.POST['phone']
+                receive_mail = request.POST['receive_mail']
+                u.fullname = fullname
+                u.email = email
+                u.phone = phone
+                u.receive_email = receive_mail
+                u.save()
+            elif 'pwd' in request.POST:
+                u = Agents.objects.get(id=request.POST['agentid'])
+                u.password = request.POST['pwd']
+                u.save()
+            elif 'noti_noti' in request.POST:
+                agent.noti_noti = 0
+                agent.save()
+            elif 'noti_chat' in request.POST:
+                agent.noti_chat = 0
+                agent.save()
+        return render(request,"agent/profile_leader.html", {'agent': agent, 'noti_noti': agent.noti_noti,
+                                                     'noti_chat': agent.noti_chat,
+                                                     'topic': topicag,
+                                                     'agent_name': mark_safe(json.dumps(agent.username)),
+                                                     'fullname': mark_safe(json.dumps(agent.fullname)),
+                                                     'list_tp': mark_safe(json.dumps(list_tp))})
+    else:
+        return redirect("/")
 

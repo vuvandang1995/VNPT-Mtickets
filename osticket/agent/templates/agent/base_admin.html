@@ -82,7 +82,7 @@
                         <li><a href="{% url 'agent:home_admin' %}"><i class="fa fa-ticket"></i> Quản lý yêu cầu </a></li>
                         <li><a href="{% url 'agent:manager_agent' %}"><i class="fa fa fa-user-secret"></i> Quản lý nhân viên </a></li>
                         <li><a href="{% url 'agent:manager_topic' %}"><i class="fa fa-list-alt"></i> Quản lý chủ đề </a></li>
-                        <li><a href="{% url 'agent:manager_topic' %}"><i class="fa fa-list-alt"></i> Thống kê </a></li>
+                        <li><a href="{% url 'agent:statistic' 0 today.month today.year %}"><i class="fa fa-server"></i> Thống kê </a></li>
                         <li><a href="{% url 'agent:history_all_ticket' today|safe today|safe %}"><i class="fa fa-history"></i> Nhật ký </a></li>
                     </ul>
                 </nav>
