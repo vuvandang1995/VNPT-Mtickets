@@ -1,4 +1,4 @@
-{% extends 'agent/base.html' %}
+{% extends 'agent/base_leader.html' %}
 {% load static %}
 {% block title %}Agent{% endblock %}
 {% block js %}  
@@ -65,10 +65,10 @@
                                             {% endif%}
                                         </tr>
                                         <tr>
-                                            <td>Xử lý chủ đề</td>
+                                            <td>Quản lý chủ đề</td>
                                             <td>
                                                 {% for tp in topic %}
-                                                    {{tp}}<br>
+                                                    {{tp.name}}<br>
                                                 {% endfor %}
                                             </td>
                                         </tr>

@@ -14,120 +14,97 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/agent/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="923" column="12" selection-start-line="923" selection-start-column="12" selection-end-line="923" selection-end-column="12" />
+            <state relative-caret-position="441">
+              <caret line="1216" column="9" lean-forward="true" selection-start-line="1216" selection-start-column="9" selection-end-line="1216" selection-end-column="9" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
-                <element signature="e#6268#8219#0" />
-                <element signature="e#6313#8219#0" />
-                <element signature="e#8254#11382#0" />
-                <element signature="e#11423#11764#0" />
-                <element signature="e#11799#14518#0" />
-                <element signature="e#14552#14605#0" />
-                <element signature="e#14640#14694#0" />
-                <element signature="e#14722#14775#0" />
-                <element signature="e#17824#19046#0" />
-                <element signature="e#19085#26675#0" />
-                <element signature="e#26719#30075#0" />
-                <element signature="e#26834#30075#0" />
-                <element signature="e#30107#34069#0" />
-                <element signature="e#34122#35441#0" />
-                <element signature="e#35468#41728#0" />
-                <element signature="e#41756#43225#0" />
-                <element signature="e#43254#45203#0" />
-                <element signature="e#45238#46383#0" />
-                <element signature="e#46417#47636#0" />
-                <element signature="e#48919#53762#0" />
-                <element signature="e#57127#58785#0" />
-                <element signature="e#58824#59130#0" />
+                <element signature="e#43067#45016#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/profile.html">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
+            <state relative-caret-position="283">
+              <caret line="18" column="62" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manage_user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/static/js/manage_user.js">
+      <file leaf-file-name="base_leader.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_leader.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+            <state relative-caret-position="388">
+              <caret line="116" column="70" selection-start-line="116" selection-start-column="70" selection-end-line="116" selection-end-column="70" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/views.py">
+      <file leaf-file-name="statistic.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/statistic.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="233" column="66" lean-forward="true" selection-start-line="233" selection-start-column="12" selection-end-line="233" selection-end-column="66" />
+            <state relative-caret-position="352">
+              <caret line="40" column="79" selection-start-line="40" selection-start-column="79" selection-end-line="40" selection-end-column="79" />
               <folding>
-                <element signature="e#1297#4223#0" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inbox.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/inbox.html">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/templates/user/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="117" column="32" lean-forward="true" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="50" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" />
-              </folding>
+            <state relative-caret-position="548">
+              <caret line="134" column="55" selection-start-line="134" selection-start-column="55" selection-end-line="134" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="outbox.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/outbox.html">
+      <file leaf-file-name="profile_leader.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/profile_leader.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="89" column="89" selection-start-line="89" selection-start-column="89" selection-end-line="89" selection-end-column="89" />
+            <state relative-caret-position="248">
+              <caret line="77" column="101" selection-start-line="77" selection-start-column="101" selection-end-line="77" selection-end-column="101" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="processing_ticket.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/processing_ticket.html">
+      <file leaf-file-name="history_all_ticket.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_all_ticket.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-392">
-              <caret line="114" column="105" selection-start-line="114" selection-start-column="105" selection-end-line="114" selection-end-column="105" />
+            <state relative-caret-position="460">
+              <caret line="121" column="71" selection-start-line="121" selection-start-column="71" selection-end-line="121" selection-end-column="71" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="processing.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/static/js/processing.js">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-132">
-              <caret line="237" column="71" selection-start-line="237" selection-start-column="71" selection-end-line="237" selection-end-column="71" />
+            <state relative-caret-position="198">
+              <caret line="152" column="154" selection-start-line="152" selection-start-column="154" selection-end-line="152" selection-end-column="154" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="closed_ticket.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/closed_ticket.html">
+      <file leaf-file-name="base_admin.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_admin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="36" column="49" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
+            <state relative-caret-position="330">
+              <caret line="84" column="113" selection-start-line="84" selection-start-column="113" selection-end-line="84" selection-end-column="113" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manage_user.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/manage_user.html">
+      <file leaf-file-name="statistic.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user/static/js/statistic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1008">
-              <caret line="39" column="48" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
+            <state relative-caret-position="44">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -150,31 +127,36 @@
       <find>forward_ticket</find>
       <find>loading</find>
       <find>inputText</find>
-      <find>re-process ticket</find>
+      <find />
+      <find>EmailMessage</find>
+      <find>manage</find>
+      <find>home</find>
+      <find>statis</find>
+      <find>profi</find>
+      <find>profile</find>
     </findStrings>
     <replaceStrings>
-      <replace>mở lại yêu cầu</replace>
-      <replace>xử lý lại</replace>
-      <replace>xử lý lại yêu cầu</replace>
-      <replace>nhận yêu cầu được giao bởi (admin)</replace>
-      <replace>nhận xử lý yêu cầu</replace>
-      <replace>Chuyển yêu cầu</replace>
-      <replace>Thêm vào xử lý yêu cầu</replace>
-      <replace>Yêu cầu đã xử lý xong</replace>
-      <replace>từ bỏ xử lý yêu cầu</replace>
-      <replace>xử lý xong yêu cầu</replace>
-      <replace>yêu cầu</replace>
-      <replace>Từ chối nhận xử lý yêu cầu</replace>
-      <replace>nhận xử lý yêu cầu được gửi bởi nhân viên</replace>
-      <replace>nhận xử lý yêu cầu được giao từ quản trị viên</replace>
-      <replace>đóng yêu cầu</replace>
-      <replace>tạo mới yêu cầu</replace>
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
+      <replace />
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/user/static/js/detail_user.js" />
         <option value="$PROJECT_DIR$/user/templates/user/detail_user.html" />
         <option value="$PROJECT_DIR$/user/templates/user/history.html" />
         <option value="$PROJECT_DIR$/user/templates/user/agresetpwd.html" />
@@ -186,22 +168,17 @@
         <option value="$PROJECT_DIR$/user/static/js/ColReorderWithResize.js" />
         <option value="$PROJECT_DIR$/user/templates/user/base.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/history_for_leader.html" />
-        <option value="$PROJECT_DIR$/agent/urls.py" />
         <option value="$PROJECT_DIR$/user/static/js/leader_manage_agent.js" />
         <option value="$PROJECT_DIR$/user/static/js/lead_manage_topic.js" />
         <option value="$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html" />
-        <option value="$PROJECT_DIR$/agent/templates/agent/base_leader.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/home_leader.html" />
         <option value="$PROJECT_DIR$/user/models.py" />
         <option value="$PROJECT_DIR$/osticket/settings.py" />
         <option value="$PROJECT_DIR$/user/templates/user/home_user.html" />
-        <option value="$PROJECT_DIR$/agent/templates/agent/base_admin.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/history_for_admin.html" />
         <option value="$PROJECT_DIR$/user/static/js/home_admin.js" />
         <option value="$PROJECT_DIR$/agent/templates/agent/home_admin.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/manager_agent.html" />
-        <option value="$PROJECT_DIR$/agent/templates/agent/manager_topic.html" />
-        <option value="$PROJECT_DIR$/user/templates/user/index.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/history_all_ticket.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/mail/accept_mail.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/mail/add_mail.html" />
@@ -221,8 +198,16 @@
         <option value="$PROJECT_DIR$/agent/templates/agent/closed_ticket.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/manage_user.html" />
         <option value="$PROJECT_DIR$/user/static/js/manage_user.js" />
-        <option value="$PROJECT_DIR$/agent/views.py" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/manager_topic.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/profile.html" />
+        <option value="$PROJECT_DIR$/user/static/js/statistic.js" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/base_admin.html" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/statistic.html" />
+        <option value="$PROJECT_DIR$/user/templates/user/index.html" />
+        <option value="$PROJECT_DIR$/agent/urls.py" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/base_leader.html" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/profile_leader.html" />
+        <option value="$PROJECT_DIR$/agent/views.py" />
       </list>
     </option>
   </component>
@@ -237,6 +222,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -261,6 +247,14 @@
               <item name="agent" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="agent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="osticket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="osticket" type="462c0819:PsiDirectoryNode" />
+              <item name="agent" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="agent" type="462c0819:PsiDirectoryNode" />
+              <item name="mail" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="osticket" type="b2602c69:ProjectViewProjectNode" />
@@ -308,7 +302,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -347,19 +340,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="-5" width="1376" height="738" extended-state="6" />
+    <frame x="-5" y="-5" width="1930" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15178572" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15173867" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32993197" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.19333333" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -370,22 +363,22 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13224447" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15173867" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29666665" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.19444445" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -397,66 +390,10 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/user/templates/user/detail_user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="51" column="75" selection-start-line="51" selection-start-column="75" selection-end-line="51" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/acc_active_email.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/new_ticket.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" column="6" lean-forward="true" selection-start-line="1" selection-end-line="1" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-457">
-          <caret line="208" column="83" selection-start-line="208" selection-start-column="83" selection-end-line="208" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/resetpwd.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/history.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/ColReorderWithResize.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26994">
-          <caret line="1227" column="29" selection-start-line="1227" selection-start-column="29" selection-end-line="1227" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="551" lean-forward="true" selection-start-line="551" selection-end-line="551" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/home_agent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
         </state>
       </provider>
     </entry>
@@ -477,13 +414,6 @@
         <state relative-caret-position="-74" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="14" column="10" lean-forward="true" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/manager_topic.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -492,20 +422,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/lead_manage_topic.js" />
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="116" lean-forward="true" selection-start-line="116" selection-end-line="116" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_leader.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="129" column="35" lean-forward="true" selection-start-line="129" selection-start-column="35" selection-end-line="129" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -517,11 +433,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2860">
           <caret line="130" column="78" selection-start-line="130" selection-start-column="78" selection-end-line="130" selection-end-column="78" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#3;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -546,20 +457,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/statistic.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_for_admin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-656">
           <caret line="34" column="80" selection-start-line="34" selection-start-column="80" selection-end-line="34" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="84" column="109" selection-start-line="84" selection-start-column="109" selection-end-line="84" selection-end-column="109" />
         </state>
       </provider>
     </entry>
@@ -574,27 +475,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_all_ticket.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="37" column="57" selection-start-line="37" selection-start-column="57" selection-end-line="37" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/templates/user/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-52">
-          <caret line="180" column="83" selection-start-line="180" selection-start-column="83" selection-end-line="180" selection-end-column="83" />
         </state>
       </provider>
     </entry>
@@ -654,43 +534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="152" column="154" selection-start-line="152" selection-start-column="154" selection-end-line="152" selection-end-column="154" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_admin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="79" selection-end-column="22" />
-          <folding>
-            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_agent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1628">
-          <caret line="140" column="164" selection-start-line="140" selection-start-column="164" selection-end-line="140" selection-end-column="164" />
-          <folding>
-            <element signature="e#866#3723#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/inbox.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="117" column="32" lean-forward="true" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="50" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/outbox.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -702,13 +545,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-392">
           <caret line="114" column="105" selection-start-line="114" selection-start-column="105" selection-end-line="114" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user/static/js/processing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-132">
-          <caret line="237" column="71" selection-start-line="237" selection-start-column="71" selection-end-line="237" selection-end-column="71" />
         </state>
       </provider>
     </entry>
@@ -726,16 +562,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="233" column="66" lean-forward="true" selection-start-line="233" selection-start-column="12" selection-end-line="233" selection-end-column="66" />
-          <folding>
-            <element signature="e#1297#4223#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/manage_user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -743,42 +569,178 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/views.py">
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/inbox.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="923" column="12" selection-start-line="923" selection-start-column="12" selection-end-line="923" selection-end-column="12" />
+        <state relative-caret-position="127">
+          <caret line="117" column="32" lean-forward="true" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1518">
+          <caret line="140" column="42" selection-start-line="139" selection-start-column="28" selection-end-line="140" selection-end-column="42" />
           <folding>
-            <element signature="e#0#59#0" expanded="true" />
-            <element signature="e#6268#8219#0" />
-            <element signature="e#6313#8219#0" />
-            <element signature="e#8254#11382#0" />
-            <element signature="e#11423#11764#0" />
-            <element signature="e#11799#14518#0" />
-            <element signature="e#14552#14605#0" />
-            <element signature="e#14640#14694#0" />
-            <element signature="e#14722#14775#0" />
-            <element signature="e#17824#19046#0" />
-            <element signature="e#19085#26675#0" />
-            <element signature="e#26719#30075#0" />
-            <element signature="e#26834#30075#0" />
-            <element signature="e#30107#34069#0" />
-            <element signature="e#34122#35441#0" />
-            <element signature="e#35468#41728#0" />
-            <element signature="e#41756#43225#0" />
-            <element signature="e#43254#45203#0" />
-            <element signature="e#45238#46383#0" />
-            <element signature="e#46417#47636#0" />
-            <element signature="e#48919#53762#0" />
-            <element signature="e#57127#58785#0" />
-            <element signature="e#58824#59130#0" />
+            <element signature="e#1297#4223#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_topic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="77" selection-start-line="11" selection-start-column="77" selection-end-line="11" selection-end-column="77" />
+          <folding>
+            <element signature="n#style#0;n#input#2;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_for_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4422" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1778">
+          <caret line="181" selection-start-line="181" selection-end-line="184" selection-end-column="14" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/sidebarmenu.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/processing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="37" lean-forward="true" selection-end-line="361" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="132" column="57" selection-start-line="132" selection-start-column="17" selection-end-line="132" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/detail_user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="87" column="33" selection-start-line="87" selection-start-column="24" selection-end-line="87" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/home_agent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/assign.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/detail_agent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1487" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1407">
+          <caret line="140" column="164" selection-start-line="140" selection-start-column="164" selection-end-line="140" selection-end-column="164" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
+        <state relative-caret-position="-1033">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="152" column="154" selection-start-line="152" selection-start-column="154" selection-end-line="152" selection-end-column="154" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/history_all_ticket.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="121" column="71" selection-start-line="121" selection-start-column="71" selection-end-line="121" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/static/js/statistic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="84" column="113" selection-start-line="84" selection-start-column="113" selection-end-line="84" selection-end-column="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/statistic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="40" column="79" selection-start-line="40" selection-start-column="79" selection-end-line="40" selection-end-column="79" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="18" column="62" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/base_leader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="116" column="70" selection-start-line="116" selection-start-column="70" selection-end-line="116" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/templates/user/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="134" column="55" selection-start-line="134" selection-start-column="55" selection-end-line="134" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="1216" column="9" lean-forward="true" selection-start-line="1216" selection-start-column="9" selection-end-line="1216" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+            <element signature="e#43067#45016#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/profile_leader.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="77" column="101" selection-start-line="77" selection-start-column="101" selection-end-line="77" selection-end-column="101" />
         </state>
       </provider>
     </entry>
