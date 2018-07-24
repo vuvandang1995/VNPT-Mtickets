@@ -163,7 +163,7 @@
             $('body').on('click', '.close_ticket', function(){
                 var id = $(this).attr('id');
                 var token = $("input[name=csrfmiddlewaretoken]").val();
-                var mgs = 'Ticket ' +id+' is closed by '+userName;
+                var mgs = 'Yêu cầu số ' +id+' được đóng bởi '+userName;
                 var message = []
                 if(confirm("Bạn có chắc không ?")){
                     $.ajax({
@@ -287,9 +287,9 @@
             'ws://' + window.location.host +
             '/ws/agent/agent+group_agent_Socket/');
             var message = '';
-            var department = document.getElementById("mySelect").value;
-            var department_name = $("#mySelect option[value='"+department+"']").attr("name");
-            message = 'You have a new ticket!'+department_name;
+            var topic = document.getElementById("mySelect").value;
+            var topic_name = $("#mySelect option[value='"+topic+"']").attr("name");
+            message = 'Bạn có một yêu cầu mới!'+topic_name;
 
             var date = formatAMPM(new Date());
             chatSocket1.onopen = function (event) {

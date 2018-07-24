@@ -1138,7 +1138,7 @@ def home_leader_data(request, topicname):
                 handler += '</p>'
             idtk = r'''<button type="button" class="btn" data-toggle="modal" data-target="#''' + str(
                 tk.id) + '''content">''' + str(tk.id) + '''</button>'''
-            topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
+            topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>' + '<input type="hidden" name="topicc'+str(tk.id)+'" value="'+str(tk.topicid.id)+'">'
             if tk.lv_priority == 0:
                 level = r'<span class ="label label-success"> Thấp </span>'
             elif tk.lv_priority == 1:

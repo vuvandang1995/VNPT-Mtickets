@@ -2,7 +2,9 @@ $(document).ready(function(){
     $("#list_topic").on('click', '.btn-danger', function(){
         var id = $(this).attr('id');
         var token = $("input[name=csrfmiddlewaretoken]").val();
+        var leader = $("#tendangnhap"+id).html();
         var r = confirm('Are you sure?');
+        ag_leader = [];
         if (r == true){
             $.ajax({
                 type:'POST',
@@ -10,6 +12,13 @@ $(document).ready(function(){
                 data: {'delete':id, 'csrfmiddlewaretoken':token},
                 success: function(){
                     $("#list_topic").load(location.href + " #list_topic");
+                    var date = formatAMPM(new Date());
+                    ag_leader.unshift('admin_delete_topic');
+                    ag_leader.unshift(leader);
+                    group_agent_Socket.send(JSON.stringify({
+                        'message' : ag_leader,
+                        'time' : date
+                    }));
                 }
            });
         }
@@ -33,7 +42,7 @@ $(document).ready(function(){
                     $("#list_topic").load(location.href + " #list_topic");
                     document.getElementById("add_topic_close").click();
                     var date = formatAMPM(new Date());
-                    ag_leader.unshift('admin_add_leader');
+                    ag_leader.unshift('admin_add_topic');
                     ag_leader.unshift(leader);
                     group_agent_Socket.send(JSON.stringify({
                         'message' : ag_leader,

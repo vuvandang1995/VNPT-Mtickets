@@ -148,7 +148,7 @@ class UserConsumer(WebsocketConsumer):
         print(message)
 
 
-        if 'is done!' in message:
+        if 'đã hoàn thành!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-success btn-circle m-r-10"><i class="fa fa-check-circle-o"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -157,7 +157,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'is processing!' in message:
+        if 'đang được xử lý!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -166,7 +166,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'is re-process!' in message:
+        if 'tiếp tục được xử lý!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -175,7 +175,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'is closed by admin!' in message:
+        if 'đã được đóng bởi Admin!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-success btn-circle m-r-10"><i class="fa fa-check-circle-o"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -184,7 +184,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'is opened by admin!' in message:
+        if 'đang được xử lý bởi Admin!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -193,7 +193,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'is deleted by admin!' in message:
+        if 'bị xóa bởi Admin!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-danger btn-circle m-r-10"><i class="fa fa-remove"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -202,7 +202,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'is processing by admin!' in message:
+        if 'được xử lý bởi Admin!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'
@@ -362,7 +362,7 @@ class AgentConsumer(WebsocketConsumer):
         
 
 
-        if 'is closed by' in message[-1]:
+        if 'được đóng bởi' in message[-1]:
             notifi = message[-1]
             list_agent = message
             del list_agent[-1]
@@ -415,7 +415,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent+'.txt'
                 file = open(f,'a')
-                message = 'INBOX: You have a new ticket(forward)'
+                message = 'Bạn vừa nhận được một yêu cầu chuyển tiếp'
                 noti = '<a href="/agent/inbox"><div class="btn btn-info btn-circle m-r-10"><i class="fa fa-share-square-o"></i></div><div class="mail-contnet"><span class="mail-desc">'+message+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()
@@ -429,7 +429,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent+'.txt'
                 file = open(f,'a')
-                message = 'INBOX: You have a new ticket(forward)'
+                message = 'Bạn vừa nhận được một yêu cầu cùng xử lý'
                 noti = '<a href="/agent/inbox"><div class="btn btn-info btn-circle m-r-10"><i class="fa fa-user-plus"></i></div><div class="mail-contnet"><span class="mail-desc">'+message+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()
@@ -438,7 +438,7 @@ class AgentConsumer(WebsocketConsumer):
                 ag.save()
 
 
-        if 'agreed your ticket you forwarding' in message:
+        if 'đã đồng ý nhận yêu cầu bạn chuyển tiếp' in message:
             notifi = message.split('+')[0]
             agent = message.split('+')[1]
             f = r'notification/agent/noti_'+agent+'.txt'
@@ -450,7 +450,7 @@ class AgentConsumer(WebsocketConsumer):
             ag.noti_noti = ag.noti_noti + 1
             ag.save()
         
-        if 'Your ticket you forwarding refused by' in message:
+        if 'Yêu cầu mà bạn chuyển tiếp bị từ chối bởi' in message:
             notifi = message.split('+')[0]
             agent = message.split('+')[1]
             f = r'notification/agent/noti_'+agent+'.txt'
@@ -462,7 +462,7 @@ class AgentConsumer(WebsocketConsumer):
             ag.noti_noti = ag.noti_noti + 1
             ag.save()
 
-        if 'agreed your ticket you adding' in message:
+        if 'đã đồng cùng xử lý yêu cầu của bạn' in message:
             notifi = message.split('+')[0]
             agent = message.split('+')[1]
             f = r'notification/agent/noti_'+agent+'.txt'
@@ -474,7 +474,7 @@ class AgentConsumer(WebsocketConsumer):
             ag.noti_noti = ag.noti_noti + 1
             ag.save()
 
-        if 'Your ticket you adding refused by' in message:
+        if 'Yêu cầu của bạn bị từ chối bởi' in message:
             notifi = message.split('+')[0]
             agent = message.split('+')[1]
             f = r'notification/agent/noti_'+agent+'.txt'
@@ -494,7 +494,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent+'.txt'
                 file = open(f,'a')
-                message1 = 'Leader have just forwarded for you ticket '+tkid
+                message1 = 'Leader đã chuyển tiếp cho bạn yêu cầu số '+tkid
                 noti = '<a href="/agent/processing_ticket"><div class="btn btn-info btn-circle m-r-10"><i class="fa fa-share-square-o"></i></div><div class="mail-contnet"><span class="mail-desc">'+message1+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()
@@ -510,7 +510,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent+'.txt'
                 file = open(f,'a')
-                message1 = 'Leader have just opend ticket '+tkid
+                message1 = 'Leader đã mở yêu cầu số '+tkid
                 noti = '<a href="/agent/processing_ticket"><div class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div class="mail-contnet"><span class="mail-desc">'+message1+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()
@@ -526,7 +526,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent+'.txt'
                 file = open(f,'a')
-                message1 = 'Leader have just closed ticket '+tkid
+                message1 = 'Leader đã đóng yêu cầu số '+tkid
                 noti = '<a href="/agent/closed_ticket"><div class="btn btn-success btn-circle m-r-10"><i class="fa fa-check"></i></div><div class="mail-contnet"><span class="mail-desc">'+message1+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()
@@ -542,7 +542,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent+'.txt'
                 file = open(f,'a')
-                message1 = 'Leader have just delete ticket '+tkid
+                message1 = 'Leader đã xóa yêu cầu số '+tkid
                 noti = '<a href="/agent/processing_ticket"><div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-remove"></i></div><div class="mail-contnet"><span class="mail-desc">'+message1+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()
@@ -560,7 +560,7 @@ class AgentConsumer(WebsocketConsumer):
             for agent in list_agent:
                 f = r'notification/agent/noti_'+agent.split('+')[0]+'.txt'
                 file = open(f,'a')
-                message1 = ag+' just have given up ticket no. '+tkid
+                message1 = ag+' đã từ bỏ xử lý yêu cầu số '+tkid
                 noti = '<a href="/agent/processing_ticket"><div class="btn btn-danger btn-circle m-r-10"><i class="fa fa-minus-circle"></i></div><div class="mail-contnet"><span class="mail-desc">'+message1+'</span> <span class="time">'+time+'</span></div></a>'
                 file.write(noti + "\n")
                 file.close()

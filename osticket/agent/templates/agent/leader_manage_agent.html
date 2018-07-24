@@ -32,7 +32,7 @@
                                 Chủ đề {{ key.name }}
                             </div>
                             <div class="card-body tk_div" id="tabdiv_{{ forloop.counter }}">
-                                <table style="width:100%;"  class="display nowrap table table-hover table-striped table-bordered tk_table" id="list_ticket_leader_{{ forloop.counter }}">
+                                <table style="width:100%;"  class="display nowrap table table-hover table-striped table-bordered" id="list_ticket_leader_{{ forloop.counter }}">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -49,7 +49,7 @@
                                                 <button type="button" class="btn" data-toggle="modal" data-target="#{{va.id}}content1">{{va.id}}</button>
                                             </th>
                                             <th>{{va.fullname}}</th>
-                                            <th>{{va.username}}</th>
+                                            <th id="tendangnhap{{va.id}}">{{va.username}}</th>
                                             <th>{{va.status}}</th>
                                             {% for key, value in list_tk.items %}
                                                 {% if key == va.username %}

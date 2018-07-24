@@ -288,7 +288,7 @@
                     }
                 }
                     
-                if (message.includes('is done!')){
+                if (message.includes('đã hoàn thành!')){
                     var href="{% url 'user:homeuser' %}"
                     var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-success btn-circle m-r-10"><i class="fa fa-check-circle-o"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                     $('.noti_noti').prepend(noti);
@@ -305,7 +305,7 @@
                 }
 
 
-                if (message.includes('is re-process!')){
+                if (message.includes('tiếp tục được xử lý!')){
                     var href="{% url 'user:homeuser' %}"
                     var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                     $('.noti_noti').prepend(noti);
@@ -320,7 +320,7 @@
                     }, 1000);
                 }
 
-                if (message.includes('is closed by admin!')){
+                if (message.includes('đã được đóng bởi Admin!')){
                         var href="{% url 'user:homeuser' %}"
                         var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-success btn-circle m-r-10"><i class="fa fa-check-circle-o"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                         $('.noti_noti').prepend(noti);
@@ -335,7 +335,7 @@
                         }, 1000);
                 }
 
-                if (message.includes('is opened by admin!')){
+                if (message.includes('đang được xử lý bởi Admin!')){
                         var href="{% url 'user:homeuser' %}"
                         var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                         $('.noti_noti').prepend(noti);
@@ -350,7 +350,7 @@
                         }, 1000);
                 }
 
-                if (message.includes('is deleted by admin!')){
+                if (message.includes('bị xóa bởi Admin!')){
                         var href="{% url 'user:homeuser' %}"
                         var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-danger btn-circle m-r-10"><i class="fa fa-remove"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                         $('.noti_noti').prepend(noti);
@@ -365,7 +365,7 @@
                         }, 1000);
                 }
 
-                if (message.includes('is processing by admin!')){
+                if (message.includes('được xử lý bởi Admin!')){
                         var href="{% url 'user:homeuser' %}"
                         var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                         $('.noti_noti').prepend(noti);
@@ -381,7 +381,7 @@
                 }
 
 
-                if (message.includes('is processing!')){
+                if (message.includes('đang được xử lý!')){
                     var href="{% url 'user:homeuser' %}"
                     var noti = '<a href="'+href+'"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>';
                     $('.noti_noti').prepend(noti);

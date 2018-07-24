@@ -218,20 +218,20 @@ class CreateNewTicketForm(forms.Form):
     title = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'title',
+            'placeholder': 'Nhập tiêu đề',
         }
     ))
     # topic = forms.ChoiceField(choices=[(x.id,x.name) for x in Topics.objects.all()])
 
     content = forms.CharField(widget=forms.Textarea(attrs={
         'class': 'form-control',
-        'placeholder': 'content',
+        'placeholder': 'Nhập nội dung',
     })
     )
 
     attach = forms.FileField(required=False, widget=forms.FileInput(attrs={
         'class': 'form-control',
-        'placeholder': 'attach',
+        'placeholder': 'Đính kèm',
         'id': 'i_file',
     })
     )

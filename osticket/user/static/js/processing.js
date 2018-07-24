@@ -145,7 +145,7 @@ $(document).ready(function(){
                          'ws://' + window.location.host +
                          '/ws/user/' + userName + '/');
 
-                     message = 'Ticket '+id+' is done!' 
+                     message = 'Yêu cầu số '+id+' đã hoàn thành!' 
                      Socket1.onopen = function (event) {
                          setTimeout(function(){
                              Socket1.send(JSON.stringify({
@@ -198,7 +198,7 @@ $(document).ready(function(){
                          'ws://' + window.location.host +
                          '/ws/user/' + userName + '/');
 
-                     message = 'Ticket '+id+' is re-process!' 
+                     message = 'Yêu cầu số '+id+' tiếp tục được xử lý!' 
                      Socket1.onopen = function (event) {
                          setTimeout(function(){
                              Socket1.send(JSON.stringify({
