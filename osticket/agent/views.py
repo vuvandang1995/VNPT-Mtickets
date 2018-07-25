@@ -367,7 +367,9 @@ def logout(request):
 
 def home_agent(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
+        # countdown(10)
         agent = Agents.objects.get(username=request.session.get('agent'))
+        admin = agent.admin
         tpag = TopicAgent.objects.filter(agentid=agent).values('topicid')
         topic = Topics.objects.filter(id__in=tpag)
         user_total = Users.objects.count()
@@ -394,7 +396,8 @@ def home_agent(request):
                     'noti_noti': agent.noti_noti,
                     'noti_chat': agent.noti_chat,
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader}
+                    'list_leader': list_leader,
+                    'admin': admin}
         if request.method == 'POST':
             if 'tkid' in request.POST:
                 ticket = Tickets.objects.get(id=request.POST['tkid'])
@@ -460,6 +463,7 @@ def assign_ticket(request, id):
 def processing_ticket(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         sender = Agents.objects.get(username=request.session['agent'])
+        admin = sender.admin
         agent = Agents.objects.exclude(Q(username=request.session['agent']) | Q(admin=1))
         tpag = TopicAgent.objects.filter(agentid=sender).values('topicid')
         tp = Topics.objects.filter(id__in=tpag)
@@ -487,7 +491,8 @@ def processing_ticket(request):
                    'agent_name': mark_safe(json.dumps(sender.username)),
                    'fullname': mark_safe(json.dumps(sender.fullname)),
                    'list_tp': mark_safe(json.dumps(list_tp)),
-                   'list_leader': list_leader}
+                   'list_leader': list_leader,
+                   'admin': admin}
         if request.method == 'POST':
             if 'noti_noti' in request.POST:
                 sender.noti_noti = 0
@@ -558,10 +563,13 @@ def processing_ticket(request):
                     ticket = Tickets.objects.get(id=tkid)
                     ticket.status = stt
                     ticket.save()
-                    if stt == 1:
-                        action = 'xử lý lại yêu cầu'
+                    action =''
+                    if stt == '1':
+                        action += 'xử lý lại yêu cầu'
                     else:
-                        action = 'xử lý xong yêu cầu'
+                        action += 'xử lý xong yêu cầu'
+                        ticket.note = request.POST['comment']
+                        ticket.save()
                         user = Users.objects.get(id=ticket.sender.id)
                         if user.receive_email == 1:
                             email = EmailMessage(
@@ -604,10 +612,10 @@ def processing_ticket_data(request):
             option = ''
             if tk.status == 1:
                 status = r'<span class ="label label-warning" > Đang xử lý</span>'
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_done" data-toggle="tooltip" title="Hoàn thành" ><i class="fa fa-check"></i></button>'''
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_done" data-toggle="modal" data-title="done" data-target="#note"><i data-toggle="tooltip" title="Hoàn thành" class="fa fa-check"></i></button>'''
             else:
                 status = r'<span class ="label label-success" > Hoàn thành</span>'
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_processing" data-toggle="tooltip" title="Xử lý" ><i class="fa fa-wrench"></i></button>'''
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_processing"><i data-toggle="tooltip" title="Xử lý" class="fa fa-wrench"></i></button>'''
             id = r'''<th scope="row"><button type="button" class="btn" data-toggle="modal" data-target="#''' + str(tk.id) + '''content">''' + str(tk.id) + '''</button></th>'''
             handler = '<p id="hd' + str(tk.id) + '">'
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
@@ -721,6 +729,7 @@ def history_all_ticket(request, date, date2):
 def inbox(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
+        admin = agent.admin
         topicag = TopicAgent.objects.filter(agentid=agent)
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
@@ -735,7 +744,8 @@ def inbox(request):
                    'agent_name': mark_safe(json.dumps(agent.username)), 
                    'fullname': mark_safe(json.dumps(agent.fullname)),
                    'list_tp': mark_safe(json.dumps(list_tp)),
-                   'list_leader': list_leader}
+                   'list_leader': list_leader,
+                   'admin': admin}
         if request.method == 'POST':
             
             if 'forward' in request.POST:
@@ -846,6 +856,7 @@ def inbox(request):
 def outbox(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
+        admin = agent.admin
         topicag = TopicAgent.objects.filter(agentid=agent)
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
@@ -860,7 +871,8 @@ def outbox(request):
                     'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader}
+                    'list_leader': list_leader,
+                    'admin': admin}
         if request.method == 'POST':
             if 'forward' in request.POST:
                 fwticket = ForwardTickets.objects.get(id=request.POST['tkid'])
@@ -883,6 +895,7 @@ def outbox(request):
 def profile(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        admin = agent.admin
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
         list_leader = Agents.objects.filter(id__in=idleader)
@@ -919,7 +932,8 @@ def profile(request):
                                                      'agent_name': mark_safe(json.dumps(agent.username)),
                                                      'fullname': mark_safe(json.dumps(agent.fullname)),
                                                      'list_tp': mark_safe(json.dumps(list_tp)),
-                                                     'list_leader': list_leader})
+                                                     'list_leader': list_leader,
+                                                     'admin': admin})
     else:
         return redirect("/")
 
@@ -927,6 +941,7 @@ def profile(request):
 def closed_ticket(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        admin = agent.admin
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
         list_leader = Agents.objects.filter(id__in=idleader)
@@ -941,7 +956,8 @@ def closed_ticket(request):
                     'agent_name': mark_safe(json.dumps(agent.username)), 
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader}
+                    'list_leader': list_leader,
+                    'admin': admin}
         if request.method == 'POST':
             if 'noti_noti' in request.POST:
                 agent.noti_noti = 0
@@ -957,6 +973,7 @@ def closed_ticket(request):
 def manager_user(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        admin = agent.admin
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
         list_leader = Agents.objects.filter(id__in=idleader)
@@ -983,7 +1000,8 @@ def manager_user(request):
                     'agent_name': mark_safe(json.dumps(agent.username)), 
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader})
+                    'list_leader': list_leader,
+                    'admin': admin})
     else:
         return redirect("/")
 
@@ -1009,7 +1027,6 @@ def manage_user_data(request):
 def home_leader(request):
     if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
         leader = Agents.objects.get(username=request.session.get('leader'))
-        print(leader.username)
         list_topic = Topics.objects.filter(leader=leader)
         list_ticket = {}
         list_ag = {}
@@ -1244,3 +1261,21 @@ def leader_profile(request):
     else:
         return redirect("/")
 
+
+
+def leader_to_agent(request):
+    if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
+        request.session['agent'] = request.session['leader']
+        del request.session['leader']
+        return redirect('/agent')
+    else:
+        return redirect("/")
+
+
+def agent_to_leader(request):
+    if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
+        request.session['leader'] = request.session['agent']
+        del request.session['agent']
+        return redirect('/agent/leader')
+    else:
+        return redirect("/")

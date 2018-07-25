@@ -124,111 +124,123 @@ $(document).ready(function(){
     });
 
 
+    $("#note").on('show.bs.modal', function(event){
+        var button = $(event.relatedTarget);
+        var title = button.data('title');
+        if (title === 'done'){
+            $('#note #title').html("Ghi chú thông tin cho yêu cầu này")
+            var tkid = button.attr('id');
+            $("input[name=ticketid]").val(tkid);
+            var comment1 = $('#note'+tkid).html();
+            $('textarea#comment').val(comment1);
+        }
+    });
 
 
-    $("body").on('click', '.handle_done', function(){
-        var id = $(this).attr('id');
+    $("body").on('click', '#send_note', function(){
+        var id = $("#note input[name=ticketid]").val();
         var token = $("input[name=csrfmiddlewaretoken]").val();
-        if(confirm("Are you sure ?")){
+        var comment = $('textarea#comment').val();
+    
+        $.ajax({
+            type:'POST',
+            url:location.href,
+            data: {'tkid':id, 'csrfmiddlewaretoken':token, 'stt': 2, 'type': 'process_done', 'comment': comment},
+            success: function(){
+                var date = formatAMPM(new Date());
+                $("#list_ticket_processing").DataTable().ajax.reload();
+                document.getElementById("close_note").click();
+                $("body #ct"+id).load(location.href + " #ct"+id);
 
-             $.ajax({
-                 type:'POST',
-                 url:location.href,
-                 data: {'tkid':id, 'csrfmiddlewaretoken':token, 'stt': 2, 'type': 'process_done'},
-                 success: function(){
-                     var date = formatAMPM(new Date());
-                     $("#list_ticket_processing").DataTable().ajax.reload();
+                var userName = $('#user'+id).val();
 
-                     var userName = $('#user'+id).val();
+                var Socket1 = new WebSocket(
+                    'ws://' + window.location.host +
+                    '/ws/user/' + userName + '/');
 
-                     var Socket1 = new WebSocket(
-                         'ws://' + window.location.host +
-                         '/ws/user/' + userName + '/');
+                message = 'Yêu cầu số '+id+' đã hoàn thành!' 
+                Socket1.onopen = function (event) {
+                    setTimeout(function(){
+                        Socket1.send(JSON.stringify({
+                            'message' : message,
+                            'time' : date
+                        }));
+                        Socket1.close();
+                    }, 1000);
+                };
 
-                     message = 'Yêu cầu số '+id+' đã hoàn thành!' 
-                     Socket1.onopen = function (event) {
-                         setTimeout(function(){
-                             Socket1.send(JSON.stringify({
-                                 'message' : message,
-                                 'time' : date
-                             }));
-                             Socket1.close();
-                         }, 1000);
-                     };
+            // con thong bao toi agent khac, load lai trang cua agent va admin
+            list_agent = [];
+            var date = formatAMPM(new Date());
+            var array = $('body #hd'+id).html().split("<br>");
+            for (i = 0; i < array.length-1; i++) {
+                if (agentName !=  array[i].replace(/\s/g,'')){
+                    list_agent.push(array[i].replace(/\s/g,'')+'+');
+                }
+            }
 
-                    // con thong bao toi agent khac, load lai trang cua agent va admin
-                    list_agent = [];
-                    var date = formatAMPM(new Date());
-                    var array = $('body #hd'+id).html().split("<br>");
-                    for (i = 0; i < array.length-1; i++) {
-                        if (agentName !=  array[i].replace(/\s/g,'')){
-                            list_agent.push(array[i].replace(/\s/g,'')+'+');
-                        }
-                    }
-
-                    list_agent.unshift(message);
-                    list_agent.unshift(id);
-                    list_agent.unshift(agentName);
-                    group_agent_Socket.send(JSON.stringify({
-                        'message' : list_agent,
-                        'time' : date
-                    }));
-                         
-                 }
-             });
-         }
+            list_agent.unshift(message);
+            list_agent.unshift(id);
+            list_agent.unshift(agentName);
+            group_agent_Socket.send(JSON.stringify({
+                'message' : list_agent,
+                'time' : date
+            }));
+                    
+            }
+        });
      });
 
 
      $("body").on('click', '.handle_processing', function(){
         var id = $(this).attr('id');
         var token = $("input[name=csrfmiddlewaretoken]").val();
-        if(confirm("Are you sure ?")){
-             $.ajax({
-                 type:'POST',
-                 url:location.href,
-                 data: {'tkid':id, 'csrfmiddlewaretoken':token, 'stt': 1, 'type': 'process_done'},
-                 success: function(){
-                     var date = formatAMPM(new Date());
-                     $("#list_ticket_processing").DataTable().ajax.reload();
-
-                     var userName = $('#user'+id).val();
-
-                     var Socket1 = new WebSocket(
-                         'ws://' + window.location.host +
-                         '/ws/user/' + userName + '/');
-
-                     message = 'Yêu cầu số '+id+' tiếp tục được xử lý!' 
-                     Socket1.onopen = function (event) {
-                         setTimeout(function(){
-                             Socket1.send(JSON.stringify({
-                                 'message' : message,
-                                 'time' : date
-                             }));
-                             Socket1.close();
-                         }, 1000);
-                     };
-
-                     // con thong bao toi agent khac, load lai trang cua agent va admin
-                    list_agent = [];
+        if(confirm("Bạn có chắc chắn không?")){
+            $.ajax({
+                type:'POST',
+                url:location.href,
+                data: {'tkid':id, 'csrfmiddlewaretoken':token, 'stt': 1, 'type': 'process_done'},
+                success: function(){
                     var date = formatAMPM(new Date());
-                    var array = $('body #hd'+id).html().split("<br>");
-                    for (i = 0; i < array.length-1; i++) {
-                        if (agentName !=  array[i].replace(/\s/g,'')){
-                            list_agent.push(array[i].replace(/\s/g,'')+'+');
-                        }
-                    }
+                    $("#list_ticket_processing").DataTable().ajax.reload();
 
-                    list_agent.unshift(message);
-                    list_agent.unshift(id);
-                    list_agent.unshift(agentName);
-                    group_agent_Socket.send(JSON.stringify({
-                        'message' : list_agent,
-                        'time' : date
-                    }));
-                         
-                 }
-             });
+                    var userName = $('#user'+id).val();
+
+                    var Socket1 = new WebSocket(
+                        'ws://' + window.location.host +
+                        '/ws/user/' + userName + '/');
+
+                    message = 'Yêu cầu số '+id+' tiếp tục được xử lý!' 
+                    Socket1.onopen = function (event) {
+                        setTimeout(function(){
+                            Socket1.send(JSON.stringify({
+                                'message' : message,
+                                'time' : date
+                            }));
+                            Socket1.close();
+                        }, 1000);
+                    };
+
+                    // con thong bao toi agent khac, load lai trang cua agent va admin
+                list_agent = [];
+                var date = formatAMPM(new Date());
+                var array = $('body #hd'+id).html().split("<br>");
+                for (i = 0; i < array.length-1; i++) {
+                    if (agentName !=  array[i].replace(/\s/g,'')){
+                        list_agent.push(array[i].replace(/\s/g,'')+'+');
+                    }
+                }
+
+                list_agent.unshift(message);
+                list_agent.unshift(id);
+                list_agent.unshift(agentName);
+                group_agent_Socket.send(JSON.stringify({
+                    'message' : list_agent,
+                    'time' : date
+                }));
+                        
+                }
+            });
         }
     });
     

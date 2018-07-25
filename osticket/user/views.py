@@ -155,9 +155,9 @@ def homeuser(request):
                     ticket.topicid = Topics.objects.get(id=request.POST['topic'])
                     ticket.lv_priority = request.POST['level']
                     ticket.datestart = timezone.now()
-                    if request.POST['level'] == 0:
+                    if request.POST['level'] == '0':
                         ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_0))
-                    elif request.POST['level'] == 1:
+                    elif request.POST['level'] == '1':
                         ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_1))
                     else:
                         ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_2))

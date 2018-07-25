@@ -164,7 +164,10 @@
                                 </li>
                               {% endfor%}
                             </ul>
-                          </li>
+                        </li>
+                        {% if admin == 2 %}
+                            <li><a href="{% url 'agent:agent_to_leader' %}"><i class="fa fa-exchange"></i> Chế độ Quản trị viên </a></li>
+                        {% endif%}
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -652,6 +655,12 @@
                     }, 2000);
                 }
 
+                if (message[2].includes('đã hoàn thành!')) {
+                    setTimeout(function(){
+                        $("body #ct"+message[1]).load(location.href + " #ct"+message[1]);
+                    }, 2000);
+                }
+
                 if (check_exits(agentName, message) && check_exits('new_chat', message)) {
                     var tkid = message[0];
                     if ($('body .chat'+tkid).length){
@@ -915,10 +924,9 @@
         
     });
 
-    
-    $('body').on('click', 'header', function(){
-        $(this).next().slideToggle(300, 'swing');
-    })
+    function headerFunction(id) {
+        $('#'+id).parent().parent().next().slideToggle(300, 'swing');
+    }
 
     $('body').on('click', '.xxx', function(){
         $("body .mytext").trigger({type: 'keydown', which: 13, keyCode: 13});

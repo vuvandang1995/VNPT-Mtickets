@@ -31,181 +31,137 @@
     <div id="main-wrapper">
         <!-- header header  -->
         <div class="header">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
-                <!-- Logo -->
-                <div class="navbar-header" >
-                    <a class="navbar-brand" href="{% url 'agent:index' %}">
-                        <span><img src="{% static 'images/meditech.png' %}" alt="homepage" style="width:260px;height:40px;"></span>
-                    </a>
-                </div>
-                <!-- End Logo -->
-                <div class="navbar-collapse">
-                    <!-- toggle and nav items -->
-                    <ul class="navbar-nav mr-auto mt-md-0">
-                        <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-                        <!-- Messages -->
-                        <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle text-muted  "  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-th-large"></i></a>
-                            <div class="dropdown-menu animated zoomIn">
-                                <ul class="mega-dropdown-menu row">
-                                    <li class="col-lg-3  m-b-30">
-                                        <h4 class="m-b-20">CONTACT US</h4>
-                                        <!-- Contact -->
-                                        <form>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleInputname1" placeholder="Enter Name"> </div>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Enter email"> </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Message"></textarea>
+                <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                    <!-- Logo -->
+                    <div class="navbar-header" >
+                        <a class="navbar-brand" href="{% url 'agent:index' %}">
+                            <span><img src="{% static 'images/meditech.png' %}" alt="homepage" style="width:260px;height:40px;"></span>
+                        </a>
+                    </div>
+                    <!-- End Logo -->
+                    <div class="navbar-collapse">
+                        <!-- toggle and nav items -->
+                        <ul class="navbar-nav mr-auto mt-md-0">
+                            <!-- This is  -->
+                            <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                            <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                            <!-- Messages -->
+                           
+                            <!-- End Messages -->
+                        </ul>
+                        <!-- User profile and search -->
+                        <ul class="navbar-nav my-lg-0">
+    
+                            <!-- Comment -->
+                            <li class="nav-item dropdown notify_" >
+                                <a class="nav-link dropdown-toggle text-muted " onclick="notiFunction()"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-bell"></i>
+                                    <div class="notify noti_fy"> </div>
+                                </a>
+                                
+                                <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" >
+                                    <ul>
+                                        <li>
+                                            <div class="drop-title noti_msg">
+    
                                             </div>
-                                            <button type="submit" class="btn btn-info">Submit</button>
-                                        </form>
-                                    </li>
-                                    <li class="col-lg-3 col-xlg-3 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-3 col-xlg-3 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-lg-3 col-xlg-3 m-b-30">
-                                        <h4 class="m-b-20">List style</h4>
-                                        <!-- List style -->
-                                        <ul class="list-style-none">
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                            <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> This Is Another Link</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- End Messages -->
-                    </ul>
-                    <!-- User profile and search -->
-                    <ul class="navbar-nav my-lg-0">
-
-                        <!-- Search -->
-                        <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                        </li>
-                        <!-- Comment -->
-                        <li class="nav-item dropdown notify_" >
-                            <a class="nav-link dropdown-toggle text-muted " onclick="notiFunction()"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <div class="notify noti_fy"> </div>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" >
-                                <ul>
-                                    <li>
-                                        <div class="drop-title noti_msg">
-
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="message-center noti_noti">
-
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- End Comment -->
-                        <!-- Messages -->
-                        <li class="nav-item dropdown chat_">
-                            <a class="nav-link dropdown-toggle text-muted" onclick="chatFunction()"  id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-								<div class="notify chat_noti"> </div>
-							</a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title chat_msg"></div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center notification_chat">
-                                            <!-- Message -->
-
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>See all e-Mails</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- End Messages -->
-                        <!-- Profile -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static 'images/avatar.png' %}" alt="user" class="profile-pic" /></a>
-                            <div class="dropdown-menu dropdown-menu-right animated zoomIn">
-                                <ul class="dropdown-user">
-                                    <li><a href="{% url 'agent:profile' %}"><i class="ti-user"></i> Profile</a></li>
-                                    <li><a href="{% url 'agent:logout' %}"><i class="fa fa-power-off"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+                                        </li>
+    
+                                        <li>
+                                            <div class="message-center noti_noti">
+                                                
+                                            </div>
+                                        </li>
+                                        
+                                        <li>
+                                            <a class="nav-link text-center" href="javascript:void(0);"> <strong>Xem tất cả</strong> <i class="fa fa-angle-right"></i> </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- End Comment -->
+                            <!-- Messages -->
+                            <li class="nav-item dropdown chat_">
+                                <a class="nav-link dropdown-toggle text-muted" onclick="chatFunction()"  id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-envelope"></i>
+                                    <div class="notify chat_noti"> </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" aria-labelledby="2">
+                                    <ul>
+                                        <li>
+                                            <div class="drop-title chat_msg"></div>
+                                        </li>
+                                        <li>
+                                            <div class="message-center notification_chat">
+                                                <!-- Message -->
+                                                
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link text-center" href="javascript:void(0);"> <strong>Xem tất cả</strong> <i class="fa fa-angle-right"></i> </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- End Messages -->
+                            <!-- Profile -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted"   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{% static 'images/avatar.png' %}" alt="user" class="profile-pic" /></a>
+                                <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+                                    <ul class="dropdown-user">
+                                        <li><a href="{% url 'agent:profile' %}"><i class="ti-user"></i> Thông tin cá nhân</a></li>
+                                        <li><a href="{% url 'agent:logout' %}"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
         </div>
         <!-- End header header -->
         <!-- Left Sidebar  -->
         <div class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="nav-devider"></li>
-                        <li class="nav-label">{{ agent.fullname}}</li>
-                        <li> <a href="{% url 'agent:index' %}" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Home</span></a></li>
-                        <li> <a href="{% url 'agent:inbox' %}" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Inbox</span></a></li>
-                        <li> <a href="{% url 'agent:outbox' %}" aria-expanded="false"><i class="fa fa-send-o"></i><span class="hide-menu">Outbox</span></a></li>
-                        <li> <a href="{% url 'agent:processing_ticket' %}" aria-expanded="false"><i class="fa fa-hourglass-2"></i><span class="hide-menu">Processing Ticket</span></a></li>
-                        <li> <a href="{% url 'agent:closed_ticket' %}" aria-expanded="false"><i class="fa fa-check-circle"></i><span class="hide-menu">Close Ticket</span></a></li>
-                        <li> <a href="{% url 'agent:manage_user' %}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Manage User</span></a></li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <li class="nav-devider"></li>
+                            <li class="nav-label">{{ agent.fullname}}</li>
+                            <li> <a href="{% url 'agent:index' %}" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Trang chủ</span></a></li>
+                            <li> <a href="{% url 'agent:inbox' %}" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Yêu cầu gửi đến</span></a></li>
+                            <li> <a href="{% url 'agent:outbox' %}" aria-expanded="false"><i class="fa fa-send-o"></i><span class="hide-menu">Yêu cầu gửi đi</span></a></li>
+                            <li> <a href="{% url 'agent:processing_ticket' %}" aria-expanded="false"><i class="fa fa-hourglass-2"></i><span class="hide-menu">Yêu cầu đang xử lý</span></a></li>
+                            <li> <a href="{% url 'agent:closed_ticket' %}" aria-expanded="false"><i class="fa fa-check-circle"></i><span class="hide-menu">Yêu cầu đã đóng</span></a></li>
+                            <li> <a href="{% url 'agent:manage_user' %}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Quản lý user</span></a></li>
+                            <li> <a aria-expanded="false"><i class="fa fa-commenting-o"></i><span class="hide-menu">Trao đổi với Leader</span> <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                  {% for leader in list_leader %}
+                                    <li>
+                                        <a class="chat_leader" href='javascript:register_popup_leader("chat{{leader.id}}", {{leader.id}}, "{{leader.fullname}}", "{{leader.username}}");'>{{leader.fullname}}</a>
+                                        <input type="hidden" value="{{leader.id}}">
+                                    </li>
+                                  {% endfor%}
+                                </ul>
+                            </li>
+                            {% if admin == 2 %}
+                                <li><a href="{% url 'agent:agent_to_leader' %}"><i class="fa fa-exchange"></i> Chế độ Quản trị viên </a></li>
+                            {% endif%}
+                        </ul>
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
             </div>
-            <!-- End Sidebar scroll-->
-        </div>
         <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Timeline of ticket no.{{ id }}</h3> </div>
+                    <h3 class="text-primary">Dòng thời gian yêu cầu số {{ id }}</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Timeline</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>
+                        <li class="breadcrumb-item active">Dòng thời gian</li>
                     </ol>
                 </div>
             </div>
@@ -219,8 +175,8 @@
                                 <div id="visualization"></div>
                                 <br/>
                                 <div>
-                                    <button style="float:left;" class="btn btn-primary" onclick="reset()">Reset</button>
-                                    <h3 style="float:right;">scroll mouse to zoom +/-</h3>
+                                    <button style="float:left;" class="btn btn-primary" onclick="reset()">Mặc định</button>
+                                    <h3 style="float:right;">Sử dụng chuột để điều chỉnh</h3>
                                 </div>
                             </div>
                         </div>

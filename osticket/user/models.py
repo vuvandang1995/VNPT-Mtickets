@@ -7,7 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from user.models import *
-
+import time
 
 class Users(models.Model):
     fullname = models.CharField(max_length=255)
@@ -243,3 +243,13 @@ def authenticate_agent(agentname, agentpass):
             return None
     else:
         return None
+
+
+def countdown(t):
+    while t:
+        mins, secs = divmod(t, 60)
+        timeformat = '{:02d}:{:02d}'.format(mins, secs)
+        print(timeformat, end='\r')
+        time.sleep(1)
+        t -= 1
+    print('Goodbye!\n\n\n\n\n')
