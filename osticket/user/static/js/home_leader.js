@@ -57,11 +57,19 @@ $(document).ready(function(){
                             'time' : date,
                         }));
 
+                        if (stt == 'Chờ'){
+                            var topic = $("#tp"+id).html();
+                            group_agent_Socket.send(JSON.stringify({
+                                'message' : 'tải lại trang đi!'+topic,
+                                'time' : date,
+                            }));
+                        }
+
                         var Socket1 = new WebSocket(
                         'ws://' + window.location.host +
                         '/ws/user/' + sender + '/');
 
-                        message = 'Ticket '+id+' is closed by admin!'
+                        message = 'Yêu cầu số '+id+' đã được đóng bởi Admin!'
                         Socket1.onopen = function (event) {
                             setTimeout(function(){
                                 Socket1.send(JSON.stringify({
@@ -78,12 +86,18 @@ $(document).ready(function(){
                             'message' : array2,
                             'time' : date,
                         }));
+
+                        var topic = $("#tp"+id).html();
+                        group_agent_Socket.send(JSON.stringify({
+                            'message' : 'tải lại trang đi!'+topic,
+                            'time' : date,
+                        }));
                         var sender = $('#sender'+id).html();
                         var Socket1 = new WebSocket(
                         'ws://' + window.location.host +
                         '/ws/user/' + sender + '/');
 
-                        message = 'Ticket '+id+' is opened by admin!'
+                        message = 'Yêu cầu số '+id+' đang được xử lý bởi Admin!'
                         Socket1.onopen = function (event) {
                             setTimeout(function(){
                                 Socket1.send(JSON.stringify({
@@ -129,7 +143,7 @@ $(document).ready(function(){
                     'ws://' + window.location.host +
                     '/ws/user/' + sender + '/');
 
-                    message = 'Ticket '+id+' is deleted by admin!'
+                    message = 'Yêu cầu số '+id+' bị xóa bởi Admin!'
                     Socket1.onopen = function (event) {
                         setTimeout(function(){
                             Socket1.send(JSON.stringify({
@@ -181,7 +195,7 @@ $(document).ready(function(){
                 'ws://' + window.location.host +
                 '/ws/user/' + sender + '/');
 
-                message = 'Ticket '+id+' is processing by admin!'
+                message = 'Yêu cầu số '+id+' đã được Admin xử lý!'
                 Socket1.onopen = function (event) {
                     setTimeout(function(){
                         Socket1.send(JSON.stringify({
@@ -229,20 +243,43 @@ $(document).ready(function(){
         var button = $(event.relatedTarget);
         var ticketid = button.attr('id');
         $("input[name=ticketid]").val(ticketid);
+        var topic = $("input[name=topicc"+ticketid+"]").val();
+        $("#mySelect").val(topic);
     });
 
     $(".change_topic").click(function(){
         var token = $("input[name=csrfmiddlewaretoken]").val();
         var id = $("input[name=ticketid]").val();
         var topicid = $("#mySelect").val();
-        $.ajax({
-            type:'POST',
-            url:location.href,
-            data: {'csrfmiddlewaretoken':token, 'ticketid_change': id, 'topicid':topicid},
-            success: function(){
-                document.getElementById("change_topic_close").click();
-                $('.tk_table').DataTable().ajax.reload();
-            }
-        });
+        var topic_old = $("#tp"+id).text();
+        var topic_name = $("#mySelect").find('option:selected').attr("name");
+        var date = formatAMPM(new Date());
+        if (topic_old == topic_name){
+            document.getElementById("change_topic_close").click();
+        }else{
+            $.ajax({
+                type:'POST',
+                url:location.href,
+                data: {'csrfmiddlewaretoken':token, 'ticketid_change': id, 'topicid':topicid},
+                success: function(){
+                    document.getElementById("change_topic_close").click();
+                    $('.tk_table').DataTable().ajax.reload();
+                    
+                    var message1 = '';
+                    var message2 = '';
+                    message1 = 'Bạn có một yêu cầu mới!'+topic_name;
+                    group_agent_Socket.send(JSON.stringify({
+                        'message' : message1,
+                        'time' : date
+                    }));
+
+                    message2 = 'Yêu cầu số  ' + id + ' đã được chuyển sang chủ đề  '+ topic_name + '!' +topic_old;
+                    group_agent_Socket.send(JSON.stringify({
+                        'message' : message2,
+                        'time' : date
+                    }));
+                }
+            });
+        }
     });
 });

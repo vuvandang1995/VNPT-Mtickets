@@ -5,7 +5,7 @@ $(document).ready(function(){
         if(confirm("Are you sure ?")){
              var sender = $('body #sender'+id).html();
              var date = formatAMPM(new Date());
-             message = fullname+' agreed your ticket you forwarding +'+sender;
+             message = fullname+' đã đồng ý nhận yêu cầu bạn chuyển tiếp +'+sender;
              group_agent_Socket.send(JSON.stringify({
                  'message' : message,
                  'time' : date
@@ -44,7 +44,7 @@ $(document).ready(function(){
         if(confirm("Are you sure ?")){
              var sender = $('body #sender'+id).html();
              var date = formatAMPM(new Date());
-             message = 'Your ticket you forwarding refused by '+fullname+' +'+sender;
+             message = 'Yêu cầu mà bạn chuyển tiếp bị từ chối bởi '+fullname+' +'+sender;
              group_agent_Socket.send(JSON.stringify({
                  'message' : message,
                  'time' : date
@@ -67,7 +67,7 @@ $(document).ready(function(){
         if(confirm("Are you sure ?")){
              var sender = $('body #sender_'+id).html();
              var date = formatAMPM(new Date());
-             message = fullname+' agreed your ticket you adding +'+sender;
+             message = fullname+' đã đồng cùng xử lý yêu cầu của bạn  +'+sender;
              group_agent_Socket.send(JSON.stringify({
                  'message' : message,
                  'time' : date
@@ -106,7 +106,7 @@ $(document).ready(function(){
         if(confirm("Are you sure ?")){
              var sender = $('body #sender_'+id).html();
              var date = formatAMPM(new Date());
-             message = 'Your ticket you adding refused by '+fullname+' +'+sender;
+             message = 'Yêu cầu của bạn bị từ chối bởi '+fullname+' +'+sender;
              group_agent_Socket.send(JSON.stringify({
                  'message' : message,
                  'time' : date

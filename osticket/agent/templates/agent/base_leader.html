@@ -59,11 +59,6 @@
                     <ul class="navbar-nav my-lg-0">
                         <!-- Profile -->
                         <li class="nav-item dropdown notify_" >
-                            <a class="nav-link dropdown-toggle text-muted " onclick="notiFunction()"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <div class="notify noti_fy"> </div>
-                            </a>
-
                             <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" >
                                 <ul>
                                     <li>
@@ -160,7 +155,7 @@
     <!--Custom JavaScript -->
     <script src="{% static 'js/scripts.js' %}"></script>
     <script src="{% static 'js/lib/datatables/datatables.min.js' %}"></script>
-    <script src="{% static 'js/ColReorderWithResize.js' %}">
+    <script src="{% static 'js/ColReorderWithResize.js' %}"></script>
     
     <script src="{% static 'js/jquery.easy-autocomplete.js' %}"></script>
     <script src="{% static 'js/jquery.easy-autocomplete.min.js' %}"></script>
@@ -170,14 +165,11 @@
     <link href="{% static 'css/easy-autocomplete.themes.css' %}" rel="stylesheet">
     <link href="{% static 'css/easy-autocomplete.themes.min.css' %}" rel="stylesheet">
 
-
+    <audio id="myAudio">
+        <source src="{% static 'ping.mp3' %}" type="audio/mpeg">
+    </audio>
 <script>
-    //var fullname = {{ fullname }};
     var agentName = {{ agent_name }};
-    /*var chatSocket = new WebSocket(
-        'ws://' + window.location.host +
-        '/ws/agent/' + agentName + '/');*/
-
     var group_agent_Socket = new WebSocket(
         'ws://' + window.location.host +
         '/ws/agent/'+agentName+'+group_agent_Socket/');
@@ -218,23 +210,14 @@
         return strTime;
     }
 
-    $(".point").hide();
-
-    $(".fa-bell").click(function(){
-        $(".point").hide();
-    });
-
 
     group_agent_Socket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
         // Thong bao va load lai table home_agent khi co new ticket hoac co 1 agent nhan xu ly ticket
         setTimeout(function(){
-            $('#list_ticket_leader').DataTable().ajax.reload();
-            $("body #pending").load(location.href + " #pending");
-            $("body #processing").load(location.href + " #processing");
-            $("body #done").load(location.href + " #done");
-        }, 1000);
+            $('.tk_table').DataTable().ajax.reload();
+        }, 2000);
     };
 </script>
 {% block js %}
