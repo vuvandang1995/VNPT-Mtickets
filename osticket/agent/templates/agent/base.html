@@ -164,7 +164,10 @@
                                 </li>
                               {% endfor%}
                             </ul>
-                          </li>
+                        </li>
+                        {% if admin == 2 %}
+                            <li><a href="{% url 'agent:agent_to_leader' %}"><i class="fa fa-exchange"></i> Chế độ Quản trị viên </a></li>
+                        {% endif%}
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

@@ -368,6 +368,7 @@ def logout(request):
 def home_agent(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
+        admin = agent.admin
         tpag = TopicAgent.objects.filter(agentid=agent).values('topicid')
         topic = Topics.objects.filter(id__in=tpag)
         user_total = Users.objects.count()
@@ -394,7 +395,8 @@ def home_agent(request):
                     'noti_noti': agent.noti_noti,
                     'noti_chat': agent.noti_chat,
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader}
+                    'list_leader': list_leader,
+                    'admin': admin}
         if request.method == 'POST':
             if 'tkid' in request.POST:
                 ticket = Tickets.objects.get(id=request.POST['tkid'])
@@ -460,6 +462,7 @@ def assign_ticket(request, id):
 def processing_ticket(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         sender = Agents.objects.get(username=request.session['agent'])
+        admin = sender.admin
         agent = Agents.objects.exclude(Q(username=request.session['agent']) | Q(admin=1))
         tpag = TopicAgent.objects.filter(agentid=sender).values('topicid')
         tp = Topics.objects.filter(id__in=tpag)
@@ -487,7 +490,8 @@ def processing_ticket(request):
                    'agent_name': mark_safe(json.dumps(sender.username)),
                    'fullname': mark_safe(json.dumps(sender.fullname)),
                    'list_tp': mark_safe(json.dumps(list_tp)),
-                   'list_leader': list_leader}
+                   'list_leader': list_leader,
+                   'admin': admin}
         if request.method == 'POST':
             if 'noti_noti' in request.POST:
                 sender.noti_noti = 0
@@ -721,6 +725,7 @@ def history_all_ticket(request, date, date2):
 def inbox(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
+        admin = agent.admin
         topicag = TopicAgent.objects.filter(agentid=agent)
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
@@ -735,7 +740,8 @@ def inbox(request):
                    'agent_name': mark_safe(json.dumps(agent.username)), 
                    'fullname': mark_safe(json.dumps(agent.fullname)),
                    'list_tp': mark_safe(json.dumps(list_tp)),
-                   'list_leader': list_leader}
+                   'list_leader': list_leader,
+                   'admin': admin}
         if request.method == 'POST':
             
             if 'forward' in request.POST:
@@ -846,6 +852,7 @@ def inbox(request):
 def outbox(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session.get('agent'))
+        admin = agent.admin
         topicag = TopicAgent.objects.filter(agentid=agent)
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
@@ -860,7 +867,8 @@ def outbox(request):
                     'agent_name': mark_safe(json.dumps(agent.username)),
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader}
+                    'list_leader': list_leader,
+                    'admin': admin}
         if request.method == 'POST':
             if 'forward' in request.POST:
                 fwticket = ForwardTickets.objects.get(id=request.POST['tkid'])
@@ -883,6 +891,7 @@ def outbox(request):
 def profile(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        admin = agent.admin
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
         list_leader = Agents.objects.filter(id__in=idleader)
@@ -919,7 +928,8 @@ def profile(request):
                                                      'agent_name': mark_safe(json.dumps(agent.username)),
                                                      'fullname': mark_safe(json.dumps(agent.fullname)),
                                                      'list_tp': mark_safe(json.dumps(list_tp)),
-                                                     'list_leader': list_leader})
+                                                     'list_leader': list_leader,
+                                                     'admin': admin})
     else:
         return redirect("/")
 
@@ -927,6 +937,7 @@ def profile(request):
 def closed_ticket(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        admin = agent.admin
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
         list_leader = Agents.objects.filter(id__in=idleader)
@@ -941,7 +952,8 @@ def closed_ticket(request):
                     'agent_name': mark_safe(json.dumps(agent.username)), 
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader}
+                    'list_leader': list_leader,
+                    'admin': admin}
         if request.method == 'POST':
             if 'noti_noti' in request.POST:
                 agent.noti_noti = 0
@@ -957,6 +969,7 @@ def closed_ticket(request):
 def manager_user(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
         agent = Agents.objects.get(username=request.session['agent'])
+        admin = agent.admin
         tpag1 = TopicAgent.objects.filter(agentid=agent).values('topicid')
         idleader = Topics.objects.filter(id__in=tpag1).values('leader')
         list_leader = Agents.objects.filter(id__in=idleader)
@@ -983,7 +996,8 @@ def manager_user(request):
                     'agent_name': mark_safe(json.dumps(agent.username)), 
                     'fullname': mark_safe(json.dumps(agent.fullname)),
                     'list_tp': mark_safe(json.dumps(list_tp)),
-                    'list_leader': list_leader})
+                    'list_leader': list_leader,
+                    'admin': admin})
     else:
         return redirect("/")
 
@@ -1244,3 +1258,21 @@ def leader_profile(request):
     else:
         return redirect("/")
 
+
+
+def leader_to_agent(request):
+    if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
+        request.session['agent'] = request.session['leader']
+        del request.session['leader']
+        return redirect('/agent')
+    else:
+        return redirect("/")
+
+
+def agent_to_leader(request):
+    if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
+        request.session['leader'] = request.session['agent']
+        del request.session['agent']
+        return redirect('/agent/leader')
+    else:
+        return redirect("/")

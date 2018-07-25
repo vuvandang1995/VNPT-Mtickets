@@ -31,4 +31,6 @@ urlpatterns = [
     path('profile', views.profile, name="profile"),
     path('logout_admin/', views.logout_admin, name='logout_admin'),
     path('logout_leader/', views.logout_leader, name='logout_leader'),
+    path('leader_to_agent', views.leader_to_agent, name='leader_to_agent'),
+    path('agent_to_leader', views.agent_to_leader, name='agent_to_leader'),
 ]

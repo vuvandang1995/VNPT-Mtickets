@@ -57,28 +57,6 @@
                     </ul>
                     <!-- User profile and search -->
                     <ul class="navbar-nav my-lg-0">
-                        <!-- Profile -->
-                        <li class="nav-item dropdown notify_" >
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" >
-                                <ul>
-                                    <li>
-                                        <div class="drop-title noti_msg">
-
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="message-center noti_noti">
-
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Xem tất cả</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
                         <!-- End Comment -->
                         <!-- Messages -->
                         <li class="nav-item dropdown chat_">
@@ -129,6 +107,7 @@
                     	<li class="nav-label">Quản trị viên</li>
                         <li><a href="{% url 'agent:home_leader' %}"><i class="fa fa-ticket"></i> Quản lý yêu cầu </a></li>
                         <li><a href="{% url 'agent:leader_manage_agent' %}"><i class="fa fa fa-user-secret"></i> Quản lý nhân viên </a></li>
+                        <li><a href="{% url 'agent:leader_to_agent' %}"><i class="fa fa-exchange"></i> Chế độ nhân viên xử lý </a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
