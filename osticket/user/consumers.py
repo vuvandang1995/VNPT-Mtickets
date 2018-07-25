@@ -202,7 +202,7 @@ class UserConsumer(WebsocketConsumer):
             u.noti_noti = u.noti_noti + 1
             u.save()
 
-        if 'được xử lý bởi Admin!' in message:
+        if 'đã được Admin xử lý!' in message:
             f = r'notification/user/'+self.room_group_name+'.txt'
             file = open(f,'a')
             noti = '<a href="/user/"><div style="float:left;width:15%" class="btn btn-warning btn-circle m-r-10"><i class="fa fa-folder-open"></i></div><div style="float:right; width:80%"><p>'+message+'</p><small><i class="fa fa-clock-o"></i>'+time+'</small></div></a>'

@@ -57,6 +57,14 @@ $(document).ready(function(){
                             'time' : date,
                         }));
 
+                        if (stt == 'Chờ'){
+                            var topic = $("#tp"+id).html();
+                            group_agent_Socket.send(JSON.stringify({
+                                'message' : 'tải lại trang đi!'+topic,
+                                'time' : date,
+                            }));
+                        }
+
                         var Socket1 = new WebSocket(
                         'ws://' + window.location.host +
                         '/ws/user/' + sender + '/');
@@ -76,6 +84,12 @@ $(document).ready(function(){
                         array2.push(id);
                         group_agent_Socket.send(JSON.stringify({
                             'message' : array2,
+                            'time' : date,
+                        }));
+
+                        var topic = $("#tp"+id).html();
+                        group_agent_Socket.send(JSON.stringify({
+                            'message' : 'tải lại trang đi!'+topic,
                             'time' : date,
                         }));
                         var sender = $('#sender'+id).html();
@@ -181,7 +195,7 @@ $(document).ready(function(){
                 'ws://' + window.location.host +
                 '/ws/user/' + sender + '/');
 
-                message = 'Yêu cầu số '+id+' được xử lý bởi Admin!'
+                message = 'Yêu cầu số '+id+' đã được Admin xử lý!'
                 Socket1.onopen = function (event) {
                     setTimeout(function(){
                         Socket1.send(JSON.stringify({

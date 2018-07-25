@@ -327,7 +327,18 @@
                     }
                 }
 
-                if (message.includes('đã được chuyển sang chủ đề khác!')) {
+                if (message.includes('tải lại trang đi!')) {
+                    var message1 = message.split('!')[1];
+                    for (i = 0; i <= list_tp.length-1; i++){
+                        if (message1 == list_tp[i]){
+                            setTimeout(function(){
+                                $("body #list_ticket_home").load(location.href + " #list_ticket_home");
+                            }, 2000);
+                        }
+                    }
+                }
+
+                if (message.includes('đã được chuyển sang chủ đề ')) {
                     var message1 = message.split('!')[1];
                     for (i = 0; i <= list_tp.length-1; i++){
                         if (message1 == list_tp[i]){
@@ -456,6 +467,8 @@
                     setTimeout(function(){
                         $("#list_ticket_processing").DataTable().ajax.reload();
                         $("body #processing").load(location.href + " #processing");
+                        $("body #pending").load(location.href + " #pending");
+                        $("body #list_ticket_home").load(location.href + " #list_ticket_home");
                     }, 2000);
                 }
                 
@@ -474,6 +487,7 @@
                         $("#list_ticket_processing").DataTable().ajax.reload();
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
+                        $("body #list_ticket_home").load(location.href + " #list_ticket_home");
                     }, 2000);
                 }
 
@@ -493,6 +507,7 @@
                         $("#list_ticket_processing").DataTable().ajax.reload();
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
+                        $("body #list_ticket_home").load(location.href + " #list_ticket_home");
                     }, 2000);
                 }
 
@@ -515,6 +530,7 @@
                         $("#list_ticket_processing").DataTable().ajax.reload();
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
+                        $("body #list_ticket_home").load(location.href + " #list_ticket_home");
                     }, 2000);
                 }
 

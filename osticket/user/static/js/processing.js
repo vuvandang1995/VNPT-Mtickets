@@ -90,7 +90,7 @@ $(document).ready(function(){
                 list_agent.push(this.name);
             }
         });
-        if (title.includes('Forward')){
+        if (title.includes('Chuyển tiếp')){
             $.ajax({
                 type:'POST',
                 url:location.href,
