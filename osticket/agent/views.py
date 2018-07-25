@@ -367,6 +367,7 @@ def logout(request):
 
 def home_agent(request):
     if request.session.has_key('agent')and(Agents.objects.get(username=request.session['agent'])).status == 1:
+        # countdown(10)
         agent = Agents.objects.get(username=request.session.get('agent'))
         admin = agent.admin
         tpag = TopicAgent.objects.filter(agentid=agent).values('topicid')

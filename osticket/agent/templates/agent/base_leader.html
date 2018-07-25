@@ -197,6 +197,12 @@
         setTimeout(function(){
             $('.tk_table').DataTable().ajax.reload();
         }, 2000);
+
+        if (message[2].includes('đã hoàn thành!')) {
+            setTimeout(function(){
+                $("body #ct"+message[1]).load(location.href + " #ct"+message[1]);
+            }, 2000);
+        }
     };
 </script>
 {% block js %}
