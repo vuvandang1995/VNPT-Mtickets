@@ -78,7 +78,7 @@
 
                                 </div>
                                 <div class="media-body media-text-right">
-                                    <h2>{{ agent_total }}</h2>
+                                    <h2>{{ user_total }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                                                             <h4 class="modal-title">Yêu cầu số {{tk.id}}</h4>
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                         </div>
-                                                        <div class="modal-body form-group">
+                                                        <div class="modal-body form-group" id="ct{{tk.id}}">
                                                             <b>Người gửi:</b>
                                                             <p>{{tk.sender.fullname}}</p>
                                                             <b>Tiêu đề:</b>
@@ -168,6 +168,8 @@
                                                             <b>Đính kèm:</b><br>
                                                             <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">
                                                                 {% endif %}
+                                                            <b>Ghi chú:</b><br>
+                                                            <p>{{tk.note}}</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -215,7 +217,7 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody id="list_tk_history">
+                                        <tbody id="list_tk_h istory">
 
                                         </tbody>
                                     </table>

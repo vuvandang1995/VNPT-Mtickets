@@ -52,7 +52,7 @@
                     <h4 class="modal-title">Yêu cầu số {{tk.id}}</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body form-group">
+                <div class="modal-body form-group" id="ct{{tk.id}}">
                     <b>Người gửi:</b>
                     <p>{{tk.sender.fullname}}</p>
                     <b>Tiêu đề:</b>
@@ -68,7 +68,9 @@
                     {% if tk.attach != '' %}
                     <b>Đính kèm:</b><br>
                     <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">
-                        {% endif %}
+                    {% endif %}
+                    <b>Ghi chú:</b><br>
+                    <p id="note{{tk.id}}">{{tk.note}}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -117,6 +119,25 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal forward-add" id="note" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title"></h4>
+                </div>
+                <div class="modal-body form-group">
+                    <label for="content"><b>Nội dung</b></label>
+                    <textarea rows="10" cols="50" id="comment"></textarea>
+                    <input type="hidden" name="ticketid" value="">
+                    <button type="submit" class="btn btn-info" value="OK" id="send_note"><span class="glyphicon glyphicon-share"></span>Gửi</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="close_note">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <script src="{% static 'js/lib/jquery/jquery.min.js' %}"></script>
 
 <!-- Bootstrap tether Core JavaScript -->

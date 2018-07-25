@@ -300,6 +300,7 @@
                     x.play();
                     setTimeout(function(){
                         $("#list_tk_user").DataTable().ajax.reload();
+                        $("body #ct"+message.split(' ')[3]).load(location.href + " #ct"+message.split(' ')[3]);
                     }, 1000);
 
                 }

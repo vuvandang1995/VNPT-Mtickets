@@ -562,10 +562,13 @@ def processing_ticket(request):
                     ticket = Tickets.objects.get(id=tkid)
                     ticket.status = stt
                     ticket.save()
-                    if stt == 1:
-                        action = 'xử lý lại yêu cầu'
+                    action =''
+                    if stt == '1':
+                        action += 'xử lý lại yêu cầu'
                     else:
-                        action = 'xử lý xong yêu cầu'
+                        action += 'xử lý xong yêu cầu'
+                        ticket.note = request.POST['comment']
+                        ticket.save()
                         user = Users.objects.get(id=ticket.sender.id)
                         if user.receive_email == 1:
                             email = EmailMessage(
@@ -608,10 +611,10 @@ def processing_ticket_data(request):
             option = ''
             if tk.status == 1:
                 status = r'<span class ="label label-warning" > Đang xử lý</span>'
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_done" data-toggle="tooltip" title="Hoàn thành" ><i class="fa fa-check"></i></button>'''
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_done" data-toggle="modal" data-title="done" data-target="#note"><i data-toggle="tooltip" title="Hoàn thành" class="fa fa-check"></i></button>'''
             else:
                 status = r'<span class ="label label-success" > Hoàn thành</span>'
-                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_processing" data-toggle="tooltip" title="Xử lý" ><i class="fa fa-wrench"></i></button>'''
+                option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-success handle_processing"><i data-toggle="tooltip" title="Xử lý" class="fa fa-wrench"></i></button>'''
             id = r'''<th scope="row"><button type="button" class="btn" data-toggle="modal" data-target="#''' + str(tk.id) + '''content">''' + str(tk.id) + '''</button></th>'''
             handler = '<p id="hd' + str(tk.id) + '">'
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
@@ -1023,7 +1026,6 @@ def manage_user_data(request):
 def home_leader(request):
     if request.session.has_key('leader')and(Agents.objects.get(username=request.session['leader'])).status == 1:
         leader = Agents.objects.get(username=request.session.get('leader'))
-        print(leader.username)
         list_topic = Topics.objects.filter(leader=leader)
         list_ticket = {}
         list_ag = {}

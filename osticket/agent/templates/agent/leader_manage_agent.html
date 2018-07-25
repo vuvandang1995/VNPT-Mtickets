@@ -50,7 +50,13 @@
                                             </th>
                                             <th>{{va.fullname}}</th>
                                             <th id="tendangnhap{{va.id}}">{{va.username}}</th>
-                                            <th>{{va.status}}</th>
+                                            <th>
+                                                {% if va.status == 0 %}
+                                                <span class="label label-danger">Khóa</span>
+                                                {% else %}
+                                                <span class="label label-success">Kích hoạt</span>
+                                                {% endif %}
+                                            </th>
                                             {% for key, value in list_tk.items %}
                                                 {% if key == va.username %}
                                                     <th>{{ value.1 }}</th>
@@ -58,7 +64,7 @@
                                                 {% endif %}
                                             {% endfor %}
                                             <th>
-                                                <button type="button" class="btn btn-danger" id="del_{{key.id}}_{{va.id}}" data-toggle="tooltip" title="delete">
+                                                <button type="button" class="btn btn-danger" id="del_{{key.id}}_{{va.id}}" data-toggle="tooltip" title="Xóa">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </th>

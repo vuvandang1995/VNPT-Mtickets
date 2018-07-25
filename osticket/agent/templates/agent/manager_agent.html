@@ -32,11 +32,11 @@
                             <tr>
                                 <th width="5%">ID</th>
                                 <th width="20%">Họ và tên</th>
-                                <th width="5%">Admin</th>
+                                <th width="10%">Vị trí</th>
                                 <th width="15%">Trạng thái</th>
                                 <th width="15%">Xử lý / Xong</th>
-                                <th width="20%">Chủ đề</th>
-                                <th width="20%">Tùy chọn</th>
+                                <th width="18%">Chủ đề</th>
+                                <th width="17%">Tùy chọn</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -56,10 +56,12 @@
 
                                 <input type="hidden" id="phone_agent{{ag.id}}" value="{{ag.phone}}">
 
-                                {% if ag.admin != 1 %}
-                                    <td><span class="label label-danger">Không</span></td>
+                                {% if ag.admin == 0 %}
+                                    <td>Nhân viên</td>
+                                {% elif ag.admin == 2 %}
+                                    <td>Quản trị</td>
                                 {% else %}
-                                    <td><span class="label label-success">Có</span></td>
+                                    <td>Admin</td>
                                 {% endif %}
 
                                 {% if ag.status == 0 %}
