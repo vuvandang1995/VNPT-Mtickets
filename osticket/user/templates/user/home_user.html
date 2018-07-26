@@ -57,13 +57,7 @@
                                     <label>Chủ đề:</label>
                                     <p>{{tk.topicid.name}} - {{tk.topicid.description}}</p>
                                     <label>Mức ưu tiên:</label>
-                                    {% if tk.lv_priority == 0 %}
-                                    <p>Thấp</p>
-                                    {% elif tk.lv_prority == 1 %}
-                                    <p>Trung bình</p>
-                                    {% else %}
-                                    <p>Cao</p>
-                                    {% endif %}
+                                    <p>{{ tk.priority.name }}</p>
                                     <label>Nội dung:</label>
                                     <p>{{tk.content}}</p>
                                     <label>Ngày tạo:</label>
@@ -113,10 +107,10 @@
                              {% endfor %}
                          </select>
                          <br /><label for="level"><b>Mức ưu tiên</b></label><br />
-                         <select name="level" class="form-control" >
-                             <option value="0" name="lv0">Thấp</option>
-                             <option value="1" name="lv1">Trung bình</option>
-                             <option value="2" name="lv2">Cao</option>
+                         <select name="level" class="form-control" id="lv_select">
+                             {% for lv in level %}
+                                <option value="{{lv.id}}" name="{{lv.name}}">{{lv.name}}</option>
+                             {% endfor %}
                          </select>
                          <br />
                          <label for="content"><b>Nội dung</b></label><br /><br />

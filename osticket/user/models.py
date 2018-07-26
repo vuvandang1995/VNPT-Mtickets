@@ -9,6 +9,7 @@ from django.db import models
 from user.models import *
 import time
 
+
 class Users(models.Model):
     fullname = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
@@ -78,6 +79,7 @@ class Tickets(models.Model):
     note = models.TextField()
     lv_priority = models.IntegerField(default=1)
     expired = models.IntegerField(default=0)
+    priority = models.ForeignKey('LevelPriority', models.SET_NULL, db_column='priority', null=True)
 
     class Meta:
         managed = True
@@ -138,23 +140,6 @@ def count_tk(agentname):
         return None
 
 
-def get_list_agent(department):
-    try:
-        dm = Departments.objects.get(name=department)
-        ag = Agents.objects.filter(departmentid=dm)
-        return ag
-    except Departments.DoesNotExist:
-        return None
-
-def get_agent_tp(topic):
-    try:
-        tp = Topics.objects.get(name=topic)
-        tpag = TopicAgent.objects.filter(topicid=tp)
-        return tpag
-    except Departments.DoesNotExist:
-        return None
-
-
 class TicketLog(models.Model):
     userid = models.ForeignKey(Users, models.CASCADE, null=True, db_column='userid', related_name='usertl')
     agentid = models.ForeignKey(Agents, models.CASCADE, null=True, db_column='agentid', related_name='agenttl')
@@ -166,6 +151,15 @@ class TicketLog(models.Model):
     class Meta:
         managed = True
         db_table = 'ticket_log'
+
+
+class LevelPriority(models.Model):
+    name = models.CharField(max_length=255)
+    time = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'level_priority'
 
 
 def list_hd(ticketid):
@@ -193,6 +187,7 @@ def get_user_email(email1):
     except Users.DoesNotExist:
         return None
 
+
 def get_agent_email(email2):
     try:
         return Agents.objects.get(email=email2)
@@ -205,6 +200,7 @@ def active(user):
         return False
     else:
         return True
+
 
 def agactive(ag):
     if ag.status == 0:
