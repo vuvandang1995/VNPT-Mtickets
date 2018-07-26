@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/statistic_<int:all>_<int:month>_<int:year>', views.statistic, name='statistic'),
     path('admin/topic/', views.manager_topic, name='manager_topic'),
     path('admin/agent/', views.manager_agent, name='manager_agent'),
+    path('admin/level_priority/', views.level_priority, name='level_priority'),
     path('', views.home_agent, name="index"),
     path('leader/', views.home_leader, name="home_leader"),
     path('leader/data', views.leader_agent_data, name="leader_agent_data"),

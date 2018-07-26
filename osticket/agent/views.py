@@ -351,6 +351,45 @@ def statistic(request, all, month, year):
         return redirect('/')
 
 
+def level_priority(request):
+    if request.session.has_key('admin'):
+        admin = Agents.objects.get(username=request.session['admin'])
+        lv = LevelPriority.objects.all()
+        lvl = {}
+        for l in lv:
+            lvl[l.name] = convert_time(l.time)
+        content = {'agent': Agents.objects.all(),
+                   'admin': admin,
+                   'level': lvl,
+                   'lall': lv,
+                   'today': timezone.now().date(),
+                   'agent_name': mark_safe(json.dumps(admin.username)),
+                   'fullname': mark_safe(json.dumps(admin.fullname)), }
+        if request.method == 'POST':
+            t = int(request.POST['day'])*86400 + int(request.POST['hour'])*3600 + int(request.POST['minute'])*60 + int(request.POST['second'])
+            if request.POST['id'] == '0':
+                try:
+                    LevelPriority.objects.get(name=request.POST['name'])
+                except ObjectDoesNotExist:
+                    LevelPriority.objects.create(name=request.POST['name'], time=t)
+            else:
+                muc = LevelPriority.objects.get(id=request.POST['id'])
+                muc.name = request.POST['name']
+                muc.time = t
+                muc.save()
+        return render(request, 'agent/level_priority.html', content)
+    else:
+        return redirect('/')
+
+
+def convert_time(time):
+    d = str(time//86400)
+    h = str(time%86400//3600)
+    m = str(time%86400%3600//60)
+    s = str(time%86400%3600%60)
+    return d + ' ngày '+ h +" giờ " + m + " phút " + s +" giây"
+
+
 def logout_admin(request):
     del request.session['admin']
     return redirect("/")
