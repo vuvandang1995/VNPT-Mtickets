@@ -418,8 +418,9 @@
                                 $("body #list_ticket_home").load(location.href + " #list_ticket_home");
                                 $("body #pending").load(location.href + " #pending");
                                 $("#list_ticket_processing").DataTable().ajax.reload();
-                                countdowntime();
+                                
                             }, 2000);
+                            countdowntime();
                             x.play();
                         }
                     }
@@ -471,8 +472,9 @@
                         $("#list_ticket_forward_outbox").load(location.href + " #list_ticket_forward_outbox");
                         $("body #processing").load(location.href + " #processing");
                         $("#list_ticket_processing").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (message.includes('+'+agentName) && message.includes('Yêu cầu mà bạn chuyển tiếp bị từ chối bởi')) {
@@ -503,8 +505,9 @@
                     setTimeout(function(){
                         $("#list_ticket_add_outbox").load(location.href + " #list_ticket_add_outbox");
                         $("#list_ticket_processing").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (message.includes('+'+agentName) && message.includes('Yêu cầu của bạn bị từ chối bởi')) {
@@ -538,8 +541,9 @@
                         $("body #processing").load(location.href + " #processing");
                         $("body #pending").load(location.href + " #pending");
                         $("body #list_ticket_home").load(location.href + " #list_ticket_home");
-                        countdowntime();
+                    
                     }, 2000);
+                    countdowntime();
                 }
                 
                 if (check_exits(agentName, message) && check_exits('admin_close_ticket', message)) {
@@ -558,8 +562,9 @@
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
                         $("body #list_ticket_home").load(location.href + " #list_ticket_home");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 
@@ -579,8 +584,9 @@
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
                         $("body #list_ticket_home").load(location.href + " #list_ticket_home");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (check_exits(agentName, message) && check_exits('admin_delete_ticket', message)) {
@@ -603,8 +609,9 @@
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
                         $("body #list_ticket_home").load(location.href + " #list_ticket_home");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (check_exits(agentName, message) && check_exits('cancle_forward', message)) {
@@ -638,8 +645,9 @@
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
                         $("#list_ticket_processing").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
 
@@ -662,8 +670,9 @@
 
                     setTimeout(function(){
                         $("#list_ticket_processing").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (message.includes(agentName) && message.includes('admin_add_topic')) {
@@ -677,8 +686,9 @@
 
                     setTimeout(function(){
                         $("body #info-agent").load(location.href + " #info-agent");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (message.includes(agentName) && message.includes('admin_delete_topic')) {
@@ -692,8 +702,9 @@
 
                     setTimeout(function(){
                         $("body #info-agent").load(location.href + " #info-agent");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
 
@@ -710,8 +721,9 @@
                         $("#list_ticket_processing").DataTable().ajax.reload();
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (message.includes(agentName+'+') && message[2].includes(' is re-process!')) {
@@ -727,8 +739,9 @@
                         $("#list_ticket_processing").DataTable().ajax.reload();
                         $("body #done").load(location.href + " #done");
                         $("body #processing").load(location.href + " #processing");
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
                 }
 
                 if (message[2].includes('đã hoàn thành!')) {
