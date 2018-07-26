@@ -97,6 +97,7 @@
                                             <th>Chủ đề</th>
                                             <th>Người gửi</th>
                                             <th>Ưu tiên</th>
+                                            <th>Thời gian xử lý</th>
                                             <th>Trạng thái</th>
                                             <th>Người xử lý</th>
                                         </tr>
@@ -128,7 +129,7 @@
                                     <b>Ngày gửi:</b>
                                     <p>{{ tk.datestart}}</p>
                                     <b>Ngày hêt hạn:</b>
-                                    <p>{{tk.dateend}}</p>
+                                    <p id="dateend{{tk.id}}">{{tk.dateend}}</p>
                                     {% if tk.attach != '' %}
                                     <b>Đính kèm:</b><br>
                                     <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">

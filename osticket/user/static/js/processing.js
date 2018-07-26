@@ -3,11 +3,11 @@ $(document).ready(function(){
     $('#list_ticket_processing').DataTable({
         "columnDefs": [
             { "width": "5%", "targets": 0 },
-            { "width": "25%", "targets": 1 },
+            { "width": "20%", "targets": 1 },
             { "width": "15%", "targets": 2 },
-            { "width": "13%", "targets": 3 },
+            { "width": "10%", "targets": 3 },
             { "width": "12%", "targets": 4 },
-            { "width": "30%", "targets": 5 },
+            { "width": "10%", "targets": 5 },
         ],
         "ajax": {
             "type": "GET",
@@ -170,22 +170,26 @@ $(document).ready(function(){
                 };
 
             // con thong bao toi agent khac, load lai trang cua agent va admin
-            list_agent = [];
-            var date = formatAMPM(new Date());
-            var array = $('body #hd'+id).html().split("<br>");
-            for (i = 0; i < array.length-1; i++) {
-                if (agentName !=  array[i].replace(/\s/g,'')){
-                    list_agent.push(array[i].replace(/\s/g,'')+'+');
+                list_agent = [];
+                var date = formatAMPM(new Date());
+                var array = $('body #hd'+id).html().split("<br>");
+                for (i = 0; i < array.length-1; i++) {
+                    if (agentName !=  array[i].replace(/\s/g,'')){
+                        list_agent.push(array[i].replace(/\s/g,'')+'+');
+                    }
                 }
-            }
 
-            list_agent.unshift(message);
-            list_agent.unshift(id);
-            list_agent.unshift(agentName);
-            group_agent_Socket.send(JSON.stringify({
-                'message' : list_agent,
-                'time' : date
-            }));
+                list_agent.unshift(message);
+                list_agent.unshift(id);
+                list_agent.unshift(agentName);
+                group_agent_Socket.send(JSON.stringify({
+                    'message' : list_agent,
+                    'time' : date
+                }));
+
+                setTimeout(function(){
+                    countdowntime();
+                }, 2500);
                     
             }
         });
@@ -222,23 +226,26 @@ $(document).ready(function(){
                     };
 
                     // con thong bao toi agent khac, load lai trang cua agent va admin
-                list_agent = [];
-                var date = formatAMPM(new Date());
-                var array = $('body #hd'+id).html().split("<br>");
-                for (i = 0; i < array.length-1; i++) {
-                    if (agentName !=  array[i].replace(/\s/g,'')){
-                        list_agent.push(array[i].replace(/\s/g,'')+'+');
+                    list_agent = [];
+                    var date = formatAMPM(new Date());
+                    var array = $('body #hd'+id).html().split("<br>");
+                    for (i = 0; i < array.length-1; i++) {
+                        if (agentName !=  array[i].replace(/\s/g,'')){
+                            list_agent.push(array[i].replace(/\s/g,'')+'+');
+                        }
                     }
-                }
 
-                list_agent.unshift(message);
-                list_agent.unshift(id);
-                list_agent.unshift(agentName);
-                group_agent_Socket.send(JSON.stringify({
-                    'message' : list_agent,
-                    'time' : date
-                }));
-                        
+                    list_agent.unshift(message);
+                    list_agent.unshift(id);
+                    list_agent.unshift(agentName);
+                    group_agent_Socket.send(JSON.stringify({
+                        'message' : list_agent,
+                        'time' : date
+                    }));
+                    
+                    setTimeout(function(){
+                        countdowntime();
+                    }, 2500);
                 }
             });
         }
@@ -289,6 +296,9 @@ $(document).ready(function(){
                          'message' : list_agent,
                          'time' : date
                      }));
+                     setTimeout(function(){
+                        countdowntime();
+                    }, 2500);
                  }
              });
          }
@@ -369,5 +379,8 @@ $(document).ready(function(){
          
      });
     
+    setTimeout(function(){
+        countdowntime();
+    }, 2500);
 
 });

@@ -34,6 +34,7 @@
                         <th>Tiêu đề</th>
                         <th>Ngày tạo</th>
                         <th>Mức ưu tiên</th>
+                        <th>Thời gian xử lý</th>
                         <th>Trạng thái</th>
                         <th>Người xử lý</th>
                         <th>Tùy chọn</th>
@@ -68,7 +69,7 @@
                                     <label>Ngày tạo:</label>
                                     <p>{{ tk.datestart}}</p>
                                     <label>Ngày hết hạn:</label>
-                                    <p>{{tk.dateend}}</p>
+                                    <p id="dateend{{tk.id}}">{{tk.dateend}}</p>
                                     {% if tk.attach != '' %}
                                     <b>Đính kèm:</b><br>
                                     <img src="/media/{{tk.attach}}" alt="none" style="max-width:80%;max-height:600px;display: block;margin-left: auto;margin-right: auto;">
@@ -141,13 +142,14 @@
             var table = $('#list_tk_user').DataTable({
                 "columnDefs": [
                     { "width": "5%", "targets": 0 },
-                    { "width": "10%", "targets": 1 },
-                    { "width": "25%", "targets": 2 },
+                    { "width": "13%", "targets": 1 },
+                    { "width": "20%", "targets": 2 },
                     { "width": "9%", "targets": 3 },
-                    { "width": "11%", "targets": 4 },
-                    { "width": "10%", "targets": 5 },
-                    { "width": "15%", "targets": 6 },
-                    { "width": "15%", "targets": 7 },
+                    { "width": "8%", "targets": 4 },
+                    { "width": "12%", "targets": 5 },
+                    { "width": "8%", "targets": 6 },
+                    { "width": "10%", "targets": 7 },
+                    { "width": "15%", "targets": 8 },
                 ],
                 "ajax": {
                     "type": "GET",
@@ -175,6 +177,7 @@
                         success: function(){
                             // window.location.reload();
                             $("#list_tk_user").DataTable().ajax.reload();
+                            countdowntime();
                             var array = $('#hd'+id).html().split("<br>");
                             for (i = 0; i < array.length-1; i++) {
                                 var agentName = array[i].replace(/\s/g,'');
@@ -207,6 +210,17 @@
                 var tkid = $(this).children('input').val();
                 $('body .chat'+tkid).show();
                 $("body .mytext").focus();
+
+                if (typeof(Storage) !== "undefined") {
+                    var herf = $(this).attr('href');
+                    var chat = herf.substring(herf.indexOf("(")+1, herf.indexOf(")"));
+                    // Gán dữ liệu
+                    sessionStorage.setItem(tkid, chat);
+                     
+                    // Lấy dữ liệu
+                } else {
+                    document.write('Trình duyệt của bạn không hỗ trợ local storage');
+                }
 
                 if (dict_ws[tkid] == undefined){
                     dict_ws[tkid] = new WebSocket(

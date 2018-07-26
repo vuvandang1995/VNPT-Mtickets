@@ -154,6 +154,7 @@ def home_admin_data(request):
                 for t in TicketAgent.objects.filter(ticketid=tk.id):
                     handler += t.agentid.username + "<br>"
                 handler += '</p>'
+            downtime = '''<span class="downtime label label-danger" id="downtime-'''+str(tk.id)+'''"></span>'''
             id = r'''<button type="button" class="btn" data-toggle="modal" data-target="#'''+str(tk.id)+'''content">'''+str(tk.id)+'''</button>'''
             sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
@@ -163,9 +164,9 @@ def home_admin_data(request):
                level = r'<span class ="label label-warning"> Trung bình </span>'
             else:
                level = r'<span class ="label label-danger"> Cao </span>'
-            if tk.expired == 1:
-                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
-            data.append([id, tk.title, topic, sender, level, status, handler])
+            # if tk.expired == 1:
+            #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            data.append([id, tk.title, topic, sender, level, downtime, status, handler])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -624,6 +625,7 @@ def processing_ticket_data(request):
                 tem += 1
                 handler += t.agentid.username + "<br>"
             handler += '</p>'
+            downtime = '''<span class="downtime label label-danger" id="downtime-'''+str(tk.id)+'''"></span>'''
             option += r'''<input type="hidden" id="user''' + str(tk.id) + '''" value="'''+tk.sender.username+'''">
             <a href='javascript:register_popup_agent("chat''' + str(tk.id) + '''", ''' + str(tk.id) + ''', "'''+tk.sender.fullname+'''", "'''+tk.sender.username+'''");' type="button" class="btn btn-primary" data-toggle="tooltip" title="Trò chuyện" id="chat_with_user"><i class="fa fa-commenting"></i><input type="hidden" value="''' + str(tk.id) + '''"/></a>
             <button id="''' + str(tk.id) + '''" type="button" class="btn btn-info fw_agent" data-toggle="modal" data-title="forward" data-target="#forward_add"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
@@ -633,9 +635,9 @@ def processing_ticket_data(request):
             else:
                 option += r'''<button id="''' + str(tk.id) + '''" type="button" class="btn btn-danger give_up" data-toggle="tooltip" title="Từ bỏ" ><i class="fa fa-minus-circle"></i></button>'''
             option +='''<a target="_blank" href="/agent/history/'''+str(tk.id)+ '''" type="button" class="btn btn-warning" data-toggle="tooltip" title="Dòng thời gian" ><span class="glyphicon glyphicon-floppy-disk" ></span><i class="fa fa-history"></i></a>'''
-            if tk.expired == 1:
-                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
-            data.append([id, tk.title, topic, handler, status, option])
+            # if tk.expired == 1:
+            #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            data.append([id, tk.title, topic, handler, status, downtime, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -1153,6 +1155,7 @@ def home_leader_data(request, topicname):
                 for t in TicketAgent.objects.filter(ticketid=tk.id):
                     handler += t.agentid.username + "<br>"
                 handler += '</p>'
+            downtime = '''<span class="downtime label label-danger" id="downtime-'''+str(tk.id)+'''"></span>'''
             idtk = r'''<button type="button" class="btn" data-toggle="modal" data-target="#''' + str(
                 tk.id) + '''content">''' + str(tk.id) + '''</button>'''
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>' + '<input type="hidden" name="topicc'+str(tk.id)+'" value="'+str(tk.topicid.id)+'">'
@@ -1168,10 +1171,10 @@ def home_leader_data(request, topicname):
                         <button type="button" class="btn btn-info" data-title="forward" id="'''+str(tk.id)+'''"data-toggle="modal" data-target="#forward_modal"><i class="fa fa-share-square-o" data-toggle="tooltip" title="Chuyển tiếp" ></i></button>
                         <button type="button" class="btn btn-success" data-title="change" id="''' + str(tk.id) + '''"data-toggle="modal" data-target="#change_modal"><i class="fa fa-arrow-right" data-toggle="tooltip" title="Đổi chủ đề" ></i></button>
                         <a type="button" target=_blank class="btn btn-warning" href="/agent/history/''' + str(tk.id) + '''" data-toggle="tooltip" title="Dòng thời gian"><i class="fa fa-history"></i></a>'''
-            if tk.expired == 1:
-                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            # if tk.expired == 1:
+            #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
             dateend = tk.dateend + timezone.timedelta(hours=7)
-            data.append([idtk, tk.title, topic, status, level, sender, handler, str(dateend)[:-16], option])
+            data.append([idtk, tk.title, topic, status, level, downtime, sender, handler, str(dateend)[:-16], option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)

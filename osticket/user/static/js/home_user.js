@@ -73,7 +73,8 @@ function register_popup(id, name)
             popups.unshift(id);
             calculate_popups();
         }else{
-            var element = '<div class="live-chat popup-box chat-popup" id="'+ id +'"><header class="clearfix header-chat"><div class="popup-head-right"><a class="chat-close" href="javascript:close_popup(\''+ id +'\');">&#10005;</a></div><div class="popup-head-left"><h4>'+ name +'</h4></div><span class="chat-message-counter">'+popups+'</span></header><div class="frame chat'+name+'"><ul></ul><div><div class="msj-rta macro"><div class="text text-r" style="background:whitesmoke !important"><input id="chat-message-input'+ name +'" class="mytext" placeholder="Type a message"/></div></div><div style="padding:10px;"><span id="chat-message-submit'+ name +'" class="glyphicon glyphicon-share-alt xxx"></span></div></div></div></div>';
+            var content_tk = name+'content';
+            var element = '<div class="live-chat popup-box chat-popup" id="'+ id +'"><header class="clearfix header-chat"><div class="popup-head-right"><a class="chat-close" href="javascript:close_popup(\''+ id +'\');">&#10005;</a><a style="margin-right: 5px;" id="header'+id+'" class="chat-close2" onclick="headerFunction(this.id)">&#8722;</a></div><div class="popup-head-left"><h4 data-toggle="modal" data-target="#'+content_tk.replace(/\s/g,'')+'">'+ name +'</h4></div><span class="chat-message-counter">'+popups+'</span></header><div class="frame chat'+name+'"><ul></ul><div><div class="msj-rta macro"><div class="text text-r" style="background:whitesmoke !important"><input id="chat-message-input'+ name +'" class="mytext" placeholder="Type a message"/></div></div><div style="padding:10px;"><span id="chat-message-submit'+ name +'" class="glyphicon glyphicon-share-alt xxx"></span></div></div></div></div>';
             $("#info_user").append(element);
             popups.push(id);
             popups2.push(id);
