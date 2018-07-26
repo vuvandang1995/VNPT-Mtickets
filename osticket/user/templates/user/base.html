@@ -174,7 +174,11 @@
             var time = dateend.split(',')[2];
             if (time.includes('p.m.')){
                 if (time.includes(':')){
-                    var endtime = parseInt(time.split(':')[0]) + 12;
+                    if (time.split(':')[0] == '12'){
+                        var endtime = parseInt(time.split(':')[0])
+                    }else{
+                        var endtime = parseInt(time.split(':')[0]) + 12;
+                    }
                     if (endtime < 24){
                         var endtime1 = endtime.toString()+':'+time.split(' ')[1].split(':')[1]+':00';
                     }else{
@@ -199,7 +203,6 @@
             }
             var dateend1 = dateend.split(',')[0]+', '+dateend.split(',')[1]+' '+endtime1;
             var countDownDate = new Date(dateend1).getTime();
-            alert(dateend1);
             var x = setInterval(function() {
 
                 // Get todays date and time
