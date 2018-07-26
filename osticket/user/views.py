@@ -103,9 +103,11 @@ def homeuser(request):
         topic = Topics.objects.filter().order_by('-id')
         ticket = Tickets.objects.filter(sender=user.id).order_by('-id')
         handler = TicketAgent.objects.all()
+        level = LevelPriority.objects.all()
         content = {'ticket': ticket,
                    'form': form,
                    'user': user,
+                   'level': level,
                    'handler': handler,
                    'topic': topic,
                    'username': mark_safe(json.dumps(user.username)),
@@ -153,14 +155,18 @@ def homeuser(request):
                     ticket.content = form.cleaned_data['content']
                     ticket.sender = user
                     ticket.topicid = Topics.objects.get(id=request.POST['topic'])
-                    ticket.lv_priority = request.POST['level']
+                    muc = int(request.POST['level'])
+                    priority = LevelPriority.objects.get(id=muc)
+                    ticket.priority = priority
+                    time = priority.time
                     ticket.datestart = timezone.now()
-                    if request.POST['level'] == '0':
-                        ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_0))
-                    elif request.POST['level'] == '1':
-                        ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_1))
-                    else:
-                        ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_2))
+                    ticket.dateend = (timezone.now() + timezone.timedelta(seconds=time))
+                    # if request.POST['level'] == '0':
+                    #     ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_0))
+                    # elif request.POST['level'] == '1':
+                    #     ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_1))
+                    # else:
+                    #     ticket.dateend = (timezone.now() + timezone.timedelta(minutes=Level_2))
                     if request.FILES.get('attach') is not None:
                         if request.FILES['attach']._size < MAX_UPLOAD_SIZE:
                             ticket.attach = request.FILES['attach']
@@ -223,17 +229,17 @@ def user_data(request):
             else:
                 option += '''<a  type="button" disabled class="btn btn-primary not-active" data-toggle="tooltip" title="trò chuyện"><span class="glyphicon glyphicon-comment" ></span></a>'''
             option += '''<a type="button" target=_blank class="btn btn-warning" href="/user/history_'''+str(tk.id)+ '''" data-toggle="tooltip" title="dòng thời gian"><i class="fa fa-history"></i></a>'''
-            if tk.lv_priority == 0:
-                level = r'<span class ="label label-success"> Thấp </span>'
-            elif tk.lv_priority == 1:
-                level = r'<span class ="label label-warning"> Trung bình </span>'
-            else:
-                level = r'<span class ="label label-danger"> Cao </span>'
+            # if tk.lv_priority == 0:
+            #     level = r'<span class ="label label-success"> Thấp </span>'
+            # elif tk.lv_priority == 1:
+            #     level = r'<span class ="label label-warning"> Trung bình </span>'
+            # else:
+            #     level = r'<span class ="label label-danger"> Cao </span>'
             # if tk.expired == 1:
             #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
             downtime = '''<p class="downtime" id="downtime-'''+str(tk.id)+'''"></p>'''
             datestart = tk.datestart + timezone.timedelta(hours=7)
-            data.append([id, tk.topicid.name, tk.title, str(datestart)[:-16], level, downtime, status, handler, option])
+            data.append([id, tk.topicid.name, tk.title, str(datestart)[:-16], tk.priority.name, downtime, status, handler, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
