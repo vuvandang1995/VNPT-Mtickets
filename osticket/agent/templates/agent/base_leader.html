@@ -257,17 +257,12 @@
     group_agent_Socket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
+    
         // Thong bao va load lai table home_agent khi co new ticket hoac co 1 agent nhan xu ly ticket
         setTimeout(function(){
             $('.tk_table').DataTable().ajax.reload();
-            countdowntime();
         }, 2000);
-
-        if (message[2].includes('đã hoàn thành!')) {
-            setTimeout(function(){
-                $("body #ct"+message[1]).load(location.href + " #ct"+message[1]);
-            }, 2000);
-        }
+        countdowntime();
     };
 </script>
 {% block js %}
