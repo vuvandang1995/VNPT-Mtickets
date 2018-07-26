@@ -158,15 +158,15 @@ def home_admin_data(request):
             id = r'''<button type="button" class="btn" data-toggle="modal" data-target="#'''+str(tk.id)+'''content">'''+str(tk.id)+'''</button>'''
             sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>'
-            if tk.lv_priority == 0:
-               level = r'<span class ="label label-success"> Thấp </span>'
-            elif tk.lv_priority == 1:
-               level = r'<span class ="label label-warning"> Trung bình </span>'
-            else:
-               level = r'<span class ="label label-danger"> Cao </span>'
+            # if tk.lv_priority == 0:
+            #    level = r'<span class ="label label-success"> Thấp </span>'
+            # elif tk.lv_priority == 1:
+            #    level = r'<span class ="label label-warning"> Trung bình </span>'
+            # else:
+            #    level = r'<span class ="label label-danger"> Cao </span>'
             # if tk.expired == 1:
             #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
-            data.append([id, tk.title, topic, sender, level, downtime, status, handler])
+            data.append([id, tk.title, topic, sender, tk.priority.name, downtime, status, handler])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
@@ -387,7 +387,7 @@ def convert_time(time):
     h = str(time%86400//3600)
     m = str(time%86400%3600//60)
     s = str(time%86400%3600%60)
-    return d + ' ngày '+ h +" giờ " + m + " phút " + s +" giây"
+    return d + ' ngày ' + h + " giờ " + m + " phút " + s + " giây"
 
 
 def logout_admin(request):
@@ -1198,12 +1198,12 @@ def home_leader_data(request, topicname):
             idtk = r'''<button type="button" class="btn" data-toggle="modal" data-target="#''' + str(
                 tk.id) + '''content">''' + str(tk.id) + '''</button>'''
             topic = '<p id="tp' + str(tk.id) + '">' + tk.topicid.name + '</p>' + '<input type="hidden" name="topicc'+str(tk.id)+'" value="'+str(tk.topicid.id)+'">'
-            if tk.lv_priority == 0:
-                level = r'<span class ="label label-success"> Thấp </span>'
-            elif tk.lv_priority == 1:
-                level = r'<span class ="label label-warning"> Trung bình </span>'
-            else:
-                level = r'<span class ="label label-danger"> Cao </span>'
+            # if tk.lv_priority == 0:
+            #     level = r'<span class ="label label-success"> Thấp </span>'
+            # elif tk.lv_priority == 1:
+            #     level = r'<span class ="label label-warning"> Trung bình </span>'
+            # else:
+            #     level = r'<span class ="label label-danger"> Cao </span>'
             sender = '<p id="sender' + str(tk.id) + '">' + tk.sender.username + '</p>'
             option = r'''<button type="button" class="btn btn-primary" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Mở / Đóng yêu cầu"><i class="fa fa-power-off"></i></button>
                         <button type="button" class="btn btn-danger" id="''' + str(tk.id) + '''" data-toggle="tooltip" title="Xóa yêu cầu"><i class="fa fa-trash-o"></i></button>
@@ -1213,7 +1213,7 @@ def home_leader_data(request, topicname):
             # if tk.expired == 1:
             #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
             dateend = tk.dateend + timezone.timedelta(hours=7)
-            data.append([idtk, tk.title, topic, status, level, downtime, sender, handler, str(dateend)[:-16], option])
+            data.append([idtk, tk.title, topic, status, tk.priority.name, downtime, sender, handler, str(dateend)[:-16], option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)

@@ -120,13 +120,7 @@
                                                 <td>{{tk.title}}</td>
 
                                                 <td>
-                                                    {% if tk.lv_priority == 0 %}
-                                                    <span class="label label-success">Thấp</span>
-                                                    {% elif tk.lv_priority == 1 %}
-                                                    <span class="label label-warning">Trung bình</span>
-                                                    {% else %}
-                                                    <span class="label label-danger">Cao</span>
-                                                    {% endif %}
+                                                    {{tk.priority.name}}
                                                 </td>
                                                 <td>
                                                     <span class="label label-danger">Chờ</span>

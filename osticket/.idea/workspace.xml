@@ -11,95 +11,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="home_agent.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_agent.html">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="140" column="164" selection-start-line="140" selection-start-column="164" selection-end-line="140" selection-end-column="164" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1364">
-              <caret line="81" column="12" selection-start-line="81" selection-start-column="4" selection-end-line="81" selection-end-column="12" />
+            <state relative-caret-position="291">
+              <caret line="389" column="59" selection-start-line="389" selection-start-column="59" selection-end-line="389" selection-end-column="59" />
               <folding>
-                <element signature="e#468#496#0" expanded="true" />
+                <element signature="e#0#59#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="leader_manage_agent.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
+      <file leaf-file-name="home_agent.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_agent.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2063">
-              <caret line="132" column="27" lean-forward="true" selection-start-line="132" selection-start-column="17" selection-end-line="132" selection-end-column="27" />
+            <state relative-caret-position="323">
+              <caret line="122" column="70" selection-start-line="122" selection-start-column="70" selection-end-line="122" selection-end-column="70" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="level_priority.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/level_priority.html">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agent/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="91" column="46" selection-start-line="91" selection-start-column="46" selection-end-line="91" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager_agent.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agent/templates/agent/manager_agent.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-403">
-              <caret line="24" column="124" selection-start-line="24" selection-start-column="124" selection-end-line="24" selection-end-column="130" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manager_agent.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/static/js/manager_agent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="499">
-              <caret line="94" column="47" lean-forward="true" selection-start-line="89" selection-start-column="12" selection-end-line="94" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lv_priority.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/static/js/lv_priority.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="47" column="44" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="634">
-              <caret line="250" column="28" lean-forward="true" selection-start-line="250" selection-start-column="28" selection-end-line="250" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home_user.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user/templates/user/home_user.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1099">
-              <caret line="59" column="65" lean-forward="true" selection-start-line="59" selection-start-column="65" selection-end-line="59" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="201" column="28" selection-start-line="201" selection-start-column="28" selection-end-line="201" selection-end-column="28" />
+            <state relative-caret-position="110">
+              <caret line="8" column="44" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -131,6 +68,8 @@
       <find>profile</find>
       <find>get_list_agent</find>
       <find>get_agent_tp</find>
+      <find>admin</find>
+      <find>lv_priority</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -163,7 +102,6 @@
         <option value="$PROJECT_DIR$/agent/templates/agent/mail/done_mail.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/mail/forward_mail.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/mail/forward_mail_leader.html" />
-        <option value="$PROJECT_DIR$/agent/templates/agent/home_agent.html" />
         <option value="$PROJECT_DIR$/user/static/js/home_leader.js" />
         <option value="$PROJECT_DIR$/agent/templates/agent/base.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/inbox.html" />
@@ -185,11 +123,12 @@
         <option value="$PROJECT_DIR$/user/models.py" />
         <option value="$PROJECT_DIR$/agent/templates/agent/base_admin.html" />
         <option value="$PROJECT_DIR$/agent/templates/agent/level_priority.html" />
-        <option value="$PROJECT_DIR$/agent/views.py" />
         <option value="$PROJECT_DIR$/user/static/js/lv_priority.js" />
         <option value="$PROJECT_DIR$/user/templates/user/home_user.html" />
         <option value="$PROJECT_DIR$/user/views.py" />
         <option value="$PROJECT_DIR$/user/templates/user/base.html" />
+        <option value="$PROJECT_DIR$/agent/views.py" />
+        <option value="$PROJECT_DIR$/agent/templates/agent/home_agent.html" />
       </list>
     </option>
   </component>
@@ -365,13 +304,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/user/static/js/manager_topic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="75" column="57" selection-start-line="75" selection-start-column="57" selection-end-line="75" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/lead_manage_topic.js" />
     <entry file="file://$PROJECT_DIR$/user/static/js/leader_manage_agent.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -626,13 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="13" column="54" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/agent/templates/agent/leader_manage_agent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2063">
@@ -647,41 +572,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agent/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="378" column="26" lean-forward="true" selection-start-line="378" selection-start-column="26" selection-end-line="378" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-            <element signature="e#16672#16725#0" />
-            <element signature="e#16760#16814#0" />
-            <element signature="e#16842#16895#0" />
-            <element signature="e#16927#20305#0" />
-            <element signature="e#20344#21618#0" />
-            <element signature="e#33560#36611#0" />
-            <element signature="e#36664#37983#0" />
-            <element signature="e#38010#44820#0" />
-            <element signature="e#44848#46637#0" />
-            <element signature="e#46666#49001#0" />
-            <element signature="e#49036#50501#0" />
-            <element signature="e#50535#52074#0" />
-            <element signature="e#52112#53381#0" />
-            <element signature="e#53414#58299#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/static/js/manager_agent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="499">
           <caret line="94" column="47" lean-forward="true" selection-start-line="89" selection-start-column="12" selection-end-line="94" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_agent.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="140" column="164" selection-start-line="140" selection-start-column="164" selection-end-line="140" selection-end-column="164" />
         </state>
       </provider>
     </entry>
@@ -709,13 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="634">
-          <caret line="250" column="28" lean-forward="true" selection-start-line="250" selection-start-column="28" selection-end-line="250" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/home_user.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1099">
@@ -725,8 +612,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/user/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="201" column="28" selection-start-line="201" selection-start-column="28" selection-end-line="201" selection-end-column="28" />
+        <state relative-caret-position="49">
+          <caret line="201" selection-start-line="201" selection-end-line="201" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/osticket/urls.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="8" column="44" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="231" column="31" selection-start-line="231" selection-start-column="20" selection-end-line="231" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="389" column="59" selection-start-line="389" selection-start-column="59" selection-end-line="389" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/templates/agent/home_agent.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="122" column="70" selection-start-line="122" selection-start-column="70" selection-end-line="122" selection-end-column="70" />
         </state>
       </provider>
     </entry>
