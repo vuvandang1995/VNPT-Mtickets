@@ -229,10 +229,11 @@ def user_data(request):
                 level = r'<span class ="label label-warning"> Trung bình </span>'
             else:
                 level = r'<span class ="label label-danger"> Cao </span>'
-            if tk.expired == 1:
-                status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            # if tk.expired == 1:
+            #     status += r'<br><span class ="label label-danger"> Quá hạn </span>'
+            downtime = '''<p class="downtime" id="downtime-'''+str(tk.id)+'''"></p>'''
             datestart = tk.datestart + timezone.timedelta(hours=7)
-            data.append([id, tk.topicid.name, tk.title, str(datestart)[:-16], level, status, handler, option])
+            data.append([id, tk.topicid.name, tk.title, str(datestart)[:-16], level, downtime, status, handler, option])
         ticket = {"data": data}
         tickets = json.loads(json.dumps(ticket))
         return JsonResponse(tickets, safe=False)
