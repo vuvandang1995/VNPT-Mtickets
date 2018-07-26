@@ -321,15 +321,17 @@
             if (message ==  'give up'){
                 setTimeout(function(){
                     $("#list_tk_user").DataTable().ajax.reload();
-                    countdowntime();
+                    
                 }, 2000);
+                countdowntime();
             }
 
             if (message ==  'process'){
                 setTimeout(function(){
                     $("#list_tk_user").DataTable().ajax.reload();
-                    countdowntime();
+                    
                 }, 2000);
+                countdowntime();
             }
 
             if (message.includes('new+chat')){
@@ -374,8 +376,9 @@
                 setTimeout(function(){
                     $("#list_tk_user").DataTable().ajax.reload();
                     $("body #ct"+message.split(' ')[3]).load(location.href + " #ct"+message.split(' ')[3]);
-                    countdowntime();
+                    
                 }, 1000);
+                countdowntime();
 
             }
 
@@ -392,8 +395,9 @@
                 x.play();
                 setTimeout(function(){
                     $("#list_tk_user").DataTable().ajax.reload();
-                    countdowntime();
+                    
                 }, 2000);
+                countdowntime();
             }
 
             if (message.includes('đã được đóng bởi Admin!')){
@@ -408,8 +412,9 @@
                     x.play();
                     setTimeout(function(){
                         $("#list_tk_user").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
             }
 
             if (message.includes('đang được xử lý bởi Admin!')){
@@ -424,8 +429,9 @@
                     x.play();
                     setTimeout(function(){
                         $("#list_tk_user").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
             }
 
             if (message.includes('bị xóa bởi Admin!')){
@@ -440,8 +446,9 @@
                     x.play();
                     setTimeout(function(){
                         $("#list_tk_user").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
             }
 
             if (message.includes('đã được Admin xử lý!')){
@@ -456,8 +463,9 @@
                     x.play();
                     setTimeout(function(){
                         $("#list_tk_user").DataTable().ajax.reload();
-                        countdowntime();
+                        
                     }, 2000);
+                    countdowntime();
             }
 
 
@@ -473,8 +481,9 @@
                 x.play();
                 setTimeout(function(){
                     $("#list_tk_user").DataTable().ajax.reload();
-                    countdowntime();
+                    
                 }, 2000);
+                countdowntime();
             }
         }
     };
